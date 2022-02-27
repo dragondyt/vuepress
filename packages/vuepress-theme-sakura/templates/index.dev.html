@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="w-full leading-[1.15]">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script>
+        const userMode = localStorage.getItem('vuepress-color-scheme');
+        const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (userMode === 'dark' || (userMode !== 'light' && systemDarkMode)) {
+            document.documentElement.classList.toggle('dark', true);
+        }
+    </script>
+</head>
+<body class="m-0 h-full overflow-auto leading-[2] text-[1em] font-Fredericka" style="background: linear-gradient(to top,var(--body-bg-shadow) 0,var(--grey-1) 20%) no-repeat bottom;color: var(--text-color);">
+<div id="app" class="min-h-full min-w-full relative flex flex-col"></div>
+</body>
+</html>

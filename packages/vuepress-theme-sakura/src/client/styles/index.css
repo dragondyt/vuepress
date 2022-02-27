@@ -1,0 +1,44 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "variable.css";
+@import "animate.css";
+
+*, :after, :before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    border: none;
+    color: currentColor;
+    outline: 0;
+    text-decoration: none;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    transition: all .2s ease-in-out 0s;
+    cursor: pointer;
+}
+
+a {
+    background: 0 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Mulish, 'Noto Serif SC', 'Noto Serif JP', Mulish, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 1.25rem 0 0.9375rem;
+}
+
+iframe, img, video {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+img {
+    border-style: none;
+}

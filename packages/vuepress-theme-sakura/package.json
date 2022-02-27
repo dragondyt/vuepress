@@ -1,0 +1,49 @@
+{
+  "name": "@dragondyt/vuepress-theme-sakura",
+  "version": "0.0.0",
+  "main": "lib/node/index.js",
+  "types": "lib/node/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build-watch": "tsc --build tsconfig.build.json --watch",
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "rimraf lib *.tsbuildinfo",
+    "copy": "cpx \"src/**/*.{d.ts,vue,css,scss,json,html}\" lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.5",
+    "@vuepress/bundler-vite": "^2.0.0-beta.35",
+    "@vuepress/bundler-webpack": "^2.0.0-beta.35",
+    "@vuepress/client": "^2.0.0-beta.35",
+    "@vuepress/core": "^2.0.0-beta.35",
+    "@vuepress/plugin-container": "^2.0.0-beta.35",
+    "@vuepress/plugin-docsearch": "^2.0.0-beta.35",
+    "@vuepress/plugin-pwa": "^2.0.0-beta.35",
+    "@vuepress/plugin-shiki": "^2.0.0-beta.35",
+    "@vuepress/plugin-theme-data": "^2.0.0-beta.35",
+    "@vuepress/shared": "^2.0.0-beta.35",
+    "@vuepress/utils": "^2.0.0-beta.35",
+    "animejs": "^3.2.1",
+    "autoprefixer": "^10.4.2",
+    "bluebird": "^3.7.2",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.10.7",
+    "lodash": "^4.17.21",
+    "pinia": "^2.0.11",
+    "postcss": "^8.4.7",
+    "postcss-import": "^14.0.2",
+    "postcss-nested": "^5.0.6",
+    "postcss-preset-env": "^7.4.1",
+    "shiki": "^0.9.15",
+    "tailwindcss": "^3.0.23",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.12",
+    "warehouse": "^4.0.0"
+  }
+}
