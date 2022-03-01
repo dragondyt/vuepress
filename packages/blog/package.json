@@ -14,16 +14,17 @@
     "lib"
   ],
   "dependencies": {
-    "@dragondyt/vuepress-theme-sakura": "workspace:*",
     "@dragondyt/vuepress-plugin-abbrlink": "workspace:*",
-    "@dragondyt/vuepress-plugin-sitemap": "workspace:*",
     "@dragondyt/vuepress-plugin-seo": "workspace:*",
-    "@vuepress/bundler-vite": "^2.0.0-beta.35",
-    "@vuepress/cli": "^2.0.0-beta.35",
+    "@dragondyt/vuepress-plugin-sitemap": "workspace:*",
+    "@dragondyt/vuepress-theme-sakura": "workspace:*",
+    "@vuepress/bundler-vite": "^2.0.0-beta.36",
+    "@vuepress/cli": "^2.0.0-beta.36",
     "@vuepress/client": "^2.0.0-beta.35",
-    "@vuepress/plugin-palette": "^2.0.0-beta.35",
-    "@vuepress/plugin-docsearch": "^2.0.0-beta.35",
+    "@vuepress/plugin-docsearch": "^2.0.0-beta.36",
+    "@vuepress/plugin-palette": "^2.0.0-beta.36",
+    "@vuepress/plugin-pwa": "^2.0.0-beta.36",
     "@vuepress/shared": "^2.0.0-beta.35",
-    "vuepress": "^2.0.0-beta.35"
+    "vuepress": "^2.0.0-beta.36"
   }
 }
