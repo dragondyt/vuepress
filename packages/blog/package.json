@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "@dragondyt/vuepress-plugin-abbrlink": "workspace:*",
+    "@dragondyt/vuepress-plugin-api": "workspace:*",
     "@dragondyt/vuepress-plugin-seo": "workspace:*",
     "@dragondyt/vuepress-plugin-sitemap": "workspace:*",
     "@dragondyt/vuepress-theme-sakura": "workspace:*",

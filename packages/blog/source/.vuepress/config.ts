@@ -2,6 +2,8 @@ import {defineUserConfig} from "@vuepress/cli"
 import type {ViteBundlerOptions} from '@vuepress/bundler-vite'
 import {SakuraThemeOptions} from "@dragondyt/vuepress-theme-sakura/src/shared";
 import {SiteMapPluginOptions} from "@dragondyt/vuepress-plugin-sitemap/src/shared";
+import {APiPluginOptions} from "@dragondyt/vuepress-plugin-api/src/shared";
+
 export default defineUserConfig<SakuraThemeOptions, ViteBundlerOptions>({
     title: "秦时明月",
     description: "技术与生活",
@@ -31,6 +33,10 @@ export default defineUserConfig<SakuraThemeOptions, ViteBundlerOptions>({
             skipWaiting: true,
         }],
         ["@dragondyt/vuepress-plugin-abbrlink", {enable: true}],
+        ["@dragondyt/vuepress-plugin-api", {
+            api: 'https://dragondyt-blog.herokuapp.com/v1/articles',
+            token: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QifQ.6mVEMgXIakJzbruVNbPXqCk-Q-0XKcdb6ssgajRf9yE'
+        } as APiPluginOptions],
         ["@dragondyt/vuepress-plugin-seo"],
         ["@dragondyt/vuepress-plugin-sitemap", {
             hostname: 'https://blog.dragondyt.top'

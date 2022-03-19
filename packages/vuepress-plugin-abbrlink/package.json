@@ -20,8 +20,8 @@
     "test": "__tests__"
   },
   "devDependencies": {
-    "@vuepress/core": "^2.0.0-beta.32",
-    "crc-32": "^1.2.0",
+    "@vuepress/core": "^2.0.0-beta.36",
+    "crc-32": "^1.2.1",
     "gray-matter": "^4.0.3",
     "moment": "^2.29.1"
   }
