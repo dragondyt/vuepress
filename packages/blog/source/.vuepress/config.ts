@@ -33,10 +33,6 @@ export default defineUserConfig<SakuraThemeOptions, ViteBundlerOptions>({
             skipWaiting: true,
         }],
         ["@dragondyt/vuepress-plugin-abbrlink", {enable: true}],
-        ["@dragondyt/vuepress-plugin-api", {
-            api: 'https://dragondyt-blog.herokuapp.com/v1/articles',
-            token: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QifQ.6mVEMgXIakJzbruVNbPXqCk-Q-0XKcdb6ssgajRf9yE'
-        } as APiPluginOptions],
         ["@dragondyt/vuepress-plugin-seo"],
         ["@dragondyt/vuepress-plugin-sitemap", {
             hostname: 'https://blog.dragondyt.top'

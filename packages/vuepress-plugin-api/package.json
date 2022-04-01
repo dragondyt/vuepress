@@ -20,7 +20,7 @@
     "test": "__tests__"
   },
   "devDependencies": {
-    "@vuepress/core": "^2.0.0-beta.36"
+    "@vuepress/core": "^2.0.0-beta.37"
   },
   "dependencies": {
     "axios": "^0.26.1",
