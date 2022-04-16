@@ -1,5 +1,5 @@
 <template>
-  <div class="status">
+  <div class="status w-full text-center mt-8">
     <div class="copyright">© 2010 –
       <span>2021</span>
       <span class="text-pink-400 inline-block my-0 mr-[0.3125rem] ml-[0.125rem]">

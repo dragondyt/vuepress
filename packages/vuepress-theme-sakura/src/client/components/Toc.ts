@@ -16,12 +16,10 @@ const renderLink = (
             to: hash,
             ariaLabel: header.title,
         }, [
-            h('span', {
-            }, {
+            h('span', {}, {
                 default: () => `${index + 1}.`
             }),
-            h('span', {
-            }, {
+            h('span', {}, {
                 default: () => header.title
             })])
 }
@@ -38,7 +36,7 @@ function renderHeaders(headers: any | [], route: RouteLocationNormalizedLoaded, 
             {
                 class: `pt-0 pl-2.5 pr-[0.125rem] pb-[0.3125rem] text-left ${!notTop ? '' : 'hidden'}`,
             },
-            headers.map((header, index) =>
+            () => headers.map((header, index) =>
                 h(
                     'li',
                     {
