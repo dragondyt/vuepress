@@ -20,7 +20,7 @@
     "test": "__tests__"
   },
   "devDependencies": {
-    "@vuepress/core": "^2.0.0-beta.37",
+    "@vuepress/core": "^2.0.0-beta.38",
     "chalk": "^5.0.1",
     "sitemap": "^7.1.1"
   }
