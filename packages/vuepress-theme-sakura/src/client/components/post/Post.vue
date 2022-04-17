@@ -21,9 +21,9 @@
       <Content :page-key="pageData.key"/>
 
       <div v-if="pageData.frontmatter.tags" class="tags">
-        <a v-for="tag in pageData.frontmatter.tags" :href="`/tags/${tag}`">
+        <a v-for="tag in pageData.frontmatter.tags" :href="`/tags/${tag.name}`">
           <i class="ic i-tag"/>
-          {{ tag }}
+          {{ tag.name }}
         </a>
       </div>
     </div>
@@ -228,9 +228,10 @@ const pageData = usePageData();
     .shiki {
       overflow-x: scroll;
       overflow-y: hidden;
-      font-family: Inconsolata,consolas,Menlo,-apple-system,"PingFang SC","Microsoft YaHei";
+      font-family: Inconsolata, consolas, Menlo, -apple-system, "PingFang SC", "Microsoft YaHei";
       font-size: 1em;
     }
+
     &.line-numbers-mode {
       .highlight-lines .highlight-line {
         position: relative;

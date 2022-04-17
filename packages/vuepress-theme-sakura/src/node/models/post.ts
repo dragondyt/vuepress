@@ -135,5 +135,11 @@ module.exports = ctx => {
         }).map(tag => PostTag.removeById(tag));
     });
 
+    Post.method('toObj', function (this: typeof Post) {
+        return {
+            title: ''
+        }
+    });
+
     return Post
 }

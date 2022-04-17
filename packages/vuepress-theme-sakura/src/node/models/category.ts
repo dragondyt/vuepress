@@ -36,5 +36,14 @@ module.exports = ctx => {
     Category.virtual('length').get(function (this: typeof Category) {
         return this.posts.length;
     });
+    Category.virtual('toObj').get(function (this: typeof Category) {
+        return {
+            name: this.name,
+            parent: this.parent,
+            slug: this.slug,
+            posts: this.posts.data.map(p => p.toObj()),
+            length: this.length,
+        }
+    })
     return Category;
 }

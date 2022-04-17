@@ -48,7 +48,4 @@ const {isHome, post} = defineProps<{
 }>();
 
 const themeData = useThemeLocaleData<SakuraThemeOptions>();
-onBeforeMount(() => {
-  console.log(post.frontmatter.categories)
-})
 </script>
