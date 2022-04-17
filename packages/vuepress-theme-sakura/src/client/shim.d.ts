@@ -38,3 +38,18 @@ declare module '@temp/tags' {
     }
     export default data
 }
+declare module '@temp/links' {
+    interface Link {
+        site: string,
+        owner: string,
+        url: string,
+        desc: string,
+        image: string,
+        color: string,
+    }
+
+    const data: {
+        links: Link[],
+    }
+    export default data
+}

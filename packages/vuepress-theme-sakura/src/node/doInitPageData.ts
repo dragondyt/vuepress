@@ -1,6 +1,7 @@
 import {App, createPage} from "@vuepress/core";
 import {fs, path} from "@vuepress/utils";
 import {SakuraThemeOptions} from "../shared";
+import {load} from "js-yaml";
 
 const registerModels = require('./register_models');
 
@@ -26,7 +27,11 @@ export async function doInitPageData(app: App, themeOptions: Partial<SakuraTheme
     //保存post
     const pages = app.pages.filter(page => (page.path != '/' && page.path != '/404.html')).map(_ => {
         const data = _.data
-
+        if (_.filePathRelative==='friends/index.md'){
+            const filePath = path.join(app.dir.source(),'friends/_data.yml');
+            const yml = fs.readFileSync(filePath).toString();
+            app.writeTemp('links.ts', `export default ${JSON.stringify(load(yml))}`);
+        }
         if (!data.excerpt) {
             //生成简介
             data.excerpt = _.contentRendered.substring(0, 300).trim()
@@ -64,14 +69,15 @@ export async function doInitPageData(app: App, themeOptions: Partial<SakuraTheme
     const Tag = database.model('Tag');
 
 
-    /*   for (let page of pages) {
-           //目录
-           const ids = PostCategory.find({post_id: page.frontmatter.id}, {lean: true}).map(item => item.category_id);
-           page.frontmatter.categories = Category.find({_id: {$in: ids}}).toArray();
-           //标签
-           const tagIds = PostTag.find({post_id: page.frontmatter.id}, {lean: true}).map(item => item.tag_id);
-           page.frontmatter.tags = Tag.find({_id: {$in: tagIds}}).toArray();
-       }*/
+    for (let page of pages) {
+        page.frontmatter.filePath = app.dir.source()
+        // //目录
+        // const ids = PostCategory.find({post_id: page.frontmatter.id}, {lean: true}).map(item => item.category_id);
+        // page.frontmatter.categories = Category.find({_id: {$in: ids}}).toArray();
+        // //标签
+        // const tagIds = PostTag.find({post_id: page.frontmatter.id}, {lean: true}).map(item => item.tag_id);
+        // page.frontmatter.tags = Tag.find({_id: {$in: tagIds}}).toArray();
+    }
     //所有post
     const query: any = {};
 

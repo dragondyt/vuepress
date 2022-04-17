@@ -6,6 +6,7 @@ import {assignDefaultOptions} from "./assignDefaultOptions";
 import {doInitPageData} from "./doInitPageData";
 import {assignPostcssConfig} from "./assignPostcssConfig";
 import {resolveShiKiPluginOptions} from "./utils/resolveShiKiPluginOptions";
+
 const VuepressThemeSakura: Theme<SakuraThemeOptions> = (themeOptions, app) => {
     const {themePlugins = {}, ...localeOptions} = themeOptions
     assignDefaultOptions(app, themeOptions)
@@ -48,10 +49,13 @@ const VuepressThemeSakura: Theme<SakuraThemeOptions> = (themeOptions, app) => {
                 '@vuepress/plugin-container',
                 resolveContainerPluginOptions(themePlugins, localeOptions, 'primary'),
             ],
-            ['@vuepress/plugin-shiki', resolveShiKiPluginOptions(app, themeOptions)]
+            ['@vuepress/plugin-shiki', resolveShiKiPluginOptions(app, themeOptions)],
+            ['@vuepress/register-components',{
+                componentsDir: path.resolve(__dirname, '../client/global-components'),
+            }]
         ],
         onInitialized: async (app) => {
-            await doInitPageData(app,themeOptions);
+            await doInitPageData(app, themeOptions);
         }
     }
 }
