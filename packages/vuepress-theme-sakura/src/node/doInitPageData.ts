@@ -7,6 +7,16 @@ const registerModels = require('./register_models');
 
 const Database = require('warehouse');
 
+async function initTagsPage(app: App) {
+    app.pages.push(await createPage(app, {
+        path: `/tags`,
+        content: "",
+        frontmatter: {
+            layout: "Tag",
+        },
+    }))
+}
+
 export async function doInitPageData(app: App, themeOptions: Partial<SakuraThemeOptions>) {
     //创建数据库
     const database = new Database({
@@ -73,7 +83,6 @@ export async function doInitPageData(app: App, themeOptions: Partial<SakuraTheme
         page.frontmatter.filePath = app.dir.source()
         //目录
         const ids = PostCategory.find({post_id: page.frontmatter.id}, {lean: true}).map(item => item.category_id);
-        console.log(Category.find({_id: {$in: ids}}).toArray().map(s =>s.toObj))
         page.frontmatter.categories = Category.find({_id: {$in: ids}}).toArray().map(s =>s.toObj)
         //标签
         const tagIds = PostTag.find({post_id: page.frontmatter.id}, {lean: true}).map(item => item.tag_id);
@@ -218,5 +227,6 @@ export async function doInitPageData(app: App, themeOptions: Partial<SakuraTheme
 
     await app.writeTemp('stickyList.ts', `export default ${JSON.stringify(sticky)}`);
     await app.writeTemp('catList.ts', `export default ${JSON.stringify(catList)}`);
+    initTagsPage(app)
     await database.save()
 }
