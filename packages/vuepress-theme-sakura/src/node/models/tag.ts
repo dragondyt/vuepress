@@ -49,7 +49,7 @@ module.exports = ctx => {
             name: this.name,
             parent: this.parent,
             slug: this.slug,
-            posts: this.posts.data.map(p => p.toObj()),
+            posts: this.posts?.data?.map(p => p.toObj()),
         }
     })
 
