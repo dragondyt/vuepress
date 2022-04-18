@@ -5,36 +5,19 @@
 <script setup lang="ts">
 
 import {onMounted} from "vue";
-
-
 import {
-  Engine
-} from "@babylonjs/core/Engines/engine";
-import {
-  Scene
-} from "@babylonjs/core/scene";
-import {
+  Engine,
+  Scene,
   Color3,
-  Vector3, Vector4
-} from "@babylonjs/core/Maths/math";
-import {
-  FreeCamera
-} from "@babylonjs/core/Cameras/freeCamera";
-import {
-  HemisphericLight
-} from "@babylonjs/core/Lights/hemisphericLight";
-import {
-  Mesh
-} from "@babylonjs/core/Meshes/mesh";
-
-import {
-  GridMaterial
-} from "@babylonjs/materials/grid";
+  ArcRotateCamera,
+  MeshBuilder,
+  SceneLoader,
+  Sound,
+  StandardMaterial,
+  Texture
+} from 'babylonjs';
 
 // Required side effects to populate the Create methods on the mesh class. Without this, the bundle would be smaller but the createXXX methods from mesh would not be accessible.
-import "@babylonjs/core/Meshes/meshBuilder";
-import {ArcRotateCamera, MeshBuilder, SceneLoader, Sound, StandardMaterial, Texture} from "@babylonjs/core";
-
 function initGround(ground: Mesh) {
   const groundMat = new StandardMaterial("groundMat");
   groundMat.diffuseColor = new Color3(0, 1, 0);

@@ -14,8 +14,7 @@
     "lib"
   ],
   "dependencies": {
-    "@babylonjs/core": "^5.2.0",
-    "@babylonjs/materials": "^5.2.0",
+    "babylonjs": "^5.2.0",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
