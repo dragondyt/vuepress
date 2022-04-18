@@ -29,7 +29,6 @@ importers:
       '@vuepress/plugin-pwa': ^2.0.0-beta.38
       '@vuepress/shared': ^2.0.0-beta.38
       '@vuepress/utils': ^2.0.0-beta.38
-      babylonjs: ^5.2.0
       vuepress: ^2.0.0-beta.39
     dependencies:
       '@dragondyt/vuepress-plugin-abbrlink': link:../vuepress-plugin-abbrlink
@@ -45,7 +44,6 @@ importers:
       '@vuepress/plugin-pwa': registry.npmmirror.com/@vuepress/plugin-pwa/2.0.0-beta.38
       '@vuepress/shared': registry.npmmirror.com/@vuepress/shared/2.0.0-beta.38
       '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.38
-      babylonjs: registry.npmmirror.com/babylonjs/5.2.0
       vuepress: registry.npmmirror.com/vuepress/2.0.0-beta.39
 
   packages/vuepress-plugin-abbrlink:
@@ -3264,7 +3262,7 @@ packages:
     version: 2.0.0-beta.38
     dependencies:
       '@vuepress/core': registry.npmmirror.com/@vuepress/core/2.0.0-beta.38
-      prismjs: registry.npmmirror.com/prismjs/1.27.0
+      prismjs: registry.npmmirror.com/prismjs/1.28.0
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -7848,10 +7846,10 @@ packages:
     hasBin: true
     dev: true
 
-  registry.npmmirror.com/prismjs/1.27.0:
-    resolution: {integrity: sha512-t13BGPUlFDR7wRB5kQDG4jjl7XeuH6jbJGt11JHPL96qwsEHNX2+68tFXqc1/k+/jALsbSWJKUOT/hcYAZ5LkA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prismjs/-/prismjs-1.27.0.tgz}
+  registry.npmmirror.com/prismjs/1.28.0:
+    resolution: {integrity: sha512-8aaXdYvl1F7iC7Xm1spqSaY/OJBpYW3v+KJ+F17iYxvdc8sfjW194COK5wVhMZX45tGteiBQgdvD/nhxcRwylw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prismjs/-/prismjs-1.28.0.tgz}
     name: prismjs
-    version: 1.27.0
+    version: 1.28.0
     engines: {node: '>=6'}
     dev: false
 
