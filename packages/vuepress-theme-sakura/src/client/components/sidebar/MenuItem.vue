@@ -23,3 +23,28 @@ const {menu} = defineProps<{
   menu: any
 }>()
 </script>
+<style lang="postcss" scoped>
+.menu {
+  .item {
+    border-radius: 0.9375rem;
+    margin-bottom: 0.625rem;
+    display: block;
+    color: var(--grey-5);
+    transition: all .2s ease-in-out 0s;
+
+    a {
+      color: inherit;
+      display: block;
+      line-height: 3;
+    }
+    .ic {
+      margin-right: 0.625rem;
+    }
+    .submenu {
+      display: none;
+      padding: 0;
+      animation: slideDownIn .3s;
+    }
+  }
+}
+</style>

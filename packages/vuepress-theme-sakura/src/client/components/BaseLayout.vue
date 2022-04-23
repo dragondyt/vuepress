@@ -34,7 +34,7 @@
       <div id="main">
         <slot name="content"/>
       </div>
-      <div id="sidebar">
+      <div id="sidebar" :class="{affix: isAffix}">
         <slot name="sidebar">
           <Sidebar/>
         </slot>
