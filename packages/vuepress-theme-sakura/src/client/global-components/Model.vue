@@ -14,7 +14,9 @@ import {
   SceneLoader,
   Sound,
   StandardMaterial,
-  Texture
+  Texture,
+  Mesh,
+  Vector3
 } from 'babylonjs';
 
 // Required side effects to populate the Create methods on the mesh class. Without this, the bundle would be smaller but the createXXX methods from mesh would not be accessible.
