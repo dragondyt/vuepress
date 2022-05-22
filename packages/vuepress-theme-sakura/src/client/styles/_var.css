@@ -9,13 +9,13 @@
     --grey-7: #333;
     --grey-8: #222;
     --grey-9: #000;
-    --grey-1-a0: rgba(253,253,253,0);
-    --grey-1-a7: rgba(253,253,253,0.7);
-    --grey-1-a5: rgba(253,253,253,0.5);
-    --grey-1-a3: rgba(253,253,253,0.3);
-    --grey-9-a1: rgba(0,0,0,0.1);
-    --grey-9-a5: rgba(0,0,0,0.5);
-    --grey-2-a0: rgba(247,247,247,0);
+    --grey-1-a0: rgba(253, 253, 253, 0);
+    --grey-1-a7: rgba(253, 253, 253, 0.7);
+    --grey-1-a5: rgba(253, 253, 253, 0.5);
+    --grey-1-a3: rgba(253, 253, 253, 0.3);
+    --grey-9-a1: rgba(0, 0, 0, 0.1);
+    --grey-9-a5: rgba(0, 0, 0, 0.5);
+    --grey-2-a0: rgba(247, 247, 247, 0);
     --color-pink-light: #ffe6fa;
     --color-cyan-light: #e3fdf5;
     --color-red: #e9546b;
@@ -27,18 +27,79 @@
     --color-blue: #38a1db;
     --color-purple: #9d5b8b;
     --color-grey: #869194;
-    --color-red-a1: rgba(233,84,107,0.1);
-    --color-red-a3: rgba(233,84,107,0.3);
-    --color-pink-a3: rgba(237,110,160,0.3);
-    --color-pink-light-a3: rgba(255,230,250,0.3);
-    --color-pink-light-a5: rgba(255,230,250,0.5);
-    --color-pink-light-a7: rgba(255,230,250,0.7);
+    --color-red-a1: rgba(233, 84, 107, 0.1);
+    --color-red-a3: rgba(233, 84, 107, 0.3);
+    --color-pink-a3: rgba(237, 110, 160, 0.3);
+    --color-pink-light-a3: rgba(255, 230, 250, 0.3);
+    --color-pink-light-a5: rgba(255, 230, 250, 0.5);
+    --color-pink-light-a7: rgba(255, 230, 250, 0.7);
     --body-bg-shadow: var(--grey-2);
     --box-bg-shadow: var(--grey-9-a1);
     --text-color: var(--grey-7);
     --header-text-color: var(--grey-0);
     --primary-color: var(--color-red);
-    --nav-bg: linear-gradient(-225deg, var(--color-cyan-light) 0, var(--color-pink-light) 100%)
+    --nav-bg: linear-gradient(-225deg, var(--color-cyan-light) 0, var(--color-pink-light) 100%);
+
+    --c-brand: #3eaf7c;
+    --c-brand-light: #4abf8a;
+
+    --c-bg: #ffffff;
+    --c-bg-light: #f3f4f5;
+    --c-bg-lighter: #eeeeee;
+    --c-bg-navbar: var(--c-bg);
+    --c-bg-sidebar: var(--c-bg);
+    --c-bg-arrow: #cccccc;
+
+    --c-text: #2c3e50;
+    --c-text-accent: var(--c-brand);
+    --c-text-light: #3a5169;
+    --c-text-lighter: #4e6e8e;
+    --c-text-lightest: #6a8bad;
+    --c-text-quote: #999999;
+
+    --c-border: #eaecef;
+    --c-border-dark: #dfe2e5;
+
+    --c-tip: #42b983;
+    --c-tip-bg: var(--c-bg-light);
+    --c-tip-title: var(--c-text);
+    --c-tip-text: var(--c-text);
+    --c-tip-text-accent: var(--c-text-accent);
+    --c-warning: #e7c000;
+    --c-warning-bg: #fffae3;
+    --c-warning-title: #ad9000;
+    --c-warning-text: #746000;
+    --c-warning-text-accent: var(--c-text);
+    --c-danger: #cc0000;
+    --c-danger-bg: #ffe0e0;
+    --c-danger-title: #990000;
+    --c-danger-text: #660000;
+    --c-danger-text-accent: var(--c-text);
+    --c-details-bg: #eeeeee;
+
+    --c-badge-tip: var(--c-tip);
+    --c-badge-warning: var(--c-warning);
+    --c-badge-danger: var(--c-danger);
+
+    --t-color: 0.3s ease;
+    --t-transform: 0.3s ease;
+
+    --code-bg-color: #282c34;
+    --code-hl-bg-color: rgba(0, 0, 0, 0.66);
+    --code-ln-color: #9e9e9e;
+    --code-ln-wrapper-width: 3.5rem;
+
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    --font-family-code: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+
+    --navbar-height: 3.6rem;
+    --navbar-padding-v: 0.7rem;
+    --navbar-padding-h: 1.5rem;
+    --sidebar-width: 20rem;
+    --sidebar-width-mobile: calc(var(--sidebar-width) * 0.82);
+    --content-width: 740px;
+    --homepage-width: 960px;
 }
 
 .primary {
@@ -87,17 +148,17 @@
     --grey-7: #ddd;
     --grey-8: #eee;
     --grey-9: #f7f7f7;
-    --grey-1-a7: rgba(34,34,34,0.7);
-    --grey-1-a5: rgba(34,34,34,0.5);
-    --grey-1-a3: rgba(34,34,34,0.3);
-    --grey-1-a0: rgba(34,34,34,0);
-    --grey-9-a1: rgba(51,51,51,0.1);
-    --grey-2-a0: rgba(54,54,54,0);
+    --grey-1-a7: rgba(34, 34, 34, 0.7);
+    --grey-1-a5: rgba(34, 34, 34, 0.5);
+    --grey-1-a3: rgba(34, 34, 34, 0.3);
+    --grey-1-a0: rgba(34, 34, 34, 0);
+    --grey-9-a1: rgba(51, 51, 51, 0.1);
+    --grey-2-a0: rgba(54, 54, 54, 0);
     --color-pink-light: #322d31;
     --color-cyan-light: #2d3230;
-    --color-red: rgba(237,118,137,0.9);
-    --color-pink: rgba(241,139,179,0.8);
-    --color-orange: rgba(240,163,135,0.8);
+    --color-red: rgba(237, 118, 137, 0.9);
+    --color-pink: rgba(241, 139, 179, 0.8);
+    --color-orange: rgba(240, 163, 135, 0.8);
     --color-yellow: #ffe175;
     --color-green: #86c59d;
     --color-aqua: #97d3d6;
@@ -111,51 +172,51 @@
 }
 
 [data-theme=dark] .primary {
-    --note-border: rgba(123,96,119,0.8);
-    --note-bg: rgba(50,49,50,0.8);
-    --note-text: rgba(161,116,205,0.8);
-    --note-hover: rgba(117,72,161,0.8)
+    --note-border: rgba(123, 96, 119, 0.8);
+    --note-bg: rgba(50, 49, 50, 0.8);
+    --note-text: rgba(161, 116, 205, 0.8);
+    --note-hover: rgba(117, 72, 161, 0.8)
 }
 
 [data-theme=dark] .info {
-    --note-border: rgba(85,98,132,0.8);
-    --note-bg: rgba(48,49,50,0.8);
-    --note-text: rgba(109,164,219,0.8);
-    --note-hover: rgba(39,127,214,0.8)
+    --note-border: rgba(85, 98, 132, 0.8);
+    --note-bg: rgba(48, 49, 50, 0.8);
+    --note-text: rgba(109, 164, 219, 0.8);
+    --note-hover: rgba(39, 127, 214, 0.8)
 }
 
 [data-theme=dark] .success {
-    --note-border: rgba(97,116,88,0.8);
-    --note-bg: rgba(50,50,48,0.8);
-    --note-text: rgba(128,200,129,0.8);
-    --note-hover: rgba(41,95,42,0.8)
+    --note-border: rgba(97, 116, 88, 0.8);
+    --note-bg: rgba(50, 50, 48, 0.8);
+    --note-text: rgba(128, 200, 129, 0.8);
+    --note-hover: rgba(41, 95, 42, 0.8)
 }
 
 [data-theme=dark] .warning {
-    --note-border: rgba(120,111,93,0.8);
-    --note-bg: rgba(50,50,46,0.8);
-    --note-text: rgba(220,176,0,0.8);
-    --note-hover: rgba(163,140,55,0.8)
+    --note-border: rgba(120, 111, 93, 0.8);
+    --note-bg: rgba(50, 50, 46, 0.8);
+    --note-text: rgba(220, 176, 0, 0.8);
+    --note-hover: rgba(163, 140, 55, 0.8)
 }
 
 [data-theme=dark] .danger {
-    --note-border: rgba(146,107,115,0.8);
-    --note-bg: rgba(50,48,48,0.8);
-    --note-text: rgba(239,38,79,0.8);
-    --note-hover: rgba(168,49,72,0.8)
+    --note-border: rgba(146, 107, 115, 0.8);
+    --note-bg: rgba(50, 48, 48, 0.8);
+    --note-text: rgba(239, 38, 79, 0.8);
+    --note-hover: rgba(168, 49, 72, 0.8)
 }
 
-[data-theme=dark] .index.wrap .card .message .btn,[data-theme=dark] .overview .menu .item,[data-theme=dark] .sidebar .tab li,[data-theme=dark] [data-background-image],[data-theme=dark] img {
+[data-theme=dark] .index.wrap .card .message .btn, [data-theme=dark] .overview .menu .item, [data-theme=dark] .sidebar .tab li, [data-theme=dark] [data-background-image], [data-theme=dark] img {
     transition: all .2s ease-in-out 0s;
     opacity: .75
 }
 
-[data-theme=dark] .index.wrap .card .message .btn:hover,[data-theme=dark] .overview .menu .item:hover,[data-theme=dark] .sidebar .tab li:hover,[data-theme=dark] [data-background-image]:hover,[data-theme=dark] img:hover {
+[data-theme=dark] .index.wrap .card .message .btn:hover, [data-theme=dark] .overview .menu .item:hover, [data-theme=dark] .sidebar .tab li:hover, [data-theme=dark] [data-background-image]:hover, [data-theme=dark] img:hover {
     opacity: .9
 }
 
 [data-theme=dark] #imgs::before {
-    background-color: rgba(0,0,0,.5)
+    background-color: rgba(0, 0, 0, .5)
 }
 
 .red {
