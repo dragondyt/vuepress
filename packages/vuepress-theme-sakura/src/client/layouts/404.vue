@@ -1,12 +1,17 @@
 <template>
-  <div class="page wrap">
-    <div :style="notfoundStyle">{{ getMsg() }}</div>
-  </div>
+  <Layout>
+    <template #content>
+      <div class="page wrap">
+        <div :style="notfoundStyle">{{ getMsg() }}</div>
+      </div>
+    </template>
+  </Layout>
 </template>
 
 <script setup lang="ts">
 import {useThemeLocaleData} from '../composables'
 import img from '@images/404'
+import Layout from "./Layout.vue";
 
 const themeLocale = useThemeLocaleData()
 const messages = themeLocale.value.notFound ?? ['Not Found']

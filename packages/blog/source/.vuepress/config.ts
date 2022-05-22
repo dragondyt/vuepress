@@ -1,6 +1,10 @@
 import {defineUserConfig} from '@vuepress/cli'
 import { viteBundler } from '@vuepress/bundler-vite'
 import {webpackBundler} from "@vuepress/bundler-webpack";
+import { shikiPlugin } from '@vuepress/plugin-shiki'
+import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
+import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
+
 import { sakuraTheme } from '@dragondyt/vuepress-theme-sakura'
 import { path } from '@vuepress/utils'
 const isProd = process.env.NODE_ENV === 'production'
@@ -12,11 +16,15 @@ export default defineUserConfig({
         '/': {
             lang: 'en-US',
             title: 'VuePress',
+            // @ts-ignore
+            alternate: 'VuePress',
             description: 'Vue-powered Static Site Generator',
         },
         '/zh/': {
             lang: 'zh-CN',
             title: 'VuePress',
+            // @ts-ignore
+            alternate: 'VuePress',
             description: 'Vue 驱动的静态网站生成器',
         },
     },
@@ -34,6 +42,17 @@ export default defineUserConfig({
                 ),
         },
     },
-    theme: sakuraTheme(),
-    plugins: []
+    theme: sakuraTheme({
+
+    }),
+    plugins: [
+        googleAnalyticsPlugin({
+            // we have multiple deployments, which would use different id
+            id: process.env.DOCS_GA_ID ?? '',
+        }),
+        registerComponentsPlugin({
+            componentsDir: path.resolve(__dirname, './components'),
+        }),
+        isProd ? shikiPlugin({ theme: 'dark-plus' }) : [],
+    ]
 })

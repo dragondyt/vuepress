@@ -1,15 +1,17 @@
 import type {Page, Theme} from '@vuepress/core'
 import {fs, path} from '@vuepress/utils'
 import {themeDataPlugin} from '@vuepress/plugin-theme-data'
+import { prismjsPlugin } from '@vuepress/plugin-prismjs'
 import type {
     DefaultThemeLocaleOptions,
     DefaultThemePageData,
     DefaultThemePluginsOptions,
 } from '../shared'
-// import {
-//     assignDefaultLocaleOptions,
-//     resolveContainerPluginOptions,
-// } from './utils'
+import {
+    assignDefaultLocaleOptions,
+    // resolveContainerPluginOptions,
+} from './utils'
+import {assignPostcssConfig} from "./utils/assignPostcssConfig";
 
 export interface DefaultThemeOptions extends DefaultThemeLocaleOptions {
     /**
@@ -23,6 +25,7 @@ export const sakuraTheme = ({
                                 themePlugins = {},
                                 ...localeOptions
                             }: DefaultThemeOptions = {}): Theme => {
+    assignDefaultLocaleOptions(localeOptions)
     return {
         name: '@dragondyt/vuepress-theme-sakura',
         layouts: path.resolve(__dirname, '../client/layouts'),
@@ -49,7 +52,18 @@ export const sakuraTheme = ({
             // save title into route meta to generate navbar and sidebar
             page.routeMeta.title = page.title
         },
+        onInitialized: (app) => {
+            assignPostcssConfig(app)
+        },
+        onPrepared: (app) => {
+            const pages = app.pages.filter(page => (page.path != '/' && page.path != '/404.html')).map(_ => {
+                return _.data
+            })
+            app.writeTemp("postList.ts", `export default ${JSON.stringify(pages)}`).then().catch();
+        },
         plugins: [
+            // @vuepress/plugin-prismjs
+            themePlugins.prismjs !== false ? prismjsPlugin() : [],
             themeDataPlugin({themeData: localeOptions}),
         ],
     }

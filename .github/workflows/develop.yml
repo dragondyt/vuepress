@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_VERSION: "16"
+      DOCS_GA_ID: G-KX4T3PRLG4
     steps:
       - name: Checkout
         uses: actions/checkout@main
