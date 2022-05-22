@@ -43,7 +43,7 @@ export default defineUserConfig({
         },
     },
     theme: sakuraTheme({
-
+        // covers:  "https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"
     }),
     plugins: [
         googleAnalyticsPlugin({

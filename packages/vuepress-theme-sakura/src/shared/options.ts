@@ -1,5 +1,5 @@
-import type { ThemeData } from '@vuepress/plugin-theme-data'
-import type { LocaleData } from '@vuepress/shared'
+import type {ThemeData} from '@vuepress/plugin-theme-data'
+import type {LocaleData} from '@vuepress/shared'
 
 export interface DefaultThemePluginsOptions {
     /**
@@ -55,6 +55,7 @@ export type DefaultThemeLocaleOptions = DefaultThemeData
 export type DefaultThemeData = ThemeData<DefaultThemeLocaleData>
 
 export interface DefaultThemeLocaleData extends LocaleData {
+    covers?: string | string[]
     /**
      * Home path of current locale
      *

@@ -14,34 +14,34 @@
           </slot>
         </div>
       </div>
-      <slot name="header"/>
       <!--        {{ partial('_partials/header.njk', {}, {cache: true}) }}-->
     </div>
-    <div id="imgs" class="pjax">
-      {%- set covers = _cover(page, 6) %}
-      {%- if covers.length == 6 %}
-      <ul>
-        {%- for image in covers %}
-        <li class="item" data-background-image="{{ image }}"></li>
-        {%- endfor %}
+    <div id="imgs" class="block fixed top-0 left-0 w-full h-[70vh] min-h-[25rem] z-[-9]">
+      <ul v-if="Array.isArray(themeLocaleData.covers)&&themeLocaleData.covers.length===6">
+        <li v-for="cover in themeLocaleData.covers" :key="cover" class="item"
+            :style="{'background-image': `url(${cover})`}"></li>
       </ul>
-      {%- else %}
-      <img src="{{ covers }}">
-      {%- endif %}
+      <img alt="" v-else :src="themeLocaleData.covers">
     </div>
   </header>
   <main class="block">
-      <slot name="content"/>
+    <slot name="content"/>
   </main>
-  <footer class="text-[0.875rem]">
-
+  <footer class="text-[0.875rem] text-center">
+    <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank">
+      <img class="w-[100px] h-[50px] inline-block" alt="又拍云" :src="upyun_logo2" width="5%"/>提供存储服务</a>
   </footer>
 </template>
 
 <script lang="ts" setup>
 import {useSiteLocaleData} from "@vuepress/client";
 import {SiteData} from "@vuepress/shared";
+import {useThemeLocaleData} from "../composables";
+import {DefaultThemeData} from "../../shared";
+import upyun_logo2 from '@images/upyun_logo2'
+
 const siteLocaleData: SiteData = useSiteLocaleData();
+const themeLocaleData: DefaultThemeData = useThemeLocaleData();
 </script>
 
 <style scoped>
