@@ -1,8 +1,8 @@
 <template>
   <header class="my-0 mx-auto relative w-full h-[50vh]">
-    <div class="inner">
-      <div id="brand">
-        <div class="pjax">
+    <div class="w-full mx-auto my-0">
+      <div class="flex flex-col justify-center items-center fixed px-20 pt-12 text-center w-full h-[50vh] min-h-[10rem] z-[-1]">
+        <div class="flex flex-col justify-center items-center">
           <slot name="header">
             <RouterLink :to="siteLocaleData.base" class="logo" rel="start">
               <p class="artboard" v-if="siteLocaleData.alternate" v-text="siteLocaleData.alternate"/>
