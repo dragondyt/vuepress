@@ -1,8 +1,11 @@
 <template>
-layout
+
 </template>
 
-<script setup lang="ts">
+<script>
+export default {
+  name: "test"
+}
 </script>
 
 <style scoped>

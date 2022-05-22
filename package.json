@@ -4,7 +4,7 @@
   "description": "Blog",
   "engines": {
     "node": ">=16.13",
-    "pnpm": ">=6.24",
+    "pnpm": ">=7.0",
     "preinstall": "npx only-allow pnpm"
   },
   "license": "MIT",
@@ -12,16 +12,16 @@
   "scripts": {
     "blog:dev": "pnpm run blog:dev --filter \"@dragondyt/blog\"",
     "build-ts": "pnpm run build --filter \"@dragondyt/*\"",
-    "build-watch": "pnpm build-watch --parallel --filter \"@dragondyt/*\"",
-    "clean-resource": "pnpm run blog:clean --filter \"@dragondyt/blog\" && pnpm run clean --filter \"@dragondyt/*\" --stream",
-    "copy-resource": "pnpm run copy --filter \"@dragondyt/*\" --stream ",
-    "copy-resource-watch": "pnpm run copy --parallel -- --watch",
+    "build-watch": "pnpm --parallel --filter \"@dragondyt/*\" build-watch ",
+    "clean-resource": "pnpm --filter \"@dragondyt/*\" run clean  --stream",
+    "copy-resource": "pnpm --filter \"@dragondyt/*\" --stream run copy ",
+    "copy-resource-watch": "pnpm --parallel run copy  --watch ",
     "pro-build": "pnpm install && pnpm clean-resource && pnpm build-ts && pnpm copy-resource && pnpm run blog:build --filter \"@dragondyt/blog\""
   },
   "devDependencies": {
-    "@vuedx/typescript-plugin-vue": "^0.7.4",
+    "@vuedx/typescript-plugin-vue": "^0.7.5",
     "cpx2": "^4.2.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.4"
   }
 }

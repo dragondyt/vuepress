@@ -1,55 +1,16 @@
 declare module '*.vue' {
-    import type {ComponentOptions} from 'vue'
+    import type { ComponentOptions } from 'vue'
     const comp: ComponentOptions
     export default comp
 }
-declare module '@temp/categories' {
-    import {Category} from "../types/category";
-    const cats: {
-        catList: Category[]
-    }
-    export default cats
-}
-declare module '@temp/allCategory' {
-    import {Category} from "../types/category";
-    const cats: {
-        allCategory: Category[]
-    }
-    export default cats
-}
-declare module '@temp/allPost' {
-    import {PageData} from "../shared";
-    const data: Array<PageData>
-    export default data
-}
-declare module '@temp/stickyList' {
-    import {PageData} from "../shared";
-    const data: Array<PageData>
-    export default data
-}
-declare module '@temp/catList' {
-    import {PageData} from "../shared";
-    const data: Array<PageData>
-    export default data
-}
-declare module '@temp/tags' {
-    const data: {
-        tags: string[],
-    }
-    export default data
-}
-declare module '@temp/links' {
-    interface Link {
-        site: string,
-        owner: string,
-        url: string,
-        desc: string,
-        image: string,
-        color: string,
-    }
 
-    const data: {
-        links: Link[],
-    }
-    export default data
+declare module '@images/*' {
+    import type { ComponentOptions } from 'vue'
+    const comp: ComponentOptions
+    export default comp
+}
+declare module '@theme/*' {
+    import type { ComponentOptions } from 'vue'
+    const comp: ComponentOptions
+    export default comp
 }
