@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <template #header>
-
+      <h1 class="text-[2.5em] tracking-[.125rem]">{{pageData.title}}</h1>
     </template>
     <template #content>
       <!--      inner-->
@@ -23,6 +23,8 @@
 </template>
 <script setup lang="ts">
 import Layout from '@theme/SakuraLayout.vue'
+import {usePageData} from "@vuepress/client";
+const pageData = usePageData();
 </script>
 
 <style lang="postcss">

@@ -1,20 +1,22 @@
 <template>
   <header class="my-0 mx-auto relative w-full h-[50vh]">
-    <div class="inner">
-      <div id="brand">
-        <div class="pjax">
+    <div class="w-full mx-auto my-0">
+      <div
+          class="flex flex-col justify-center items-center fixed px-20 pt-12 text-center w-full h-[50vh] min-h-[10rem] z-[-1]">
+        <div class="flex flex-col justify-center items-center">
           <slot name="header">
             <RouterLink :to="siteLocaleData.base" class="logo" rel="start">
-              <p class="artboard" v-if="siteLocaleData.alternate" v-text="siteLocaleData.alternate"/>
-              <h1 itemprop="name headline" class="title" v-if="siteLocaleData.title" v-text="siteLocaleData.title"/>
+              <p class="text-[3.5em] leading-[1.2]" v-if="siteLocaleData.alternate" v-text="siteLocaleData.alternate"/>
+              <h1 class="mt-2.5 mx-0 text-[2.5em] tracking-[.125rem]" v-if="siteLocaleData.title"
+                  v-text="siteLocaleData.title"/>
             </RouterLink>
-            <p class="meta" itemprop="description" v-if="siteLocaleData.description">= {{
+            <p class="flex m-0 text-[0.875em]" itemprop="description" v-if="siteLocaleData.description">= {{
                 siteLocaleData.description
               }} =</p>
           </slot>
         </div>
       </div>
-      <!--        {{ partial('_partials/header.njk', {}, {cache: true}) }}-->
+      <Header/>
     </div>
     <div id="imgs" class="block fixed top-0 left-0 w-full h-[70vh] min-h-[25rem] z-[-9]">
       <ul v-if="Array.isArray(themeLocaleData.covers)&&themeLocaleData.covers.length===6">
@@ -39,6 +41,7 @@ import {SiteData} from "@vuepress/shared";
 import {useThemeLocaleData} from "../composables";
 import {DefaultThemeData} from "../../shared";
 import upyun_logo2 from '@images/upyun_logo2'
+import Header from "./Header.vue";
 
 const siteLocaleData: SiteData = useSiteLocaleData();
 const themeLocaleData: DefaultThemeData = useThemeLocaleData();

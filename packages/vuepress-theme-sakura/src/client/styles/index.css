@@ -22,11 +22,20 @@ body {
     @apply flex;
     @apply flex-col;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Mulish, 'Noto Serif SC', 'Noto Serif JP', Mulish, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 1.25rem 0 0.9375rem;
+}
+
 *, :after, :before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
 ::-webkit-scrollbar {
     width: .3125rem;
     height: .3125rem;
@@ -51,5 +60,5 @@ body {
     border-radius: 1.25rem;
     background-clip: padding-box;
     background-color: var(--grey-3);
-    background-image: linear-gradient(45deg,var(--grey-1-a5) 25%,transparent 0,transparent 50%,var(--grey-1-a5) 0,var(--grey-1-a5) 75%,transparent 0,transparent);
+    background-image: linear-gradient(45deg, var(--grey-1-a5) 25%, transparent 0, transparent 50%, var(--grey-1-a5) 0, var(--grey-1-a5) 75%, transparent 0, transparent);
 }
