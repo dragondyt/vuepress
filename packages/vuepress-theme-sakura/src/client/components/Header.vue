@@ -14,6 +14,7 @@
                       rel="start">{{ siteLocaleData.alternate ?? siteLocaleData.title }}
           </RouterLink>
         </li>
+        <MenuItem v-for="menu in themeLocaleData.navbar" :menu="menu" :key="menu.path??menu.name"/>
       </ul>
 
       <ul class="inline-flex justify-center items-center">
@@ -32,6 +33,7 @@
 <script lang="ts" setup>
 import {useThemeLocaleData} from "../composables";
 import {useSiteLocaleData} from "@vuepress/client";
+import MenuItem from "./menu/MenuItem.vue";
 
 const themeLocaleData = useThemeLocaleData();
 const siteLocaleData = useSiteLocaleData();

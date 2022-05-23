@@ -54,7 +54,22 @@ export default defineUserConfig({
         // covers:  "https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"
         locales: {
             '/': {
-
+                // @ts-ignore
+                navbar: [{
+                    name: '首页',
+                    path: '/',
+                    icon: 'home',
+                },
+                    {
+                        name: '文章',
+                        children: [
+                            {
+                                name: '归档',
+                                path: '/archives/',
+                                icon: 'list-alt',
+                            }
+                        ]
+                    }]
             }
         }
     }),
