@@ -1,13 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "sourceMap": false,
     "module": "CommonJS",
     "rootDir": "./src",
-    "outDir": "./lib",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "outDir": "./lib"
   },
-  "include": ["./src/node", "./src/shared"],
-  "exclude": []
+  "include": ["./src/node", "./src/shared"]
 }

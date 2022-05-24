@@ -7,7 +7,7 @@ jobs:
   blog-build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      NODE_VERSION: "16"
+      NODE_VERSION: '16'
       DOCS_GA_ID: G-KX4T3PRLG4
     steps:
       - name: Checkout
@@ -30,7 +30,7 @@ jobs:
 
       - uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.24.x
+          version: 7.1.7
           run_install: true
 
       - name: Build blog site

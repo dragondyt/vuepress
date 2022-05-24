@@ -1,71 +1,111 @@
-import type {Page, Theme} from '@vuepress/core'
-import {fs, path} from '@vuepress/utils'
-import {themeDataPlugin} from '@vuepress/plugin-theme-data'
-import { prismjsPlugin } from '@vuepress/plugin-prismjs'
+import type { Page, Theme } from '@vuepress/core'
+import { themeDataPlugin } from '@vuepress/plugin-theme-data'
+import { path } from '@vuepress/utils'
 import type {
-    DefaultThemeLocaleOptions,
-    DefaultThemePageData,
-    DefaultThemePluginsOptions,
+  SakuraThemeLocaleOptions,
+  SakuraThemePageData,
+  SakuraThemePluginsOptions,
 } from '../shared'
 import {
-    assignDefaultLocaleOptions,
-    // resolveContainerPluginOptions,
+  markdownItExcerpt,
+  markdownItKatex,
+  markdownItSpoiler,
+} from './plugins'
+import {
+  assignDefaultLocaleOptions,
+  assignPostcssConfig,
 } from './utils'
-import {assignPostcssConfig} from "./utils/assignPostcssConfig";
 
-export interface DefaultThemeOptions extends DefaultThemeLocaleOptions {
-    /**
-     * To avoid confusion with the root `plugins` option,
-     * we use `themePlugins`
-     */
-    themePlugins?: DefaultThemePluginsOptions
+export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
+  /**
+   * To avoid confusion with the root `plugins` option,
+   * we use `themePlugins`
+   */
+  themePlugins?: SakuraThemePluginsOptions
 }
 
 export const sakuraTheme = ({
-                                themePlugins = {},
-                                ...localeOptions
-                            }: DefaultThemeOptions = {}): Theme => {
-    assignDefaultLocaleOptions(localeOptions)
-    return {
-        name: '@dragondyt/vuepress-theme-sakura',
-        layouts: path.resolve(__dirname, '../client/layouts'),
-        templateBuild: path.resolve(__dirname, '../../templates/build.html'),
-        // use alias to make all components replaceable
-        alias: Object.assign(
-            Object.fromEntries(
-                fs
-                    .readdirSync(path.resolve(__dirname, '../client/components'))
-                    .filter((file) => file.endsWith('.vue'))
-                    .map((file) => [
-                        `@theme/${file}`,
-                        path.resolve(__dirname, '../client/components', file),
-                    ])
-            ),
-            {
-                '@images/404': "../assets/images/404.png",
-                '@images/upyun_logo2': "../assets/images/upyun_logo2.png",
-            }
-        ),
-        clientConfigFile: path.resolve(__dirname, '../client/config.js'),
-        extendsPage: (page: Page<Partial<DefaultThemePageData>>) => {
-            // save relative file path into page data to generate edit link
-            page.data.filePathRelative = page.filePathRelative
-            // save title into route meta to generate navbar and sidebar
-            page.routeMeta.title = page.title
-        },
-        onInitialized: (app) => {
-            assignPostcssConfig(app)
-        },
-        onPrepared: (app) => {
-            const pages = app.pages.filter(page => (page.path != '/' && page.path != '/404.html')).map(_ => {
-                return _.data
-            })
-            app.writeTemp("postList.ts", `export default ${JSON.stringify(pages)}`).then().catch();
-        },
-        plugins: [
-            // @vuepress/plugin-prismjs
-            themePlugins.prismjs !== false ? prismjsPlugin() : [],
-            themeDataPlugin({themeData: localeOptions}),
-        ],
-    }
+  themePlugins = {},
+  ...localeOptions
+}: SakuraThemeOptions = {}): Theme => {
+  assignDefaultLocaleOptions(localeOptions)
+  return {
+    name: '@vuepress/theme-default',
+
+    layouts: path.resolve(__dirname, '../client/layouts'),
+
+    templateBuild: path.resolve(__dirname, '../../templates/build.html'),
+
+    clientConfigFile: path.resolve(__dirname, '../client/config.js'),
+    extendsBundlerOptions: (bundlerOptions, app) => {
+      assignPostcssConfig(bundlerOptions, app)
+    },
+    extendsMarkdownOptions: (markdownOptions, app) => {
+      markdownOptions.breaks = true
+      markdownOptions.html = false
+      markdownOptions.xhtmlOut = true
+      markdownOptions.linkify = true
+      markdownOptions.typographer = true
+      markdownOptions.quotes = '“”‘’'
+      markdownOptions.extractHeaders = {
+        level: [1, 2],
+      }
+    },
+
+    extendsMarkdown: (md) => {
+      markdownItExcerpt(md)
+      markdownItSpoiler(md, {
+        title: '你知道得太多了',
+      })
+      md.use(require('./plugins/markdown-it-prism'))
+      markdownItKatex(md)
+      md.use(require('./plugins/markdown-it-furigana'), {
+        fallbackParens: '()',
+      })
+        .use(require('./plugins/markdown-it-container'))
+        // .use(require('./mermaid'))
+        .use(require('markdown-it-pangu'))
+        .use(require('markdown-it-task-checkbox'))
+        .use(require('markdown-it-sup'))
+        .use(require('markdown-it-sub'))
+        .use(require('markdown-it-multimd-table'), {
+          multiline: true,
+          rowspan: true,
+          headerless: true,
+        })
+        .use((md, option) => {
+          md.renderer.rules.table_open = (tokens, idx, options, env, self) => {
+            return '<div class="table-container"><table>'
+          }
+          md.renderer.rules.table_close = (tokens, idx, options, env, self) => {
+            return '</table></div>'
+          }
+        })
+        .use(require('markdown-it-mark'))
+        .use(require('markdown-it-ins'))
+        .use(require('markdown-it-footnote'))
+        .use(require('markdown-it-emoji'))
+        .use(require('markdown-it-deflist'))
+        .use(require('markdown-it-attrs'), {
+          // optional, these are default options
+          leftDelimiter: '{',
+          rightDelimiter: '}',
+          // empty array = all attributes are allowed
+          allowedAttributes: [],
+        })
+        .use(require('markdown-it-bracketed-spans'))
+        .use(require('markdown-it-abbr'))
+    },
+
+    extendsPage: (page: Page<Partial<SakuraThemePageData>>) => {
+      // save relative file path into page data to generate edit link
+      page.data.filePathRelative = page.filePathRelative
+      // save title into route meta to generate navbar and sidebar
+      page.routeMeta.title = page.title
+    },
+    plugins: [
+      // @vuepress/plugin-theme-data
+      themeDataPlugin({ themeData: localeOptions }),
+    ],
+  }
 }
