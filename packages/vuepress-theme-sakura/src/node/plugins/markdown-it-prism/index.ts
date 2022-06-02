@@ -3,7 +3,7 @@ const Prism = require('prismjs');
 const loadLanguages = require('prismjs/components/');
 const pangu = require('pangu');
 const LanguagesTip = require('./lang');
-const {escapeHTML, unescapeHTML} = require('hexo-util');
+const {escapeHTML} = require('hexo-util');
 const escapeSwigTag = str => str.replace(/{/g, '&#123;').replace(/}/g, '&#125;');
 const unescapeSwigTag = str => str.replace(/&#123;/g, '{').replace(/&#125;/g, '}');
 
@@ -21,8 +21,6 @@ loadLanguages.silent = true;
 module.exports = function (md, options) {
   const config = {
     plugins: ['autolinker', 'show-invisibles', 'normalize-whitespace', 'diff-highlight'], // {String[]} Names of Prism plugins to load
-    init: () => {
-    }, // Callback for Prism initialisation
     defaultLanguageForUnknown: undefined, // The language to use for code blocks that specify a language that Prism does not know
     defaultLanguageForUnspecified: undefined, // The language to use for code block that do not specify a language
     defaultLanguage: undefined, // Shorthand to set both {@code defaultLanguageForUnknown} and {@code defaultLanguageForUnspecified} to the same value
@@ -40,7 +38,7 @@ module.exports = function (md, options) {
 
 
   Prism.hooks.add('wrap', function (env) {
-    if (env.type == 'comment') {
+    if (env.type === 'comment') {
       env.content = pangu.spacing(env.content)
     }
   });
@@ -67,7 +65,7 @@ module.exports = function (md, options) {
 
     if (prismLang) {
       code = Prism.highlight(unescapeSwigTag(text), prismLang, langToUse);
-    } else if (lang == 'raw') {
+    } else if (lang === 'raw') {
       code = escapeHTML(pangu.spacing(unescapeSwigTag(text)));
       langShow = null;
     }
@@ -81,8 +79,6 @@ module.exports = function (md, options) {
 
       for (let i = 0, len = lines.length; i < len; i++) {
         let line = lines[i];
-        let append = '';
-
         let lineno = Number(firstLine) + i
         // @ts-ignore
         if (mark && mark.includes(lineno)) {
@@ -108,7 +104,7 @@ module.exports = function (md, options) {
       return result;
     }
 
-    if (lang == 'info') {
+    if (lang === 'info') {
       return `<pre class="info" v-pre><code>${escapeHTML(pangu.spacing(unescapeSwigTag(text)))}</code></pre>`;
     } else {
       return defaultRenderer(tokens, idx, options, env, self);

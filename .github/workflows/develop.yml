@@ -8,25 +8,26 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_VERSION: '16'
-      DOCS_GA_ID: G-KX4T3PRLG4
+      DOCS_GA_ID: ${{ secrets.GoogleAnalyzeId }}
     steps:
       - name: Checkout
         uses: actions/checkout@main
         with:
           fetch-depth: 0
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
 
-      - name: Cache pnpm modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - uses: pnpm/action-setup@v2.0.1
         with:

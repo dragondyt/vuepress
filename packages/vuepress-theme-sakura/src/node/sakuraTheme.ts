@@ -1,20 +1,16 @@
-import type { Page, Theme } from '@vuepress/core'
-import { themeDataPlugin } from '@vuepress/plugin-theme-data'
-import { path } from '@vuepress/utils'
-import type {
-  SakuraThemeLocaleOptions,
-  SakuraThemePageData,
-  SakuraThemePluginsOptions,
-} from '../shared'
-import {
-  markdownItExcerpt,
-  markdownItKatex,
-  markdownItSpoiler,
-} from './plugins'
-import {
-  assignDefaultLocaleOptions,
-  assignPostcssConfig,
-} from './utils'
+import type {Page, Theme} from '@vuepress/core'
+import {createPage, resolvePageContent} from '@vuepress/core'
+import {themeDataPlugin} from '@vuepress/plugin-theme-data'
+import {fs, path} from '@vuepress/utils'
+import type {SakuraThemeLocaleOptions, SakuraThemePageData, SakuraThemePluginsOptions,} from '../shared'
+import {markdownItExcerpt, markdownItKatex, markdownItSpoiler,} from './plugins'
+import {assignDefaultLocaleOptions, assignPostcssConfig} from './utils'
+// @ts-ignore
+import * as CRC32 from "crc-32";
+import * as moment from "moment";
+import * as matter from "gray-matter";
+
+const {check, add} = require('./abbr/check')
 
 export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
   /**
@@ -25,9 +21,9 @@ export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
 }
 
 export const sakuraTheme = ({
-  themePlugins = {},
-  ...localeOptions
-}: SakuraThemeOptions = {}): Theme => {
+                              themePlugins = {},
+                              ...localeOptions
+                            }: SakuraThemeOptions = {}): Theme => {
   assignDefaultLocaleOptions(localeOptions)
   return {
     name: '@vuepress/theme-default',
@@ -103,9 +99,47 @@ export const sakuraTheme = ({
       // save title into route meta to generate navbar and sidebar
       page.routeMeta.title = page.title
     },
+    extendsPageOptions: (page, app) => {
+      if (page != null && page.filePath != null) {
+        //读取文件
+        let contentRaw = fs.readFileSync(page.filePath, 'utf8').toString() as string;
+        const {content, frontmatterRaw} = resolvePageContent({
+          contentRaw,
+        })
+        if (frontmatterRaw.title != null && frontmatterRaw.title != '') {
+          if (frontmatterRaw.permalink != null && frontmatterRaw.permalink != '') {
+          } else {
+            add(frontmatterRaw.permalink)
+          }
+          // //生成链接
+          let permalink = check(CRC32.str(frontmatterRaw.title) >>> 0).toString(16);
+          // //记录生成的链接
+          add(permalink)
+          // 处理目录
+          permalink = page.filePath.replace(app.dir.source(), '').replace(/[\w-]+\.(.*)?/g, `${permalink}.html`).replace('//', '/')
+          //设置文章永久链接
+          frontmatterRaw.permalink = permalink
+          //设置时间
+          frontmatterRaw.date = moment(frontmatterRaw.date).format("YYYY-MM-DD HH:mm:ss").toString()
+          // 写入
+          fs.writeFileSync(page.filePath, matter.stringify(content, frontmatterRaw));
+        }
+      }
+    },
+    onInitialized: async (app) => {
+      app.pages.push(
+        await createPage(app, {
+          path: '/',
+          content: '',
+          frontmatter: {
+            layout: 'IndexLayout',
+          },
+        })
+      )
+    },
     plugins: [
       // @vuepress/plugin-theme-data
-      themeDataPlugin({ themeData: localeOptions }),
+      themeDataPlugin({themeData: localeOptions}),
     ],
   }
 }

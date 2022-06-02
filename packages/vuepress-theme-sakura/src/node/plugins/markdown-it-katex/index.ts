@@ -23,7 +23,7 @@ function isValidDelim(
   const nextChar = pos + 1 <= max ? state.src.charCodeAt(pos + 1) : -1
 
   // Check non-whitespace conditions for opening and closing, and
-  // check that closing delimeter isn't followed by a number
+  // check.ts that closing delimeter isn't followed by a number
   if (
     prevChar === 0x20 /* " " */ ||
     prevChar === 0x09 /* \t */ ||
@@ -57,7 +57,7 @@ function mathInline(state, silent): boolean {
     return true
   }
 
-  // First check for and bypass all properly escaped delimieters
+  // First check.ts for and bypass all properly escaped delimieters
   // This loop will assume that the first leading backtick can not
   // be the first character in state.src, which is known since
   // we have found an opening delimieter already.
