@@ -37,7 +37,7 @@ jobs:
       - name: Build blog site
         env:
           BASE_PATH: /
-        run: pnpm run pro-build
+        run: pnpm docs:release
 
       - name: Deploy to GitHub Pages
         if: success()
