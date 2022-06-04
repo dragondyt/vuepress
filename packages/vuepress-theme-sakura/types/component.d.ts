@@ -7,3 +7,9 @@ declare module '@vue/runtime-core' {
     ClientOnly: typeof  import('@vuepress/client')['ClientOnly']
   }
 }
+
+declare module '@images/*' {
+  import type { ComponentOptions } from 'vue'
+  const comp: ComponentOptions
+  export default comp
+}

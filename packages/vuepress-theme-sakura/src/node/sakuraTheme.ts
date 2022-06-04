@@ -31,6 +31,10 @@ export const sakuraTheme = ({
 
     templateBuild: path.resolve(__dirname, '../../templates/build.html'),
 
+    alias:  {
+      '@images/404': "../assets/images/404.png",
+      '@images/upyun_logo2': "../assets/images/upyun_logo2.png",
+    },
     clientConfigFile: path.resolve(__dirname, '../client/config.js'),
     extendsBundlerOptions: (bundlerOptions, app) => {
       assignPostcssConfig(bundlerOptions, app)
