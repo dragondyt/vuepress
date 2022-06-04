@@ -197,8 +197,8 @@ function getOptions(info): {
   mark: boolean | number[]
   command:
     | {
-        [key: number]: string
-      }
+    [key: number]: string
+  }
     | boolean
 } {
   const rFirstLine = /\s*first_line:(\d+)/i
@@ -231,8 +231,8 @@ function getOptions(info): {
   let command:
     | boolean
     | {
-        [key: number]: string
-      } = false
+    [key: number]: string
+  } = false
   if (rCommand.test(info)) {
     command = {}
     info = info.replace(rCommand, (match, _command) => {

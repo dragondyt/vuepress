@@ -3,13 +3,12 @@ import {createPage, resolvePageContent} from '@vuepress/core'
 import {themeDataPlugin} from '@vuepress/plugin-theme-data'
 import {fs, path} from '@vuepress/utils'
 import type {SakuraThemeLocaleOptions, SakuraThemePageData, SakuraThemePluginsOptions,} from '../shared'
-import {markdownItExcerpt, markdownItKatex, markdownItSpoiler,} from './plugins'
+import {markdownItExcerpt, markdownItKatex, markdownItPrism, markdownItSpoiler,} from './plugins'
 import {assignDefaultLocaleOptions, assignPostcssConfig} from './utils'
 // @ts-ignore
 import * as CRC32 from "crc-32";
 import * as moment from "moment";
 import * as matter from "gray-matter";
-
 const {check, add} = require('./abbr/check')
 
 export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
@@ -42,6 +41,7 @@ export const sakuraTheme = ({
       markdownOptions.xhtmlOut = true
       markdownOptions.linkify = true
       markdownOptions.typographer = true
+      markdownOptions.code = false
       markdownOptions.quotes = '“”‘’'
       markdownOptions.extractHeaders = {
         level: [1, 2],
@@ -53,7 +53,7 @@ export const sakuraTheme = ({
       markdownItSpoiler(md, {
         title: '你知道得太多了',
       })
-      md.use(require('./plugins/markdown-it-prism'))
+      markdownItPrism(md)
       markdownItKatex(md)
       md.use(require('./plugins/markdown-it-furigana'), {
         fallbackParens: '()',
