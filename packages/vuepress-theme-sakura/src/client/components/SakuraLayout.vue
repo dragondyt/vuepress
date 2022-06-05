@@ -10,6 +10,7 @@ const wavesRef = ref<HTMLDivElement>()
 const siteLocaleData = useSiteLocaleData()
 const themeLocaleData = useThemeLocaleData();
 const pageData = usePageData();
+
 function scrollHandle(e: any): void {
   isAffix.value =
     window.scrollY > headerHeight.value && document.body.offsetWidth > 991
@@ -103,6 +104,26 @@ onUnmounted(() => {
       </div>
     </div>
   </main>
+  <footer class="text-[0.875em]">
+    <div class="w-[72.5rem] my-0 mx-auto relative pr-[16.25rem]">
+      <div class="w-full text-center mt-8">
+        <div>© 2010 – <span>2022</span> <span><i
+          class="ic i-sakura rotate"></i> </span><span>Ruri Shimotsuki @ Yume Shoka</span>
+        </div>
+        <div>
+          <span>
+            <i class="ic i-chart-area"></i> </span>
+          <span title="站点总字数">1.8m 字</span>
+          <span>|</span>
+          <span><i class="ic i-coffee"></i> </span>
+          <span title="站点阅读时长">27:33</span>
+        </div>
+        <div class="inline-block mb-[.625rem]">
+          基于Vuepress 2 & Theme.Sakura
+        </div>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <style scoped></style>
