@@ -1,13 +1,15 @@
 <script lang="ts" setup>
-import { useSiteLocaleData } from '@vuepress/client'
-import { onMounted, onUnmounted, ref } from 'vue'
+import {usePageData, useSiteLocaleData} from '@vuepress/client'
+import {onMounted, onUnmounted, ref} from 'vue'
+import {useThemeLocaleData} from "../composables";
 
 const isAffix = ref(false)
 const headerHeight = ref(0)
 const headerRef = ref<HTMLDivElement>()
 const wavesRef = ref<HTMLDivElement>()
 const siteLocaleData = useSiteLocaleData()
-
+const themeLocaleData = useThemeLocaleData();
+const pageData = usePageData();
 function scrollHandle(e: any): void {
   isAffix.value =
     window.scrollY > headerHeight.value && document.body.offsetWidth > 991
@@ -62,6 +64,29 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+    <nav class="fixed z-[9] w-full h-[3.125rem]">
+      <div class="w-[72.5rem] h-full flex flex-nowrap my-0 mx-auto">
+        <ul class="w-full py-2.5 px-0 m-0">
+          <li class="inline-block relative py-0 px-2.5 tracking-[0.0625rem] text-center">
+            <RouterLink :to="siteLocaleData.base" rel="start">{{
+                siteLocaleData.alternate || siteLocaleData.title
+              }}
+            </RouterLink>
+          </li>
+          <li class="inline-block relative py-0 px-2.5 tracking-[0.0625rem] text-center" v-if="themeLocaleData.navbar"
+              v-for="nav in themeLocaleData.navbar" :key="nav.name">
+            <RouterLink :to="nav.path|| pageData.path ">
+              <i :class="`ic i-${nav.icon}`"></i>
+              {{ nav.name }}
+            </RouterLink>
+          </li>
+        </ul>
+        <ul class="inline-flex items-center justify-center">
+          <li class="my-2.5 mx-2 cursor-pointer"><i class="ic i-sun text-[1.125em]"></i></li>
+          <li class="my-2.5 mx-2 cursor-pointer"><i class="ic i-search"></i></li>
+        </ul>
+      </div>
+    </nav>
   </header>
   <div ref="wavesRef">
     <div
@@ -71,10 +96,10 @@ onUnmounted(() => {
   <main>
     <div class="w-[72.5rem] items-start flex justify-between my-0 mx-auto">
       <div class="min-h-[37.5rem]" style="width: calc(100% - 15.75rem)">
-        <slot name="content" />
+        <slot name="content"/>
       </div>
       <div class="static w-[15rem] top-0 bottom-0">
-        <slot name="sidebar" v-bind="{ isAffix }" />
+        <slot name="sidebar" v-bind="{ isAffix }"/>
       </div>
     </div>
   </main>

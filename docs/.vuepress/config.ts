@@ -1,12 +1,12 @@
-import { sakuraTheme } from '@dragondyt/vuepress-theme-sakura'
-import { viteBundler } from '@vuepress/bundler-vite'
-import { webpackBundler } from '@vuepress/bundler-webpack'
-import { defineUserConfig } from '@vuepress/cli'
-import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
-import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
-import { shikiPlugin } from '@vuepress/plugin-shiki'
-import { path } from '@vuepress/utils'
-import { head } from './configs'
+import {sakuraTheme} from '@dragondyt/vuepress-theme-sakura'
+import {viteBundler} from '@vuepress/bundler-vite'
+import {webpackBundler} from '@vuepress/bundler-webpack'
+import {defineUserConfig} from '@vuepress/cli'
+import {googleAnalyticsPlugin} from '@vuepress/plugin-google-analytics'
+import {registerComponentsPlugin} from '@vuepress/plugin-register-components'
+import {shikiPlugin} from '@vuepress/plugin-shiki'
+import {path} from '@vuepress/utils'
+import {head} from './configs'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -40,7 +40,54 @@ export default defineUserConfig({
     logo: '/images/hero.png',
     repo: 'vuepress/vuepress-next',
     docsDir: 'docs',
-
+    navbar: [
+      {
+        name: '首页',
+        path: '/',
+        icon: 'home'
+      },
+      {
+        name: '关于',
+        path: '/about',
+        icon: 'user'
+      },
+      {
+        name: '文章',
+        icon: 'feather',
+        children: [
+          {
+            name: '归档',
+            path: '/archives',
+            icon: 'list-alt'
+          }, {
+            name: '分类',
+            path: '/category',
+            icon: 'th'
+          }, {
+            name: '标签',
+            path: '/tag',
+            icon: 'tags'
+          },
+        ]
+      }, {
+        name: '链环',
+        icon: 'magic',
+        children: [{
+          name: '友達',
+          path: 'friend',
+          icon: 'heart'
+        }, {
+          name: '网址',
+          path: 'links',
+          icon: 'star'
+        }]
+      }, {
+        name: '开往',
+        path: '',
+        icon: 'paper-plane'
+      }
+    ],
+    selectLanguageName: 'zh',
     // theme-level locales config
     locales: {
       /**
