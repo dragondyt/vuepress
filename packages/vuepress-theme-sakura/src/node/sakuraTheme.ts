@@ -137,6 +137,7 @@ export const sakuraTheme = ({
           content: '',
           frontmatter: {
             layout: 'IndexLayout',
+            stickyList:app.pages.filter(_=>_.frontmatter?.sticky)
           },
         })
       )
