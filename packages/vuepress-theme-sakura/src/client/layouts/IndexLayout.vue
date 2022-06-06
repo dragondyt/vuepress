@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import SakuraLayout from '../components/SakuraLayout.vue'
 import {usePageData} from "@vuepress/client";
-import * as striptags from "striptags";
+const striptags = require('striptags');
 const pageData = usePageData();
 </script>
 
