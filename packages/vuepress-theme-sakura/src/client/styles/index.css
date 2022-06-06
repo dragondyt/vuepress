@@ -3,6 +3,7 @@
 @import 'tailwindcss/utilities';
 @import '_var.css';
 @import 'icon.css';
+
 html {
   @apply leading-[1.15];
   @apply h-full;
@@ -30,10 +31,17 @@ h4,
 h5,
 h6 {
   font-family: Mulish, 'Noto Serif SC', 'Noto Serif JP', Mulish, -apple-system,
-    'PingFang SC', 'Microsoft YaHei', sans-serif;
+  'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-weight: 700;
   line-height: 1.5;
   margin: 1.25rem 0 0.9375rem;
+}
+
+iframe, img, video {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
 }
 
 a {
@@ -46,12 +54,14 @@ a {
   transition: all 0.2s ease-in-out 0s;
   cursor: pointer;
 }
+
 code,
 kbd,
 samp {
   font-family: monospace, monospace;
   font-size: 1em;
 }
+
 :not(pre) > code {
   color: var(--primary-color);
   border-radius: 0.3rem;
@@ -114,12 +124,11 @@ samp {
 @font-face {
   font-family: 'ic';
   src: url('//at.alicdn.com/t/font_1832207_igi8uaupcus.eot');
-  src: url('//at.alicdn.com/t/font_1832207_igi8uaupcus.eot?#iefix')
-      format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_1832207_igi8uaupcus.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_1832207_igi8uaupcus.woff') format('woff'),
-    url('//at.alicdn.com/t/font_1832207_igi8uaupcus.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_1832207_igi8uaupcus.svg#ic') format('svg');
+  src: url('//at.alicdn.com/t/font_1832207_igi8uaupcus.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1832207_igi8uaupcus.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1832207_igi8uaupcus.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1832207_igi8uaupcus.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1832207_igi8uaupcus.svg#ic') format('svg');
 }
 
 .ic {
