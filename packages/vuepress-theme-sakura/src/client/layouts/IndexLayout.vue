@@ -9,6 +9,32 @@ onMounted(() => {
   panelsHeight.value = window.innerHeight
 })
 const pageData = usePageData();
+
+function count(post: string) {
+  let symbolsResult = ''
+  if (post.length > 9999) {
+    symbolsResult = Math.round(post.length / 1000) + 'k'; // > 9999 => 11k
+  } else if (post.length > 999) {
+    symbolsResult = Math.round(post.length / 100) / 10 + 'k'; // > 999 => 1.1k
+  } // < 999 => 111
+  return symbolsResult;
+}
+
+function getFormatTime(minutes, suffix) {
+  const fHours = Math.floor(minutes / 60);
+  let fMinutes = Math.floor(minutes - (fHours * 60));
+  if (fMinutes < 1) {
+    fMinutes = 1; // 0 => 1
+  }
+  return fHours < 1
+    ? fMinutes + ' ' + suffix // < 59 => 59 mins.
+    : fHours + ':' + ('00' + fMinutes).slice(-2); // = 61 => 1:01
+}
+
+function symbolsTime(post: string, awl = 4, wpm = 275, suffix = 'mins.') {
+  const minutes = Math.round(post.length / (awl * wpm));
+  return getFormatTime(minutes, suffix);
+}
 </script>
 
 <template>
@@ -24,12 +50,31 @@ const pageData = usePageData();
             <article class="flex rounded-[0.5rem] relative h-[14rem] m-4"
                      style="width: calc(100% - 2rem);min-width: calc(100% - 2rem);">
               <div class="w-1/2 mr-6 overflow-hidden">
-                <RouterLink to="to">
+                <RouterLink :to="sticky.path">
                   <img class="object-cover w-full h-full"
                        src="https://tva3.sinaimg.cn/mw690/6833939bly1giciusoyjnj219g0u0x56.jpg" alt="cover">
                 </RouterLink>
               </div>
               <div class="relative w-1/2 pt-4 pr-6 pb-12 pl-0" style="perspective: 62.5rem;">
+                <div class="flex justify-end m-0 text-[0.8128em]">
+                  <span>
+                    <span>
+                      <i class="ic i-calendar"></i>
+                    </span>
+                    <time>{{ sticky.date }}</time>
+                  </span>
+                  <span class="ml-2.5">
+                    <span><i class="ic i-pen"></i> </span>
+                    <span>{{ count(striptags(sticky.contentRendered)) }}</span>
+                    <span class="text">字</span>
+                  </span>
+                  <span class="ml-2.5">
+                    <span>
+                      <i class="ic i-clock"></i>
+                    </span>
+                    <span>{{ symbolsTime(striptags(sticky.contentRendered)) }}</span>
+                  </span>
+                </div>
                 <h3 class="text-ellipsis overflow-hidden whitespace-nowrap my-2.5 mx-0">
                   <RouterLink :to="sticky.path">
                     {{ sticky.title }}
@@ -54,6 +99,65 @@ const pageData = usePageData();
             </article>
           </div>
         </template>
+        <h2
+          class="my-4 mx-0 font-[700] uppercase tracking-[0.05rem] select-none table whitespace-nowrap h-auto leading-[1] text-center">
+          文章列表</h2>
+
+        <div class="flex flex-col justify-center items-center" v-for="sticky in pageData.frontmatter.posts"
+             :key="sticky.path">
+          <article class="flex rounded-[0.5rem] relative h-[14rem] m-4"
+                   style="width: calc(100% - 2rem);min-width: calc(100% - 2rem);">
+            <div class="w-1/2 mr-6 overflow-hidden">
+              <RouterLink :to="sticky.path">
+                <img class="object-cover w-full h-full"
+                     src="https://tva3.sinaimg.cn/mw690/6833939bly1giciusoyjnj219g0u0x56.jpg" alt="cover">
+              </RouterLink>
+            </div>
+            <div class="relative w-1/2 pt-4 pr-6 pb-12 pl-0" style="perspective: 62.5rem;">
+              <div class="flex justify-end m-0 text-[0.8128em]">
+                  <span>
+                    <span>
+                      <i class="ic i-calendar"></i>
+                    </span>
+                    <time>{{ sticky.date }}</time>
+                  </span>
+                <span class="ml-2.5">
+                    <span><i class="ic i-pen"></i> </span>
+                    <span>{{ count(striptags(sticky.contentRendered)) }}</span>
+                    <span class="text">字</span>
+                  </span>
+                <span class="ml-2.5">
+                    <span>
+                      <i class="ic i-clock"></i>
+                    </span>
+                    <span>{{ symbolsTime(striptags(sticky.contentRendered)) }}</span>
+                  </span>
+              </div>
+              <h3 class="text-ellipsis overflow-hidden whitespace-nowrap my-2.5 mx-0">
+                <RouterLink :to="sticky.path">
+                  {{ sticky.title }}
+                </RouterLink>
+              </h3>
+              <div class="overflow-hidden text-[0.875em] max-h-20 text-ellipsis"
+                   style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3">
+                {{
+                  sticky.frontmatter?.description || sticky.frontmatter?.excerpt || striptags(sticky.contentRendered).substring(0, 300)
+                }}
+              </div>
+              <div
+                class="absolute bottom-2 whitespace-nowrap overflow-hidden text-ellipsis justify-start flex m-0 text-[.8125em]"
+                style="max-width: calc(100% - 7rem);">
+                {{ sticky.title }}
+              </div>
+              <RouterLink class="absolute bottom-0 right-0 py-[0.3rem] px-4 " style="border-radius: 1rem 0;"
+                          :to="sticky.path" :title="sticky.title">
+                more...
+              </RouterLink>
+            </div>
+          </article>
+        </div>
+
+
       </div>
     </template>
     <template #sidebar="scope">

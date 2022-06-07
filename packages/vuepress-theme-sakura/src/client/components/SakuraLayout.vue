@@ -94,9 +94,9 @@ onUnmounted(() => {
       class="w-full h-[15vh] mb-[-0.6875rem] min-h-[3.125rem] max-h-[9.375rem] relative"
     ></div>
   </div>
-  <main>
+  <main style="background: linear-gradient(to top,var(--body-bg-shadow) 0,var(--grey-1) 20%) no-repeat bottom;">
     <div class="w-[72.5rem] items-start flex justify-between my-0 mx-auto">
-      <div class="min-h-[37.5rem]" style="width: calc(100% - 15.75rem)">
+      <div class="min-h-[37.5rem]" style="width: calc(100% - 15.75rem);    background: linear-gradient(to top,var(--grey-0) 0,var(--grey-1) 20%) no-repeat top;box-shadow: 0 1.25rem 1rem 0.3125rem var(--body-bg-shadow);">
         <slot name="content"/>
       </div>
       <div class="static w-[15rem] top-0 bottom-0">

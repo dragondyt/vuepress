@@ -9,6 +9,7 @@ import {assignDefaultLocaleOptions, assignPostcssConfig} from './utils'
 import * as CRC32 from "crc-32";
 import * as moment from "moment";
 import * as matter from "gray-matter";
+
 const {check, add} = require('./abbr/check')
 
 export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
@@ -31,7 +32,7 @@ export const sakuraTheme = ({
 
     templateBuild: path.resolve(__dirname, '../../templates/build.html'),
 
-    alias:  {
+    alias: {
       '@images/404': "../assets/images/404.png",
       '@images/upyun_logo2': "../assets/images/upyun_logo2.png",
     },
@@ -131,13 +132,70 @@ export const sakuraTheme = ({
       }
     },
     onInitialized: async (app) => {
+      //处理页面
+      const pages = app.pages.filter(page => (page.path != '/' && page.path != '/404.html'))
+      const registerModels = require('./register_models');
+
+      const Database = require('warehouse');
+      //创建数据库
+      const database = new Database({
+        version: 1,
+        path: path.join(app.dir.temp(), 'db.json')
+      });
+      //注册模型
+      registerModels({
+        database: database,
+        category_map: {
+          '计算机科学': 'computer-science',
+          'Java': 'java',
+          '二进制杂谈': 'note',
+          '零基础学Java语言-浙江大学-翁恺': 'course-1',
+          'Theme Shoka Documentation': 'theme-shoka-doc',
+        },
+        tag_map: {}
+      })
+
+      for (let page of pages) {
+        let categories
+        let tags
+
+        categories = page.frontmatter.categories || [];
+        delete page.frontmatter.categories;
+
+        tags = page.frontmatter.tags || [];
+        delete page.frontmatter.tags;
+
+        if (!Array.isArray(categories)) {
+          categories = [categories];
+        }
+        if (!Array.isArray(tags)) {
+          tags = [tags];
+        }
+        const post = await database.model("Post").insert(page);
+
+        await Promise.all([
+          post.setCategories(categories),
+          post.setTags(tags),
+          page.frontmatter.id = post._id
+        ]);
+      }
+      await database.save();
+      const posts = database.model('Post').find({'sticky': {$exists: false}}).sort('-date').toArray().slice(0,10).map(s => {
+        return {
+          title: s.title,
+          contentRendered: s.contentRendered,
+          path: s.path,
+          date: s.date,
+        }
+      });
       app.pages.push(
         await createPage(app, {
           path: '/',
           content: '',
           frontmatter: {
             layout: 'IndexLayout',
-            stickyList:app.pages.filter(_=>_.frontmatter?.sticky)
+            stickyList: app.pages.filter(_ => _.frontmatter?.sticky),
+            posts: posts
           },
         })
       )
