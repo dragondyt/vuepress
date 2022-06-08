@@ -7,8 +7,6 @@
 </template>
 
 <style lang="postcss">
-@import "https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/katex.min.css";
-
 .md {
   font-family: Mulish, -apple-system, 'PingFang SC', 'Microsoft YaHei',
   sans-serif;
@@ -365,7 +363,4 @@
     }
   }
 }
-</style>
-<style>
-@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css');
 </style>

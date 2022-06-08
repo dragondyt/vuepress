@@ -179,7 +179,6 @@ export const sakuraTheme = ({
           page.frontmatter.id = post._id
         ]);
       }
-      await database.save();
       const posts = database.model('Post').find({'sticky': {$exists: false}}).sort('-date').toArray().slice(0,10).map(s => {
         return {
           title: s.title,
