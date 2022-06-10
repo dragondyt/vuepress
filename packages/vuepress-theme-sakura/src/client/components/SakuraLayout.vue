@@ -2,7 +2,8 @@
 import {usePageData, useSiteLocaleData} from '@vuepress/client'
 import {onMounted, onUnmounted, ref} from 'vue'
 import {useThemeLocaleData} from "../composables";
-
+import Comment from "../components/comment/Index.vue";
+import randomPosts from '@temp/randomPosts'
 const isAffix = ref(false)
 const headerHeight = ref(0)
 const headerRef = ref<HTMLDivElement>()
@@ -96,7 +97,8 @@ onUnmounted(() => {
   </div>
   <main style="background: linear-gradient(to top,var(--body-bg-shadow) 0,var(--grey-1) 20%) no-repeat bottom;">
     <div class="w-[72.5rem] items-start flex justify-between my-0 mx-auto">
-      <div class="min-h-[37.5rem]" style="width: calc(100% - 15.75rem);    background: linear-gradient(to top,var(--grey-0) 0,var(--grey-1) 20%) no-repeat top;box-shadow: 0 1.25rem 1rem 0.3125rem var(--body-bg-shadow);">
+      <div class="min-h-[37.5rem]"
+           style="width: calc(100% - 15.75rem);    background: linear-gradient(to top,var(--grey-0) 0,var(--grey-1) 20%) no-repeat top;box-shadow: 0 1.25rem 1rem 0.3125rem var(--body-bg-shadow);">
         <slot name="content"/>
       </div>
       <div class="static w-[15rem] top-0 bottom-0">
@@ -106,6 +108,38 @@ onUnmounted(() => {
   </main>
   <footer class="text-[0.875em]">
     <div class="w-[72.5rem] my-0 mx-auto relative pr-[16.25rem]">
+      <div class="flex z-[1] justify-around">
+        <div class="p-4" style="width: calc(50% - 2rem)">
+          <h2>随机文章</h2>
+          <ul style="counter-reset: counter">
+            <li
+              v-for="post in randomPosts"
+              :key="post.path"
+              class="py-2 pl-8 pr-0 relative"
+            >
+              <div
+                class="m-0 flex max-h-[1.2rem] text-ellipsis overflow-hidden whitespace-nowrap text-[.8125em] items-center flex-wrap"
+              >
+                <template v-for="(c, index) in post.categories" :key="c.path">
+                  <RouterLink :to="`/categories/${c.path}`">{{
+                      c.name
+                    }}</RouterLink>
+                  <i
+                    v-if="index !== post.categories.length - 1"
+                    class="ic i-angle-right"
+                  ></i>
+                </template>
+              </div>
+              <span
+                class="block text-ellipsis overflow-hidden whitespace-nowrap max-h-[2rem]"
+              >
+                <RouterLink :to="post.path">{{ post.title }}</RouterLink>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <Comment />
+      </div>
       <div class="w-full text-center mt-8">
         <div>© 2010 – <span>2022</span> <span><i
           class="ic i-sakura rotate"></i> </span><span>Ruri Shimotsuki @ Yume Shoka</span>

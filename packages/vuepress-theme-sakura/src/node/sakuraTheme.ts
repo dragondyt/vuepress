@@ -187,6 +187,34 @@ export const sakuraTheme = ({
           date: s.date,
         }
       });
+      await app.writeTemp(
+        'randomPosts.ts',
+        `export default ${JSON.stringify(
+          database
+            .model('Post')
+            .shuffle()
+            .limit(10)
+            .toArray()
+            .map((s) => {
+              return {
+                title: s.title,
+                contentRendered: s.contentRendered,
+                path: s.path,
+                date: s.date,
+                categories: s.categories
+                  .toArray()
+                  .slice(0, 10)
+                  .map((c) => {
+                    return {
+                      name: c.name,
+                      path: c.slug,
+                    }
+                  }),
+              }
+            })
+        )}`
+      )
+
       app.pages.push(
         await createPage(app, {
           path: '/',

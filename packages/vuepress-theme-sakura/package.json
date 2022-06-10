@@ -59,6 +59,7 @@
     "tailwindcss": "^3.0.24",
     "vue": "^3.2.37",
     "vue-router": "^4.0.15",
-    "warehouse": "^4.0.1"
+    "warehouse": "^4.0.1",
+    "leancloud-storage": "4.12.2"
   }
 }
