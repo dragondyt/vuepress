@@ -26,20 +26,15 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
+import type {QueryResult} from "../../../shared";
 import {init, Query, Object as AVObject} from "leancloud-storage";
-
-class Comment extends AVObject {
+ class Comment extends AVObject {
   nick: string | undefined
   objectId: string | undefined
   comment: string | undefined
   mail: string | undefined
   url: string | undefined
 }
-
-interface QueryResult<T> extends AVObject {
-  results: T[]
-}
-
 const comments = ref<Comment[]>([])
 onMounted(() => {
   init({

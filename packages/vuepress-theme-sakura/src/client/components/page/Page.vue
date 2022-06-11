@@ -1,15 +1,37 @@
 <script lang="ts" setup>
 import RenderContent from './RenderContent.vue'
 import {usePageData} from "@vuepress/client";
-import {onMounted, ref} from "vue";
-import {init, Query} from "leancloud-storage";
-const pageData = usePageData();
-const commentCount = ref(0)
-interface Comment {
+import {onMounted, ref, unref} from "vue";
+import {ACL, init, Object as AVObject, Query} from "leancloud-storage";
+import type {QueryResult} from "../../../shared";
 
+class Comment extends AVObject {
+  nick: string | undefined
+  objectId: string | undefined
+  comment: string | undefined
+  mail: string | undefined
+  url: string | undefined
 }
-const comments = ref<Comment>([])
-onMounted(()=>{
+
+const pageData = usePageData();
+const defaultForm = {
+  ip: '',
+  comment: '',
+  rid: '',
+  pid: '',
+  at: '',
+  nick: '',
+  mail: '',
+  mailMd5: '',
+  link: '',
+  ua: navigator.userAgent,
+  url: location.pathname
+}
+const comment = ref(defaultForm)
+const commentCount = ref(0)
+const pageNum = ref(1)
+const comments = ref<Comment[]>([])
+const initData = () => {
   init({
     appId: 'OpI7jtevkQGNeDiSFMuQvHFk-9Nh9j0Va',
     appKey: '5aILzwJo7Vwqp20EHM6wC8Iz',
@@ -19,7 +41,7 @@ onMounted(()=>{
   query1.doesNotExist('rid')
   const query2 = new Query('Comment')
   query2.equalTo('rid', '')
-  const query = Query.or(query1,query2);
+  const query = Query.or(query1, query2);
   query.notEqualTo('isSpam', true)
   query.equalTo('url', pageData.value.path)
   query.count().then((count) => {
@@ -28,6 +50,58 @@ onMounted(()=>{
     console.log(ex)
     commentCount.value = 0
   })
+  Query.doCloudQuery<QueryResult<Comment>>(`select nick, comment, link, rid, isSpam, mailMd5, ua
+                                            from Comment
+                                            where (rid = '' or rid is not exists)
+                                              and url = '${pageData.value.path}'
+                                            order by -createdAt limit ${(pageNum.value - 1) * 10}, 10`).then(r => {
+    comments.value = r.results || []
+  })
+}
+const submitComment = async () => {
+  const commentForm = unref(comment);
+  if (!commentForm.nick) {
+    document.getElementsByName("author").item(0).focus()
+    return
+  } else if (!commentForm.mail) {
+    document.getElementsByName("email").item(0).focus()
+    return
+  } else if (!commentForm.comment) {
+    document.getElementsByName("comment").item(0).focus()
+    return
+  }
+  //
+  // 注册子类
+  AVObject.register(Comment)
+  const commentEntity = new Comment();
+  const acl = new ACL();
+  acl.setWriteAccess('role:admin', true)
+  acl.setPublicReadAccess(true)
+  acl.setPublicWriteAccess(false)
+  commentEntity.setACL(acl)
+  const response =  await fetch("https://ip.zxinc.org/api.php?type=json",{
+    method: "GET",
+    headers: {
+      "accept": "application/json;charset=UTF-8",
+      "content-type": "application/json;charset=UTF-8",
+    }
+  })
+  const ip = await response.json();
+  commentForm.ip = ip?.data?.myip
+  for (const i in commentForm) {
+    if (commentForm.hasOwnProperty(i)) {
+      if (i === 'at') continue
+      const _v = commentForm[i]
+      commentEntity.set(i, _v)
+    }
+  }
+  commentEntity.save().then(()=>{
+    initData()
+    comment.value = defaultForm
+  }).catch()
+}
+onMounted(() => {
+  initData()
 })
 </script>
 
@@ -44,21 +118,22 @@ onMounted(()=>{
           <section class="flex py-[0.3em] px-[0.6em]">
             <div class="flex-grow flex-shrink basis-[27%] w-[27%]">
               <input type="text" name="author" class="py-2.5 px-[0.3125rem] w-full border-none outline-0 text-[.75em]"
-                     placeholder="昵称" value="">
+                     v-model="comment.nick" placeholder="昵称">
             </div>
             <div class="flex-grow flex-shrink basis-[27%] w-[27%]">
               <input type="email" name="email" class="py-2.5 px-[0.3125rem] w-full border-none outline-0 text-[.75em]"
-                     placeholder="邮箱" value="">
+                     v-model="comment.mail" placeholder="邮箱">
             </div>
             <div class="flex-grow flex-shrink basis-[27%] w-[27%]">
               <input type="text" name="website" class="py-2.5 px-[0.3125rem] w-full border-none outline-0 text-[.75em]"
-                     placeholder="网站（可选）" value="">
+                     v-model="comment.website" placeholder="网站（可选）">
             </div>
           </section>
           <div class="py-[0.3em] px-[0.6em]">
             <textarea placeholder="1. 提问前请先仔细阅读本文档⚡
 2. 页面显示问题💥，请提供控制台截图📸或者您的测试网址
 3. 其他任何报错💣，请提供详细描述和截图📸，祝食用愉快💪" name="comment"
+                      v-model="comment.comment"
                       class="w-full min-h-[8.75em] text-[.875em] leading-[1.75] resize-y border-none outline-0"/>
             <div class="py-2.5 px-0 flex">
               <div class="w-[30%]">
@@ -73,7 +148,7 @@ onMounted(()=>{
                 <div class="cursor-pointer inline-block m-2 overflow-hidden align-middle">
                   <i class="ic i-preview"></i>
                 </div>
-                <button type="button" title="Cmd|Ctrl+Enter"
+                <button title="Cmd|Ctrl+Enter" type="button" @click="submitComment"
                         class="text-[.875em] inline-block cursor-pointer touch-manipulation text-center align-middle whitespace-nowrap rounded-[0.3em] font-[400] leading-[1.5] mb-0 min-h-[1em] py-[0.5em] px-[1.25em] select-none outline-0 will-change-auto">
                   提交
                 </button>
@@ -84,10 +159,18 @@ onMounted(()=>{
       </div>
     </div>
     <div class="p-[.3125rem] font-[600] text-[1.25em]">
-      <div class="inline-block relative py-0 px-[20px] z-[2]"> 已有<span class="text-[1.375rem] ">{{ commentCount }}</span>条评论</div>
+      <div class="inline-block relative py-0 px-[20px] z-[2]"> 已有<span class="text-[1.375rem] ">{{
+          commentCount
+        }}</span>条评论
+      </div>
     </div>
     <ul class="w-full">
-      <li v-if="comments.length>0"></li>
+      <li v-for="comment in comments" v-if="comments.length>0" :key="comment.objectId" class="break-all pt-[1.25em]">
+        <img alt="头像" src="">
+        <div class="overflow-hidden pb-[0.5em]">
+
+        </div>
+      </li>
       <li class="text-center p-[20px]" v-else>快来做第一个评论的人吧~</li>
     </ul>
   </div>
