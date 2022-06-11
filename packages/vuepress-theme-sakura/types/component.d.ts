@@ -13,3 +13,9 @@ declare module '@images/*' {
   const comp: ComponentOptions
   export default comp
 }
+
+declare module '@temp/*' {
+  import type {Page} from "@vuepress/core";
+  const comp: Array<Page>
+  export default comp
+}

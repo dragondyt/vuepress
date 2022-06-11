@@ -54,12 +54,27 @@ a {
   transition: all 0.2s ease-in-out 0s;
   cursor: pointer;
 }
+button {
+  text-transform: none;
+  overflow: visible;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
 
 code,
 kbd,
 samp {
   font-family: monospace, monospace;
   font-size: 1em;
+}
+textarea {
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
 }
 
 :not(pre) > code {

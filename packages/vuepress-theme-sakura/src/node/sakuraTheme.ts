@@ -221,6 +221,19 @@ export const sakuraTheme = ({
           content: '',
           frontmatter: {
             layout: 'IndexLayout',
+            title: `= ${app.siteData.title} =`,
+            stickyList: app.pages.filter(_ => _.frontmatter?.sticky),
+            posts: posts
+          },
+        })
+      )
+      app.pages.push(
+        await createPage(app, {
+          path: '/archives',
+          content: '',
+          frontmatter: {
+            layout: 'ArchiveLayout',
+            title: `= ${app.siteData.title} =`,
             stickyList: app.pages.filter(_ => _.frontmatter?.sticky),
             posts: posts
           },
