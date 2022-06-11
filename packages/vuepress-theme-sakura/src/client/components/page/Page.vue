@@ -4,6 +4,7 @@ import {usePageData} from "@vuepress/client";
 import {onMounted, ref, unref} from "vue";
 import {ACL, init, Object as AVObject, Query} from "leancloud-storage";
 import type {QueryResult} from "../../../shared";
+import * as UAParser from "ua-parser-js";
 
 class Comment extends AVObject {
   nick: string | undefined
@@ -24,8 +25,8 @@ const defaultForm = {
   mail: '',
   mailMd5: '',
   link: '',
-  ua: navigator.userAgent,
-  url: location.pathname
+  ua: '',
+  url: ''
 }
 const comment = ref(defaultForm)
 const commentCount = ref(0)
@@ -88,6 +89,8 @@ const submitComment = async () => {
   })
   const ip = await response.json();
   commentForm.ip = ip?.data?.myip
+  commentForm.ua = navigator.userAgent
+  commentForm.url = location.pathname
   for (const i in commentForm) {
     if (commentForm.hasOwnProperty(i)) {
       if (i === 'at') continue
@@ -166,9 +169,25 @@ onMounted(() => {
     </div>
     <ul class="w-full">
       <li v-for="comment in comments" v-if="comments.length>0" :key="comment.objectId" class="break-all pt-[1.25em]">
-        <img alt="头像" src="">
+        <img class="w-[3.125em] h-[3.125em] float-left rounded-[50%] mr-[.7525em] p-[.125em]" alt="头像"
+             :src="`https://gravatar.loli.net/avatar/${comment.mailMd5}?size=80&d=mp`">
         <div class="overflow-hidden pb-[0.5em]">
-
+          <div class="leading-[1.8]">
+            <a class="mr-[0.875rem]" v-if="comment.link" :href="comment.link">{{ comment.nick }}</a>
+            <span class="mr-[0.875rem]" v-else>{{ comment.nick }}</span>
+            <span class="rounded-[.125rem] py-0 px-[0.3125rem] mr-2">新朋友</span>
+            <span class="inline-block text-[.75em]"><i
+              class="ic i-chrome"></i><span>{{ UAParser(comment.ua).browser.name }} {{ UAParser(comment.ua).browser?.version }}</span></span>
+            <span class="inline-block text-[.75em]"><i class="ic i-windows"></i><span>Windows 10</span></span>
+          </div>
+          <div class="leading-[1]">
+            <a class="float-right">回复</a>
+            <span class="text-[.75em] inline-block">17 天前</span>
+          </div>
+          <section class="mb-[.75em] p-2.5">
+            <div class="text-[.875em] break-words break-all leading-[2] relative my-0 mx-auto w-full"
+                 v-html="comment.comment"></div>
+          </section>
         </div>
       </li>
       <li class="text-center p-[20px]" v-else>快来做第一个评论的人吧~</li>

@@ -14,6 +14,7 @@
     "copy": "cpx \"src/**/*.{d.ts,vue,css,scss,json,html,png}\" lib"
   },
   "dependencies": {
+    "@types/ua-parser-js": "^0.7.36",
     "@vuepress/bundler-vite": "2.0.0-beta.46",
     "@vuepress/bundler-webpack": "2.0.0-beta.46",
     "@vuepress/client": "2.0.0-beta.46",
@@ -31,6 +32,7 @@
     "hexo-util": "^2.6.1",
     "js-yaml": "^4.1.0",
     "katex": "^0.15.6",
+    "leancloud-storage": "4.12.2",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-attrs": "^4.1.4",
     "markdown-it-bracketed-spans": "^1.0.1",
@@ -57,9 +59,9 @@
     "prismjs": "^1.28.0",
     "striptags": "4.0.0-alpha.2",
     "tailwindcss": "^3.0.24",
+    "ua-parser-js": "^1.0.2",
     "vue": "^3.2.37",
     "vue-router": "^4.0.15",
-    "warehouse": "^4.0.1",
-    "leancloud-storage": "4.12.2"
+    "warehouse": "^4.0.1"
   }
 }

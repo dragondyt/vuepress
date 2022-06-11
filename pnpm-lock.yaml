@@ -86,6 +86,7 @@ importers:
 
   packages/vuepress-theme-sakura:
     specifiers:
+      '@types/ua-parser-js': ^0.7.36
       '@vuepress/bundler-vite': 2.0.0-beta.46
       '@vuepress/bundler-webpack': 2.0.0-beta.46
       '@vuepress/client': 2.0.0-beta.46
@@ -130,10 +131,12 @@ importers:
       prismjs: ^1.28.0
       striptags: 4.0.0-alpha.2
       tailwindcss: ^3.0.24
+      ua-parser-js: ^1.0.2
       vue: ^3.2.37
       vue-router: ^4.0.15
       warehouse: ^4.0.1
     dependencies:
+      '@types/ua-parser-js': registry.npmmirror.com/@types/ua-parser-js/0.7.36
       '@vuepress/bundler-vite': registry.npmmirror.com/@vuepress/bundler-vite/2.0.0-beta.46
       '@vuepress/bundler-webpack': registry.npmmirror.com/@vuepress/bundler-webpack/2.0.0-beta.46
       '@vuepress/client': registry.npmmirror.com/@vuepress/client/2.0.0-beta.46
@@ -153,7 +156,7 @@ importers:
       katex: registry.npmmirror.com/katex/0.15.6
       leancloud-storage: registry.npmmirror.com/leancloud-storage/4.12.2
       markdown-it-abbr: registry.npmmirror.com/markdown-it-abbr/1.0.4
-      markdown-it-attrs: registry.npmmirror.com/markdown-it-attrs/4.1.4_markdown-it@13.0.1
+      markdown-it-attrs: registry.npmmirror.com/markdown-it-attrs/4.1.4
       markdown-it-bracketed-spans: registry.npmmirror.com/markdown-it-bracketed-spans/1.0.1
       markdown-it-checkbox: registry.npmmirror.com/markdown-it-checkbox/1.1.0
       markdown-it-container: registry.npmmirror.com/markdown-it-container/3.0.0
@@ -178,6 +181,7 @@ importers:
       prismjs: registry.npmmirror.com/prismjs/1.28.0
       striptags: registry.npmmirror.com/striptags/4.0.0-alpha.2
       tailwindcss: registry.npmmirror.com/tailwindcss/3.0.24
+      ua-parser-js: registry.npmmirror.com/ua-parser-js/1.0.2
       vue: registry.npmmirror.com/vue/3.2.37
       vue-router: registry.npmmirror.com/vue-router/4.0.15_vue@3.2.37
       warehouse: registry.npmmirror.com/warehouse/4.0.1
@@ -2008,6 +2012,12 @@ packages:
     dependencies:
       '@types/cookiejar': registry.npmmirror.com/@types/cookiejar/2.1.2
       '@types/node': registry.npmmirror.com/@types/node/17.0.41
+    dev: false
+
+  registry.npmmirror.com/@types/ua-parser-js/0.7.36:
+    resolution: {integrity: sha512-N1rW+njavs70y2cApeIw1vLMYXRwfBy+7trgavGuuTfOd7j1Yh7QTRc/yqsPl6ncokt72ZXuxEU0PiCp9bSwNQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/ua-parser-js/-/ua-parser-js-0.7.36.tgz}
+    name: '@types/ua-parser-js'
+    version: 0.7.36
     dev: false
 
   registry.npmmirror.com/@types/webpack-env/1.17.0:
@@ -8442,16 +8452,13 @@ packages:
       markdown-it: registry.npmmirror.com/markdown-it/13.0.1
     dev: false
 
-  registry.npmmirror.com/markdown-it-attrs/4.1.4_markdown-it@13.0.1:
+  registry.npmmirror.com/markdown-it-attrs/4.1.4:
     resolution: {integrity: sha512-53Zfv8PTb6rlVFDlD106xcZHKBSsRZKJ2IW/rTxEJBEVbVaoxaNsmRkG0HXfbHl2SK8kaxZ2QKqdthWy/QBwmA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/markdown-it-attrs/-/markdown-it-attrs-4.1.4.tgz}
-    id: registry.npmmirror.com/markdown-it-attrs/4.1.4
     name: markdown-it-attrs
     version: 4.1.4
     engines: {node: '>=6'}
     peerDependencies:
       markdown-it: '>= 9.0.0'
-    dependencies:
-      markdown-it: registry.npmmirror.com/markdown-it/13.0.1
     dev: false
 
   registry.npmmirror.com/markdown-it-bracketed-spans/1.0.1:
@@ -11919,6 +11926,12 @@ packages:
     version: 4.0.0
     engines: {node: '>=8'}
     dev: true
+
+  registry.npmmirror.com/ua-parser-js/1.0.2:
+    resolution: {integrity: sha512-00y/AXhx0/SsnI51fTc0rLRmafiGOM4/O+ny10Ps7f+j/b8p/ZY11ytMgznXkOVo4GQ+KwQG5UQLkLGirsACRg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ua-parser-js/-/ua-parser-js-1.0.2.tgz}
+    name: ua-parser-js
+    version: 1.0.2
+    dev: false
 
   registry.npmmirror.com/uc.micro/1.0.6:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/uc.micro/-/uc.micro-1.0.6.tgz}
