@@ -9,6 +9,8 @@ import {assignDefaultLocaleOptions, assignPostcssConfig} from './utils'
 import * as CRC32 from "crc-32";
 import * as moment from "moment";
 import * as matter from "gray-matter";
+import * as striptags from 'striptags'
+import algoliasearch from "algoliasearch";
 
 const {check, add} = require('./abbr/check')
 
@@ -21,10 +23,10 @@ export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
 }
 
 export const sakuraTheme = ({
-                              themePlugins = {},
                               ...localeOptions
                             }: SakuraThemeOptions = {}): Theme => {
   assignDefaultLocaleOptions(localeOptions)
+  const {themePlugins} = localeOptions
   return {
     name: '@vuepress/theme-default',
 
@@ -158,7 +160,8 @@ export const sakuraTheme = ({
       for (let page of pages) {
         let categories
         let tags
-
+        // @ts-ignore
+        page.published = true
         categories = page.frontmatter.categories || [];
         delete page.frontmatter.categories;
 
@@ -179,7 +182,7 @@ export const sakuraTheme = ({
           page.frontmatter.id = post._id
         ]);
       }
-      const posts = database.model('Post').find({'sticky': {$exists: false}}).sort('-date').toArray().slice(0,10).map(s => {
+      const stickyPosts = database.model('Post').find({'sticky': {$exists: false}}).sort('-date').toArray().slice(0, 10).map(s => {
         return {
           title: s.title,
           contentRendered: s.contentRendered,
@@ -223,7 +226,7 @@ export const sakuraTheme = ({
             layout: 'IndexLayout',
             title: `= ${app.siteData.title} =`,
             stickyList: app.pages.filter(_ => _.frontmatter?.sticky),
-            posts: posts
+            posts: stickyPosts
           },
         })
       )
@@ -235,10 +238,103 @@ export const sakuraTheme = ({
             layout: 'ArchiveLayout',
             title: `= ${app.siteData.title} =`,
             stickyList: app.pages.filter(_ => _.frontmatter?.sticky),
-            posts: posts
           },
         })
       )
+      if (themePlugins?.algoliaSearch&&themePlugins.algoliaSearch.adminKey) {
+
+        //搜索
+        let posts = database.model('Post').find({
+          published: true
+        }).sort('date', 'asc').toArray();
+
+        const pick = (object, attributes) => {
+          const newObject = {
+            objectID: ''
+          };
+          attributes.forEach(attribute => {
+            if (object.hasOwnProperty(attribute)) {
+              newObject[attribute] = object[attribute];
+            }
+          });
+          return newObject;
+        };
+        const upperFirst = (string: string) => {
+          return string.charAt(0).toUpperCase() + string.slice(1);
+        };
+
+        const FILTER_FUNCTIONS = {
+          strip: striptags.striptags,
+          truncate: function truncate(post, start, end) {
+            return post.substr(start, end);
+          }
+        };
+        const preparePosts = (posts, fields, fieldsWithFilters: string[]) => {
+          const tagsAndCategoriesFields = ['tags', 'categories'].filter(field => fields.includes(field));
+          return posts.map(initialPost => {
+            const postToIndex = pick(initialPost, fields); // define a unique ID to identfy this post on Algolia
+
+            postToIndex.objectID = initialPost._id; // extract tags and categories
+
+            tagsAndCategoriesFields.forEach(field => {
+              postToIndex[field] = [];
+              initialPost[field].data.forEach(function (fieldElement) {
+                postToIndex[field].push(fieldElement.name);
+              });
+            }); // execute filters of fields
+
+            fieldsWithFilters.forEach(field => {
+              const indexedFieldName: string[] = [];
+              const fieldFilters = field.split(':');
+              const fieldName = <string>fieldFilters.shift();
+
+              if (!initialPost.hasOwnProperty(fieldName)) {
+                console.log(`"${initialPost.title}" post has no "${fieldName}" field.`);
+                return;
+              }
+
+              let fieldValue = initialPost[fieldName];
+              fieldFilters.forEach(function (filter) {
+                const filterArgs = filter.split(',');
+                const filterName = <string>filterArgs.shift();
+                indexedFieldName.push(upperFirst(filterName));
+                filterArgs.unshift(fieldValue); // execute filter on field value
+
+                // @ts-ignore
+                fieldValue = FILTER_FUNCTIONS[filterName].apply(this, filterArgs);
+              }); // store filter result in post object
+
+              postToIndex[fieldName + indexedFieldName.join('')] = fieldValue;
+            });
+            return postToIndex;
+          });
+        };
+        if (!posts.length) {
+          console.log('There is no post to index.');
+        } else {
+
+        }
+        const getBasicFields = fields => fields.filter(field => !/:/.test(field));
+        const getFieldsWithFilters = fields => fields.filter(field => /:/.test(field));
+        posts = preparePosts(posts, getBasicFields(['contentRendered:strip:truncate,0,500', 'gallery', 'permalink', 'photos', 'path', 'tags', 'title', 'categories']), getFieldsWithFilters(['contentRendered:strip:truncate,0,500', 'gallery', 'permalink', 'photos', 'path', 'tags', 'title', 'categories']))
+        const splitIntoChunks = <T>(array: T[], chunkSize: number) => {
+          const newArrays = array.slice(0);
+          const chunks: T[][] = [];
+
+          while (newArrays.length) {
+            chunks.push(newArrays.splice(0, chunkSize));
+          }
+
+          return chunks;
+        };
+        const chunkedPosts = splitIntoChunks(posts, 5000);
+        const client = algoliasearch(themePlugins.algoliaSearch.appId, themePlugins.algoliaSearch.adminKey);
+        const index = client.initIndex('Sakura')
+        index.clearObjects();
+        // @ts-ignore
+        await Promise.all(chunkedPosts.map(posts => index.saveObjects(posts))).then(console.log).catch(console.log);
+      }
+
     },
     plugins: [
       // @vuepress/plugin-theme-data

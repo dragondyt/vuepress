@@ -4,10 +4,13 @@ import {onMounted, onUnmounted, ref} from 'vue'
 import {useThemeLocaleData} from "../composables";
 import Comment from "../components/comment/Index.vue";
 import randomPosts from '@temp/randomPosts'
+import Search from "./search/Search.vue";
+
 const isAffix = ref(false)
 const headerHeight = ref(0)
 const headerRef = ref<HTMLDivElement>()
 const wavesRef = ref<HTMLDivElement>()
+const searchRef = ref<typeof Search | null>(null)
 const siteLocaleData = useSiteLocaleData()
 const themeLocaleData = useThemeLocaleData();
 const pageData = usePageData();
@@ -23,6 +26,10 @@ function resizeHandle(e?: any): void {
   headerHeight.value =
     // @ts-ignore
     headerHightInner + wavesRef.value.getBoundingClientRect().height
+}
+
+function showSearch() {
+  searchRef.value?.showSearch()
 }
 
 onMounted(() => {
@@ -85,7 +92,7 @@ onUnmounted(() => {
         </ul>
         <ul class="inline-flex items-center justify-center">
           <li class="my-2.5 mx-2 cursor-pointer"><i class="ic i-sun text-[1.125em]"></i></li>
-          <li class="my-2.5 mx-2 cursor-pointer"><i class="ic i-search"></i></li>
+          <li class="my-2.5 mx-2 cursor-pointer" @click="showSearch"><i class="ic i-search"></i></li>
         </ul>
       </div>
     </nav>
@@ -158,6 +165,7 @@ onUnmounted(() => {
       </div>
     </div>
   </footer>
+  <Search ref="searchRef"/>
 </template>
 
 <style scoped></style>

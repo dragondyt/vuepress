@@ -4,7 +4,6 @@ import {webpackBundler} from '@vuepress/bundler-webpack'
 import {defineUserConfig} from '@vuepress/cli'
 import {googleAnalyticsPlugin} from '@vuepress/plugin-google-analytics'
 import {registerComponentsPlugin} from '@vuepress/plugin-register-components'
-import {shikiPlugin} from '@vuepress/plugin-shiki'
 import {path} from '@vuepress/utils'
 import {head} from './configs'
 
@@ -141,6 +140,11 @@ export default defineUserConfig({
       container: {
         info: true,
       },
+      algoliaSearch: {
+        appId: '5BTZLCECBW',
+        apiKey: '9472de061655eb367be386d92aa70793',
+        adminKey: process.env.ALGOLIA_ADMIN_KEY ?? ''
+      }
     },
   }),
 

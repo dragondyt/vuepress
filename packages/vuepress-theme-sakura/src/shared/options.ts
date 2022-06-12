@@ -50,6 +50,14 @@ export interface SakuraThemePluginsOptions {
    * Enable @vuepress/plugin-prismjs or not
    */
   prismjs?: boolean
+  /**
+   *
+   */
+  algoliaSearch?: {
+    appId: string
+    apiKey: string
+    adminKey: string
+  }
 }
 
 export type SakuraThemeLocaleOptions = SakuraThemeData
