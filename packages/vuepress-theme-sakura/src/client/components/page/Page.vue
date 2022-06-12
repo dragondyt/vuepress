@@ -80,7 +80,6 @@ const submitComment = async () => {
   acl.setPublicReadAccess(true)
   acl.setPublicWriteAccess(false)
   commentEntity.setACL(acl)
-  commentEntity.className = ''
   const response =  await fetch("https://ip.zxinc.org/api.php?type=json",{
     method: "GET",
     headers: {
