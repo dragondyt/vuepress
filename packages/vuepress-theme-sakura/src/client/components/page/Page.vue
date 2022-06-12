@@ -74,12 +74,13 @@ const submitComment = async () => {
   //
   // 注册子类
   AVObject.register(Comment)
-  const commentEntity = new Comment();
+  const commentEntity = new Comment("Comment");
   const acl = new ACL();
   acl.setWriteAccess('role:admin', true)
   acl.setPublicReadAccess(true)
   acl.setPublicWriteAccess(false)
   commentEntity.setACL(acl)
+  commentEntity.className = ''
   const response =  await fetch("https://ip.zxinc.org/api.php?type=json",{
     method: "GET",
     headers: {
