@@ -9,6 +9,7 @@ jobs:
     env:
       NODE_VERSION: '16'
       DOCS_GA_ID: ${{ secrets.GoogleAnalyzeId }}
+      ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@main
