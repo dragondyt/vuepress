@@ -11,6 +11,7 @@ import * as moment from "moment";
 import * as matter from "gray-matter";
 import * as striptags from 'striptags'
 import algoliasearch from "algoliasearch";
+import {sitemap} from "./sitemap";
 
 const {check, add} = require('./abbr/check')
 
@@ -335,6 +336,11 @@ export const sakuraTheme = ({
         await Promise.all(chunkedPosts.map(posts => index.saveObjects(posts))).then(console.log).catch(console.log);
       }
 
+    },
+    onGenerated: (app) => {
+      if (themePlugins?.sitemap) {
+        sitemap(app, themePlugins?.sitemap)
+      }
     },
     plugins: [
       // @vuepress/plugin-theme-data

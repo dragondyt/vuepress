@@ -144,6 +144,9 @@ export default defineUserConfig({
         appId: '5BTZLCECBW',
         apiKey: '9472de061655eb367be386d92aa70793',
         adminKey: process.env.ALGOLIA_ADMIN_KEY ?? ''
+      },
+      sitemap: {
+        hostname: 'https://blog.dragondyt.top'
       }
     },
   }),

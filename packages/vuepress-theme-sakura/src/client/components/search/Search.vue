@@ -96,7 +96,7 @@ function search() {
         total.value = r.nbHits
         result.value = r.hits
       })
-  }, 200)
+  }, 150)
 }
 
 const route = useRoute();

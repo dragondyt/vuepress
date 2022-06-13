@@ -4,7 +4,6 @@ import {usePageData} from "@vuepress/client";
 import {onMounted, ref, unref} from "vue";
 import {ACL, init, Object as AVObject, Query} from "leancloud-storage";
 import type {QueryResult} from "../../../shared";
-import * as UAParser from "ua-parser-js";
 
 class Comment extends AVObject {
   nick: string | undefined
@@ -177,7 +176,7 @@ onMounted(() => {
             <span class="mr-[0.875rem]" v-else>{{ comment.nick }}</span>
             <span class="rounded-[.125rem] py-0 px-[0.3125rem] mr-2">新朋友</span>
             <span class="inline-block text-[.75em]"><i
-              class="ic i-chrome"></i><span>{{ UAParser(comment.ua).browser.name }} {{ UAParser(comment.ua).browser?.version }}</span></span>
+              class="ic i-chrome"></i><span>{{ comment.ua }}</span></span>
             <span class="inline-block text-[.75em]"><i class="ic i-windows"></i><span>Windows 10</span></span>
           </div>
           <div class="leading-[1]">
