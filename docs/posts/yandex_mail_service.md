@@ -12,7 +12,7 @@ keywords:
   - mail
 abbrlink: c82dcf86
 date: '2020-07-30 05:54:35'
-permalink: /_posts/c82dcf86.html
+permalink: /posts/c82dcf86.html
 ---
 
 ![动漫美图](https://t1.hxzdhn.com/uploads/tu/201706/9999/8bc6588842.png)

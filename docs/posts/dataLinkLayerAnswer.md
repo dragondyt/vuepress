@@ -13,7 +13,7 @@ keywords:
   - dragondyt
 abbrlink: 589e13eb
 date: '2020-03-17 03:22:27'
-permalink: /_posts/589e13eb.html
+permalink: /posts/589e13eb.html
 ---
 ## 第三章  数据链路层
 一、选择题

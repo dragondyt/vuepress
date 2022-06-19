@@ -16,7 +16,7 @@ keywords:
   - 检索途径
 abbrlink: 2157fe1d
 date: '2020-05-07 05:55:57'
-permalink: /_posts/2157fe1d.html
+permalink: /posts/2157fe1d.html
 ---
 
 ![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/220935-14964989754669.jpg)

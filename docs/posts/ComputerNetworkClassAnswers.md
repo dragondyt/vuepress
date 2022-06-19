@@ -14,7 +14,7 @@ keywords:
   - dragondyt
 abbrlink: 5eef9793
 date: '2020-03-16 03:22:27'
-permalink: /_posts/5eef9793.html
+permalink: /posts/5eef9793.html
 ---
 ## 第二章  物理层
 一、 选择题

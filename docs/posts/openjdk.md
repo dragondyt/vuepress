@@ -9,7 +9,7 @@ keywords:
   - win10下编译以及调试openjdk
 abbrlink: 9c47706b
 date: '2020-12-06 01:00:19'
-permalink: /_posts/9c47706b.html
+permalink: /posts/9c47706b.html
 ---
 
 ![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/s1200)

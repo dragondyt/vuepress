@@ -10,7 +10,7 @@ keywords:
   - 安卓
 abbrlink: aa3015f4
 date: '2020-06-04 18:54:35'
-permalink: /_posts/aa3015f4.html
+permalink: /posts/aa3015f4.html
 ---
 
 ![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/5ed0bfdf3318a.jpg)
