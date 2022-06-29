@@ -217,6 +217,103 @@ function symbolsTime(post: string, awl = 4, wpm = 275, suffix = 'mins.') {
           </article>
         </div>
       </div>
+      <nav class="w-full py-5 px-[3.125rem] text-center inline-block">
+        <div class="mx-auto my-0 w-auto rounded-[0.9375rem]">
+          <RouterLink
+            v-if="prevNext && current > 1"
+            class="ml-0 inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+            :to="`/page/${current - 1}`"
+          >
+            <i class="ic i-angle-left"></i>
+          </RouterLink>
+          <template v-for="i in leftEnd" :key="i">
+            <span
+              v-if="i === current"
+              class="inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+              >{{ i }}</span
+            >
+            <RouterLink
+              v-else
+              class="inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+              :to="i === 1 ? '/' : `/page/${i}`"
+            >
+              {{ i }}
+            </RouterLink>
+          </template>
+          <template v-if="current - endSize - midSize > 1">
+            <span class="m-0 p-0 inline-block relative rounded-[0.3125rem]"
+              >...</span
+            >
+          </template>
+          <template
+            v-for="i in current - leftMid"
+            v-if="leftMid > leftEnd"
+            :key="i"
+          >
+            <span
+              v-if="i + leftMid === current"
+              class="inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+              >{{ i + leftMid }}</span
+            >
+            <RouterLink
+              v-else
+              class="inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+              :to="i + leftMid === 1 ? '/' : `/page/${i + leftMid}`"
+              >{{ i + leftMid }}
+            </RouterLink>
+          </template>
+
+          <span
+            class="inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+            >{{ current }}</span
+          >
+
+          <template v-for="i in rightMid - current" v-if="rightMid < rightEnd">
+            <span
+              v-if="i + current === current"
+              class="inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+              >{{ i + current }}</span
+            >
+            <RouterLink
+              v-else
+              class="inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+              :to="i + current === 1 ? '/' : `/page/${i + current}`"
+              >{{ i + current }}
+            </RouterLink>
+          </template>
+
+          <template v-if="total - endSize - midSize > current">
+            <span class="m-0 p-0 inline-block relative rounded-[0.3125rem]"
+              >...</span
+            >
+          </template>
+
+          <template
+            v-for="i in total - rightEnd + 1"
+            v-if="rightMid < rightEnd"
+          >
+            <span
+              v-if="i + rightEnd - 1 === current"
+              class="inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+              >{{ i + rightEnd - 1 }}</span
+            >
+            <RouterLink
+              v-else
+              class="inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+              :to="i + rightEnd - 1 === 1 ? '/' : `/page/${i + rightEnd - 1}`"
+              >{{ i + rightEnd - 1 }}
+            </RouterLink>
+          </template>
+
+          <RouterLink
+            v-if="prevNext && current < total"
+            class="ml-0 inline-block my-0 mx-2 py-0 px-3 relative rounded-[0.3125rem]"
+            :to="`/page/${current + 1}`"
+          >
+            <i class="ic i-angle-right"></i>
+          </RouterLink>
+        </div>
+      </nav>
     </template>
     <template #sidebar="scope">
       <div

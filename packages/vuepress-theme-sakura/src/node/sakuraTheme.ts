@@ -1,3 +1,4 @@
+import * as util from 'util'
 import type { Page, Theme } from '@vuepress/core'
 import { createPage, resolvePageContent } from '@vuepress/core'
 import { themeDataPlugin } from '@vuepress/plugin-theme-data'
@@ -22,7 +23,6 @@ import { sitemap } from './sitemap'
 import { assignDefaultLocaleOptions, assignPostcssConfig } from './utils'
 // @ts-ignore
 const { check, add } = require('./abbr/check')
-
 export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
   /**
    * To avoid confusion with the root `plugins` option,
@@ -249,19 +249,47 @@ export const sakuraTheme = ({
             })
         )}`
       )
+      // 初始化首页以及分页
+      const posts = database
+        .model('Post')
+        .find({ sticky: { $exists: false } })
+        .sort('-date')
+      const length = posts.length
+      const perPage = 10
+      const total = perPage ? Math.ceil(length / perPage) : 1
+      const urlCache = {}
 
-      app.pages.push(
-        await createPage(app, {
-          path: '/',
-          content: '',
-          frontmatter: {
-            layout: 'IndexLayout',
-            title: `= ${app.siteData.title} =`,
-            stickyList: app.pages.filter((_) => _.frontmatter?.sticky),
-            posts: stickyPosts,
-          },
-        })
-      )
+      function formatURL(i) {
+        if (urlCache[i]) return urlCache[i]
+
+        let url = app.siteData.base
+        if (i > 1) url += util.format('page/%d/', i)
+        urlCache[i] = url
+
+        return url
+      }
+
+      for (let i = 1; i <= total; i++) {
+        app.pages.push(
+          await createPage(app, {
+            path: formatURL(i),
+            content: '',
+            frontmatter: {
+              layout: 'IndexLayout',
+              title: `= ${app.siteData.title} =`,
+              stickyList: app.pages.filter((_) => _.frontmatter?.sticky),
+              posts: stickyPosts,
+              prev: i > 1 ? i - 1 : 0,
+              prevNext: i > 1 ? formatURL(i) : '',
+              next: i < total ? i + 1 : 0,
+              next_link: i < total ? formatURL(i) : '',
+              current: i,
+              total,
+            },
+          })
+        )
+      }
+      // 归档页面
       app.pages.push(
         await createPage(app, {
           path: '/archives',
