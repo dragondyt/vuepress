@@ -19,7 +19,7 @@
     "@vuepress/plugin-register-components": "2.0.0-beta.46",
     "@vuepress/plugin-shiki": "2.0.0-beta.46",
     "@vuepress/utils": "2.0.0-beta.46",
-    "sass-loader": "^13.0.0",
+    "sass-loader": "^13.0.2",
     "serve": "^13.0.2"
   }
 }
