@@ -2,9 +2,9 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof  import('vue-router')['RouterView']
-    Content: typeof  import('@vuepress/client')['Content']
-    ClientOnly: typeof  import('@vuepress/client')['ClientOnly']
+    RouterView: typeof import('vue-router')['RouterView']
+    Content: typeof import('@vuepress/client')['Content']
+    ClientOnly: typeof import('@vuepress/client')['ClientOnly']
   }
 }
 
@@ -15,7 +15,7 @@ declare module '@images/*' {
 }
 
 declare module '@temp/*' {
-  import type {Page} from "@vuepress/core";
+  import type { Page } from '@vuepress/core'
   const comp: Array<Page>
   export default comp
 }

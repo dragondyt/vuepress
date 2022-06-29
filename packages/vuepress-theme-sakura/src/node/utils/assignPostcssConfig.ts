@@ -1,4 +1,4 @@
-import type {App} from '@vuepress/core'
+import type { App } from '@vuepress/core'
 
 export const assignPostcssConfig = (bundlerOptions: any, app: App): void => {
   const tailwindConfig = {
@@ -39,8 +39,8 @@ export const assignPostcssConfig = (bundlerOptions: any, app: App): void => {
             postcss: postcssConfig,
           },
           resolve: {
-            dedupe: ['vue']
-          }
+            dedupe: ['vue'],
+          },
         },
       })
       break
