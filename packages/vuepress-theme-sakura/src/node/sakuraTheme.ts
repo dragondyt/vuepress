@@ -278,7 +278,7 @@ export const sakuraTheme = ({
               layout: 'IndexLayout',
               title: `= ${app.siteData.title} =`,
               stickyList: app.pages.filter((_) => _.frontmatter?.sticky),
-              posts: stickyPosts,
+              posts: stickyPosts.slice(perPage * (i - 1), perPage * i),
               prev: i > 1 ? i - 1 : 0,
               prevNext: i > 1 ? formatURL(i) : '',
               next: i < total ? i + 1 : 0,

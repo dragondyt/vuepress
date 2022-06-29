@@ -10,6 +10,16 @@ onMounted(() => {
 })
 const pageData = usePageData()
 
+const prevNext = ref(pageData.value.frontmatter.prevNext)
+const current = ref(pageData.value.frontmatter.current)
+const total = ref(pageData.value.frontmatter.total)
+const endSize = 1;
+const midSize = 1;
+const leftEnd = current.value <= endSize ? current.value - 1 : endSize;
+const rightEnd = total.value - current.value <= endSize ? current.value + 1 : total.value - endSize + 1;
+const leftMid = current.value - midSize <= endSize ? leftEnd + 1 : current.value - midSize;
+const rightMid = current.value + midSize + endSize > total ? rightEnd - 1 : current.value + midSize;
+
 function count(post: string) {
   let symbolsResult = ''
   if (post.length > 9999) {
