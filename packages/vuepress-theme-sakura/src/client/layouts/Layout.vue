@@ -25,24 +25,24 @@ onMounted(() => {
     </template>
     <template #sidebar="scope">
       <div
-        class="w-[15rem] text-center flex justify-around items-start flex-wrap z-[1] my-0 mx-auto"
+        class="z-[1] my-0 mx-auto flex w-[15rem] flex-wrap items-start justify-around text-center"
         :class="[scope.isAffix ? 'fixed top-0' : 'relative']"
       >
-        <ul class="absolute inline-flex m-0 pt-[1.875rem] px-0 pb-2.5">
+        <ul class="absolute m-0 inline-flex px-0 pt-[1.875rem] pb-2.5">
           <li
-            class="cursor-pointer inline-flex text-[0.875rem] py-[0.3125rem] px-[0.9375rem] rounded-[0.625rem] text-center"
+            class="inline-flex cursor-pointer rounded-[0.625rem] py-[0.3125rem] px-[0.9375rem] text-center text-[0.875rem]"
             @click="tabName = 'contents'"
           >
             <span>文章目录</span>
           </li>
           <li
-            class="cursor-pointer inline-flex text-[0.875rem] py-[0.3125rem] px-[0.9375rem] rounded-[0.625rem] text-center my-auto mx-2.5"
+            class="my-auto mx-2.5 inline-flex cursor-pointer rounded-[0.625rem] py-[0.3125rem] px-[0.9375rem] text-center text-[0.875rem]"
             @click="tabName = 'related'"
           >
             <span>系列文章</span>
           </li>
           <li
-            class="cursor-pointer inline-flex text-[0.875rem] py-[0.3125rem] px-[0.9375rem] rounded-[0.625rem] text-center"
+            class="inline-flex cursor-pointer rounded-[0.625rem] py-[0.3125rem] px-[0.9375rem] text-center text-[0.875rem]"
             @click="tabName = 'overview'"
           >
             <span>站点概览</span>
@@ -50,13 +50,13 @@ onMounted(() => {
         </ul>
         <div
           :style="{ height: panelsHeight + 'px' }"
-          class="pt-[4.6875rem] px-0 pb-8 w-full overflow-hidden"
+          class="w-full overflow-hidden px-0 pt-[4.6875rem] pb-8"
         >
           <div
-            class="overflow-x-hidden overflow-y-auto w-auto h-full my-0 mx-auto"
+            class="my-0 mx-auto h-full w-auto overflow-y-auto overflow-x-hidden"
           >
             <div
-              class="pt-[.875rem] px-[.9375rem] pb-8"
+              class="px-[.9375rem] pt-[.875rem] pb-8"
               :class="[tabName === 'contents' ? 'block' : 'hidden']"
             >
               <Toc :headers="pageData.headers" />

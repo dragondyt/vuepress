@@ -35,8 +35,8 @@
   },
   "prettier": "prettier-config-vuepress",
   "devDependencies": {
-    "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^17.0.2",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@types/jest": "^27.5.2",
     "@types/node": "^17.0.45",
     "@types/webpack-env": "^1.17.0",

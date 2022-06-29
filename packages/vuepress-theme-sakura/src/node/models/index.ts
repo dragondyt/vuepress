@@ -1,5 +1,5 @@
-exports.Post = require('./post');
-exports.Category = require('./category');
-exports.PostCategory = require('./postCategory');
-exports.PostTag = require('./postTag');
-exports.Tag = require('./tag');
+exports.Post = require('./post')
+exports.Category = require('./category')
+exports.PostCategory = require('./postCategory')
+exports.PostTag = require('./postTag')
+exports.Tag = require('./tag')

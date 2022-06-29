@@ -1,11 +1,5 @@
-<template>
-  ArchiveLayout
-</template>
+<script lang="ts" setup></script>
 
-<script lang="ts" setup>
+<template>ArchiveLayout</template>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

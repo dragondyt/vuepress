@@ -2,14 +2,14 @@
 
 <template>
   <div class="md">
-    <Content/>
+    <Content />
   </div>
 </template>
 
 <style lang="postcss">
 .md {
   font-family: Mulish, -apple-system, 'PingFang SC', 'Microsoft YaHei',
-  sans-serif;
+    sans-serif;
   overflow-wrap: break-word;
   word-wrap: break-word;
 
@@ -78,7 +78,7 @@
       border: 0.0625rem solid;
       padding: 0.2rem 0.3rem;
       font-family: Inconsolata, consolas, Menlo, -apple-system, 'PingFang SC',
-      'Microsoft YaHei';
+        'Microsoft YaHei';
       font-size: 1em;
       background: var(--note-bg, var(--grey-2));
       border-color: var(--note-border, var(--grey-4));
@@ -98,7 +98,7 @@
 
     li {
       &::before {
-        transition: all .2s ease-in-out 0s;
+        transition: all 0.2s ease-in-out 0s;
       }
 
       &.task-list-item {
@@ -116,7 +116,7 @@
 
     & > li {
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         width: 0.4em;
         height: 0.4em;
@@ -133,10 +133,14 @@
     color: transparent;
   }
 
-  .kbd,kbd {
-
+  .kbd,
+  kbd {
     background-color: var(--grey-1);
-    background-image: linear-gradient(var(--grey-2), var(--grey-0), var(--grey-2));
+    background-image: linear-gradient(
+      var(--grey-2),
+      var(--grey-0),
+      var(--grey-2)
+    );
     border: 0.0625rem solid var(--grey-4);
     border-radius: 0.2rem;
     box-shadow: 0.1rem 0.1rem 0.2rem var(--grey-9-a1);
@@ -320,7 +324,18 @@
   }
 
   .rainbow {
-    background-image: linear-gradient(to left, #ff4500, orange, gold, #90ee90, #0ff, #1e90ff, #9370db, #ff69b4, #ff4500);
+    background-image: linear-gradient(
+      to left,
+      #ff4500,
+      orange,
+      gold,
+      #90ee90,
+      #0ff,
+      #1e90ff,
+      #9370db,
+      #ff69b4,
+      #ff4500
+    );
     background-size: 110vw;
     background-clip: text;
     color: transparent;
@@ -330,7 +345,7 @@
     background-color: var(--text-color);
     color: var(--text-color);
     text-shadow: none;
-    transition: color .3s;
+    transition: color 0.3s;
     padding: 0 0.1875rem;
   }
   .tabs {
@@ -345,7 +360,7 @@
     table {
       border-collapse: collapse;
       border-spacing: 0;
-      font-size: .875em;
+      font-size: 0.875em;
       margin: 0 0 1.25rem 0;
       width: 100%;
       overflow: auto;
