@@ -21,5 +21,8 @@
     "@vuepress/utils": "2.0.0-beta.48",
     "sass-loader": "^13.0.0",
     "serve": "^13.0.2"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-pwa": "2.0.0-beta.48"
   }
 }

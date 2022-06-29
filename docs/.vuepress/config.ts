@@ -6,6 +6,7 @@ import {googleAnalyticsPlugin} from '@vuepress/plugin-google-analytics'
 import {registerComponentsPlugin} from '@vuepress/plugin-register-components'
 import {path} from '@vuepress/utils'
 import {head} from './configs'
+import {pwaPlugin} from "@vuepress/plugin-pwa";
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -170,6 +171,9 @@ export default defineUserConfig({
     }),
     registerComponentsPlugin({
       componentsDir: path.resolve(__dirname, './components'),
+    }),
+    pwaPlugin({
+      // 配置项
     }),
     // only enable shiki plugin in production mode
     // isProd ? shikiPlugin({ theme: 'dark-plus' }) : [],
