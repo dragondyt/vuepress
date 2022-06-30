@@ -16,9 +16,25 @@ onMounted(() => {
 <template>
   <SakuraLayout>
     <template #header>
-      <h1 class="text-[2.5em] tracking-[0.125rem]">
+      <h1 class="text-[1.5em] tracking-[0.125rem]">
         {{ pageData.title }}
       </h1>
+      <div class="m-0 flex text-[0.75em]">
+        <span class="item">
+          <span class="icon"><i class="ic i-calendar"></i> </span>
+          <span class="hidden">发表于</span> <time>2020-08-13</time>
+        </span>
+        <span class="ml-2.5" title="本文字数">
+          <span class="icon"><i class="ic i-pen"></i></span>
+          <span class="hidden">本文字数</span>
+          <span>2.2k</span> <span class="text">字</span>
+        </span>
+        <span class="ml-2.5">
+          <span class="icon"><i class="ic i-clock"></i></span>
+          <span class="hidden">阅读时长</span>
+          <span>2 分钟</span>
+        </span>
+      </div>
     </template>
     <template #content>
       <Page />

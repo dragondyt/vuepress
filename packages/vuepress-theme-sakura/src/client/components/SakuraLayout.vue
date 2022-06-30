@@ -28,11 +28,12 @@ function resizeHandle(e?: any): void {
     headerHightInner + wavesRef.value.getBoundingClientRect().height
 }
 
-function showSearch() {
+function showSearch(): void {
   searchRef.value?.showSearch()
 }
 
 onMounted(() => {
+  document.body.classList.add('loaded')
   resizeHandle()
   window.addEventListener('scroll', scrollHandle)
   window.addEventListener('resize', resizeHandle)
@@ -40,92 +41,137 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', scrollHandle)
+  window.removeEventListener('resize', resizeHandle)
 })
 </script>
 
 <template>
-  <header ref="headerRef" class="relative my-0 mx-auto h-[50vh] w-full">
+  <header
+    ref="headerRef"
+    class="relative my-0 mx-auto h-[50vh] w-full"
+    style="
+      text-shadow: 0 0.2rem 0.3rem rgb(0 0 0 / 50%);
+      color: var(--header-text-color);
+    "
+  >
     <div class="mx-auto my-0 w-full">
       <div
-        class="fixed flex h-[50vh] min-h-[10rem] w-full flex-col items-center justify-center px-20 pt-12 pb-0 text-center"
         :class="[isAffix ? 'z-[-1]' : '']"
+        class="fixed flex h-[50vh] min-h-[10rem] w-full flex-col items-center justify-center px-2 pt-12 pb-0 text-center"
       >
         <div class="flex flex-col items-center justify-center">
           <slot name="header">
             <RouterLink :to="siteLocaleData.base" rel="start">
               <p
                 v-if="siteLocaleData.alternate"
-                class="text-[3.5em] leading-[1.2]"
+                class="text-[2.5em] leading-[1.2]"
+                style=""
               >
                 {{ siteLocaleData.alternate }}
               </p>
-              <h1 class="my-2.5 mx-0 text-[2.5em] tracking-[0.125rem]">
+              <h1 class="title my-2.5 mx-0 text-[1.5em] tracking-[0.125rem]">
                 {{ siteLocaleData.title }}
               </h1>
             </RouterLink>
-            <p
-              v-if="siteLocaleData.description"
-              class="m-0 flex text-[0.875em]"
-            >
+            <p v-if="siteLocaleData.description" class="m-0 flex text-[.75em]">
               = {{ siteLocaleData.description }} =
             </p>
           </slot>
         </div>
       </div>
+      <nav
+        class="fixed z-[9] h-[3.125rem] w-full"
+        style="transition: all 0.2s ease-in-out 0s"
+      >
+        <div
+          class="my-0 mx-auto flex h-full w-[72.5rem] flex-nowrap"
+          style="width: calc(100% - 0.625rem)"
+        >
+          <div
+            class="flex cursor-pointer flex-col items-center justify-center leading-[0]"
+          >
+            <div class="w-[1.375rem] p-5" style="box-sizing: unset">
+              <span
+                v-for="i in 3"
+                :key="i"
+                class="relative left-0 top-0 inline-block h-[0.125rem] w-full rounded-[0.0625rem] align-top"
+                :class="{ 'mt-[0.1875rem]': i > 0 }"
+                style="
+                  background: var(--header-text-color);
+                  transition: all 0.4s;
+                  box-shadow: 0 0 0.5rem rgb(0 0 0 / 50%);
+                "
+              ></span>
+            </div>
+          </div>
+          <ul class="m-0 w-full py-2.5 px-0">
+            <li
+              class="relative block py-0 px-2.5 text-center tracking-[.0625rem]"
+            >
+              <RouterLink :to="siteLocaleData.base" rel="start"
+                >{{ siteLocaleData.alternate || siteLocaleData.title }}
+              </RouterLink>
+            </li>
+            <template v-if="themeLocaleData.navbar">
+              <li
+                v-for="nav in themeLocaleData.navbar"
+                :key="nav.name"
+                class="relative hidden py-0 px-2.5 text-center tracking-[.0625rem]"
+              >
+                <RouterLink :to="nav.path || pageData.path">
+                  <i :class="`ic i-${nav.icon}`"></i>
+                  {{ nav.name }}
+                </RouterLink>
+              </li>
+            </template>
+          </ul>
+          <ul class="inline-flex items-center justify-center">
+            <li class="cursor-pointer py-2.5 px-2">
+              <i class="ic i-sun text-[1.125em]"></i>
+            </li>
+            <li class="cursor-pointer py-2.5 px-2" @click="showSearch">
+              <i class="ic i-search"></i>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </div>
-    <nav class="fixed z-[9] h-[3.125rem] w-full">
-      <div class="my-0 mx-auto flex h-full w-[72.5rem] flex-nowrap">
-        <ul class="m-0 w-full py-2.5 px-0">
-          <li
-            class="relative inline-block py-0 px-2.5 text-center tracking-[0.0625rem]"
-          >
-            <RouterLink :to="siteLocaleData.base" rel="start"
-              >{{ siteLocaleData.alternate || siteLocaleData.title }}
-            </RouterLink>
-          </li>
-          <li
-            v-for="nav in themeLocaleData.navbar"
-            v-if="themeLocaleData.navbar"
-            :key="nav.name"
-            class="relative inline-block py-0 px-2.5 text-center tracking-[0.0625rem]"
-          >
-            <RouterLink :to="nav.path || pageData.path">
-              <i :class="`ic i-${nav.icon}`"></i>
-              {{ nav.name }}
-            </RouterLink>
-          </li>
-        </ul>
-        <ul class="inline-flex items-center justify-center">
-          <li class="my-2.5 mx-2 cursor-pointer">
-            <i class="ic i-sun text-[1.125em]"></i>
-          </li>
-          <li class="my-2.5 mx-2 cursor-pointer" @click="showSearch">
-            <i class="ic i-search"></i>
-          </li>
-        </ul>
-      </div>
-    </nav>
   </header>
   <div ref="wavesRef">
-    <div
-      class="relative mb-[-0.6875rem] h-[15vh] max-h-[9.375rem] min-h-[3.125rem] w-full"
-    ></div>
+    <svg
+      class="relative mb-[-0.6875rem] h-[10vh] max-h-[9.375rem] min-h-[3.125rem] w-full"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="0 24 150 28"
+      preserveAspectRatio="none"
+      shape-rendering="auto"
+    >
+      <defs>
+        <path
+          id="gentle-wave"
+          d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+        />
+      </defs>
+      <g class="parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" />
+        <use xlink:href="#gentle-wave" x="48" y="3" />
+        <use xlink:href="#gentle-wave" x="48" y="5" />
+        <use xlink:href="#gentle-wave" x="48" y="7" />
+      </g>
+    </svg>
   </div>
   <main
     style="
-      background: linear-gradient(
-          to top,
-          var(--body-bg-shadow) 0,
-          var(--grey-1) 20%
-        )
-        no-repeat bottom;
+      background: linear-gradient(to top,var(--body-bg-shadow) 0,var(--grey-1) 20%) no-repeat bottom;
     "
   >
-    <div class="my-0 mx-auto flex w-[72.5rem] items-start justify-between">
+    <div
+      class="my-0 mx-auto flex items-start justify-between"
+      style="width: calc(100% - 0.625rem)"
+    >
       <div
-        class="min-h-[37.5rem]"
+        class="min-h-[37.5rem] w-full"
         style="
-          width: calc(100% - 15.75rem);
           background: linear-gradient(
               to top,
               var(--grey-0) 0,
@@ -137,32 +183,46 @@ onUnmounted(() => {
       >
         <slot name="content" />
       </div>
-      <div class="static top-0 bottom-0 w-[15rem]">
+      <div
+        class="fixed right-0 top-0 bottom-0 z-[99] hidden w-[15rem]"
+        style="
+          background: var(--grey-1);
+          box-shadow: 0 0.375rem 0.9375rem 0.3125rem rgb(0 0 0 / 20%);
+          transition: all 0.2s ease-in-out 0s;
+        "
+      >
         <slot name="sidebar" v-bind="{ isAffix }" />
       </div>
     </div>
   </main>
-  <footer class="text-[0.875em]">
-    <div class="relative my-0 mx-auto w-[72.5rem] pr-[16.25rem]">
-      <div class="z-[1] flex justify-around">
-        <div class="p-4" style="width: calc(50% - 2rem)">
+  <footer
+    class="text-[.875em]"
+    style="color: var(--grey-5); background: var(--body-bg-shadow)"
+  >
+    <div class="relative my-0 mx-auto w-auto px-0">
+      <div
+        class="z-[1] flex flex-col-reverse justify-around"
+        style="background: var(--body-bg-shadow)"
+      >
+        <div style="width: calc(100% - 1rem)" class="p-4">
           <h2>随机文章</h2>
           <ul style="counter-reset: counter">
             <li
               v-for="post in randomPosts"
               :key="post.path"
               class="relative py-2 pl-8 pr-0"
+              style="border-bottom: 0.0625rem dashed var(--grey-4)"
             >
               <div
                 class="m-0 flex max-h-[1.2rem] flex-wrap items-center overflow-hidden text-ellipsis whitespace-nowrap text-[.8125em]"
               >
                 <template v-for="(c, index) in post.categories" :key="c.path">
-                  <RouterLink :to="`/categories/${c.path}`">{{
-                    c.name
-                  }}</RouterLink>
+                  <RouterLink :to="`/categories/${c.path}`"
+                    >{{ c.name }}
+                  </RouterLink>
                   <i
                     v-if="index !== post.categories.length - 1"
-                    class="ic i-angle-right"
+                    class="ic i-angle-right my-0 mx-[0.125rem]"
                   ></i>
                 </template>
               </div>
@@ -189,9 +249,7 @@ onUnmounted(() => {
           <span><i class="ic i-coffee"></i> </span>
           <span title="站点阅读时长">27:33</span>
         </div>
-        <div class="mb-[.625rem] inline-block">
-          基于Vuepress 2 & Theme.Sakura
-        </div>
+        <div class="mb-2.5 inline-block">基于Vuepress 2 & Theme.Sakura</div>
       </div>
     </div>
   </footer>
