@@ -21,6 +21,7 @@ import {
 } from './plugins'
 import { sitemap } from './sitemap'
 import { assignDefaultLocaleOptions, assignPostcssConfig } from './utils'
+import {initArchivePages} from "./init";
 // @ts-ignore
 const { check, add } = require('./abbr/check')
 export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
@@ -290,17 +291,7 @@ export const sakuraTheme = ({
         )
       }
       // 归档页面
-      app.pages.push(
-        await createPage(app, {
-          path: '/archives',
-          content: '',
-          frontmatter: {
-            layout: 'ArchiveLayout',
-            title: `= ${app.siteData.title} =`,
-            stickyList: app.pages.filter((_) => _.frontmatter?.sticky),
-          },
-        })
-      )
+      await initArchivePages(app, database, posts)
       if (themePlugins?.algoliaSearch && themePlugins.algoliaSearch.adminKey) {
         // 搜索
         let posts = database

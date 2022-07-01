@@ -4,6 +4,7 @@ import { usePageData, useSiteLocaleData } from '@vuepress/client'
 import { onMounted, onUnmounted, ref } from 'vue'
 import Comment from '../components/comment/Index.vue'
 import { useThemeLocaleData } from '../composables'
+import { transition } from '../utils'
 import Search from './search/Search.vue'
 
 const isAffix = ref(false)
@@ -11,6 +12,7 @@ const headerHeight = ref(0)
 const headerRef = ref<HTMLDivElement>()
 const wavesRef = ref<HTMLDivElement>()
 const searchRef = ref<typeof Search | null>(null)
+const sideBarRef = ref<HTMLDivElement>()
 const siteLocaleData = useSiteLocaleData()
 const themeLocaleData = useThemeLocaleData()
 const pageData = usePageData()
@@ -30,6 +32,21 @@ function resizeHandle(e?: any): void {
 
 function showSearch(): void {
   searchRef.value?.showSearch()
+}
+
+function sideBarToggleHandle(): void {
+  const sideBar = sideBarRef.value
+  if (!sideBar) {
+    return
+  }
+  if (sideBar.classList.contains('on')) {
+    sideBar.classList.remove('on')
+    transition(sideBar, 'slideRightOut')
+  } else {
+    transition(sideBar, 'slideRightIn', function () {
+      sideBar.classList.add('on')
+    })
+  }
 }
 
 onMounted(() => {
@@ -89,6 +106,7 @@ onUnmounted(() => {
         >
           <div
             class="flex cursor-pointer flex-col items-center justify-center leading-[0]"
+            @click="sideBarToggleHandle"
           >
             <div class="w-[1.375rem] p-5" style="box-sizing: unset">
               <span
@@ -162,7 +180,12 @@ onUnmounted(() => {
   </div>
   <main
     style="
-      background: linear-gradient(to top,var(--body-bg-shadow) 0,var(--grey-1) 20%) no-repeat bottom;
+      background: linear-gradient(
+          to top,
+          var(--body-bg-shadow) 0,
+          var(--grey-1) 20%
+        )
+        no-repeat bottom;
     "
   >
     <div
@@ -184,6 +207,7 @@ onUnmounted(() => {
         <slot name="content" />
       </div>
       <div
+        ref="sideBarRef"
         class="fixed right-0 top-0 bottom-0 z-[99] hidden w-[15rem]"
         style="
           background: var(--grey-1);
