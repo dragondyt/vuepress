@@ -93,7 +93,7 @@ export function markdownItPrism(md: Markdown, options = {}): void {
         if (command) {
           content += `<td data-command="${command[lineno] || ''}"></td>`
         }
-        content += `<td>${htmlUnescape(line)}</td></tr>`
+        content += `<td>${line}</td></tr>`
       }
       let result = `<figure class="highlight">`
 
