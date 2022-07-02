@@ -32,14 +32,14 @@ permalink: /posts/aa3015f4.html
 [菜鸟教程](https://www.runoob.com/w3cnote/android-tutorial-decompile-apk-get-code-resources.html)~~的[三个工具](http://static.runoob.com/download/%E5%8F%8D%E7%BC%96%E8%AF%91%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B7%A5%E5%85%B7.zip)~~,版本低,
 3. 我使用的[三个工具](https://pan.baidu.com/s/1Lox7zYgUyfeB5H0i3aFxZw) 密码：7uyi
 ### 开始反编译
-```cmd
+```bash
 apktool.bat d base.apk
 ```
 ![Could not decode arsc file](https://i.loli.net/2020/06/04/ZXokSryDnmITE6L.png)
 
 这个是由于apktool版本低导致的，下载[最新的](https://bitbucket.org/iBotPeaches/apktool/downloads/)重命名为apktool.jar替换即可
 更新最新apktool后再次执行命令，还是失败，错误信息如下：
-```cmd
+```bash
 W: Could not decode attr value, using undecoded value instead: ns=miui, name=fabColor, value=0x7f06002e
 W: Could not decode attr value, using undecoded value instead: ns=miui, name=fabColor, value=0x7f06002e
 W: Could not decode attr value, using undecoded value instead: ns=android, name=id, value=0x100b0001
@@ -62,7 +62,7 @@ Can't find framework resources for package of id: 16. You must install proper fr
 ![文件列表](https://i.loli.net/2020/06/04/9Qt8rOxRElfmUTM.png)
 
 执行一下命令安装：
-```cmd
+```bash
 apktool if framework-res.apk
 apktool if framework-ext-res.apk
 apktool if miui.apk
@@ -94,14 +94,14 @@ apktool if miui.apk
 1. 将base.apk当成压缩包打开
 2. 提取 classes.dex，classes2.dex
 执行命令：
-```cmd
+```bash
 d2j-dex2jar.bat classes.dex
 d2j-dex2jar.bat classes2.dex
 ```
 ![d2j-dex2jar.bat classes.dex](https://i.loli.net/2020/06/04/CdtOHRTqI81vZzk.png)
 这个也是版本低导致的，下载[最新的](https://github.com/pxb1988/dex2jar/releases)就可以了
 再次执行,出了新问题,我之前没遇到
-```cmd
+```bash
 C:\Users\dyt\Desktop\dex-tools-2.1-SNAPSHOT>d2j-dex2jar.bat classes.dex
 dex2jar classes.dex -> .\classes-dex2jar.jar
 Detail Error Information in File .\classes-error.zip

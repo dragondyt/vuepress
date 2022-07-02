@@ -19,7 +19,7 @@ permalink: /posts/74684463.html
 环境
 开发工具 idea
 
-```sh
+```bash
 flutter doctor
 
 D:\Android\flutter\bin\flutter.bat doctor --verbose
@@ -50,7 +50,7 @@ Process finished with exit code 0
 
 ![Could not find androidx.lifecycle:lifecycle-common:2.2.0，lifecycle-common-java8:2.2.0，lifecycle-runtime:2.2.0，androidx.fragment:fragment:1.1.0.，androidx.annotation:annotation:1.1.0.](https://i.loli.net/2020/05/09/IzAgor5ceEDQtC6.png)
 解决方法：
-```gradle
+```groovy
 allprojects {
     repositories {
         google() 
@@ -66,7 +66,7 @@ allprojects {
 
 解决方法：
 修改app下的build.gradle文件
-```gradle
+```groovy
 android {
     compileSdkVersion 28
     defaultConfig {

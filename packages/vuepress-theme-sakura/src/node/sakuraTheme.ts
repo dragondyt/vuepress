@@ -7,6 +7,7 @@ import algoliasearch from 'algoliasearch'
 import * as CRC32 from 'crc-32'
 import * as matter from 'gray-matter'
 import * as moment from 'moment'
+import { getHighlighter } from 'shiki'
 import * as striptags from 'striptags'
 import type {
   SakuraThemeLocaleOptions,
@@ -65,7 +66,13 @@ export const sakuraTheme = ({
       }
     },
 
-    extendsMarkdown: (md) => {
+    extendsMarkdown: async (md) => {
+      const highlighter = await getHighlighter({
+        theme: 'material-lighter',
+        langs: ['java', 'bash', 'sql', 'groovy', 'xml', 'yaml'],
+      })
+      md.options.highlight = (code, lang) =>
+        highlighter.codeToHtml(code, { lang })
       markdownItExcerpt(md)
       markdownItSpoiler(md, {
         title: '你知道得太多了',

@@ -19,7 +19,7 @@ permalink: /posts/c4877271.html
 ### 日常踩雷
 	新建了一个空activity项目
 
-```cmd
+```bash
 ERROR: Failed to resolve: androidx.appcompat:appcompat:1.1.0
 ERROR: Failed to resolve: androidx.test.ext:junit:1.1.1
 ERROR: Failed to resolve: androidx.test.espresso:espresso-core:3.2.0
@@ -34,7 +34,7 @@ ERROR: Failed to resolve: androidx.constraintlayout:constraintlayout:1.1.3
 删除init.gradle后,成功解决，好吧，估计问题在镜像仓库，也可能是这个配置问题，以后还是老老实实用官方源吧，虽然费时间。但出错率低。
     　　这是我的init.gradle，路径为C:\\Users\\{username}\\.gradle，建立这个文件的目的是加速依赖下载，现在看来反而是累赘，以前用着正常，现在不能用了也不知道是什么原因。
 
-```gradle
+```groovy
 allprojects{
     repositories {
         def ALIYUN_REPOSITORY_URL = 'http://maven.aliyun.com/nexus/content/groups/public'

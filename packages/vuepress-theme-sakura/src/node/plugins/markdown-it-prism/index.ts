@@ -1,6 +1,7 @@
 import type { Markdown } from '@vuepress/markdown/lib/types'
 import * as Prism from 'prismjs'
 import * as loadLanguages from 'prismjs/components/'
+import {htmlUnescape} from "@vuepress/shared";
 const { escapeHTML } = require('hexo-util')
 const pangu = require('pangu')
 const LanguagesTip = require('./lang')
@@ -75,12 +76,12 @@ export function markdownItPrism(md: Markdown, options = {}): void {
       langShow = null
     }
     if (code) {
-      code = escapeSwigTag(code)
+      // code = escapeSwigTag(code)
       const lines = code.split('\n')
       let content = ''
       for (let i = 0, len = lines.length; i < len; i++) {
-        const line = prismLang
-          ? Prism.highlight(unescapeSwigTag(lines[i]), prismLang, langToUse)
+        const line: string = prismLang
+          ? md.options.highlight?.(lines[i], langToUse, '') || lines[i]
           : lines[i]
         const lineno = Number(firstLine) + i
         if (mark && Array.isArray(mark) && mark.includes(lineno)) {
@@ -92,7 +93,7 @@ export function markdownItPrism(md: Markdown, options = {}): void {
         if (command) {
           content += `<td data-command="${command[lineno] || ''}"></td>`
         }
-        content += `<td><pre>${line}</pre></td></tr>`
+        content += `<td>${htmlUnescape(line)}</td></tr>`
       }
       let result = `<figure class="highlight">`
 

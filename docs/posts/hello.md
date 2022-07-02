@@ -20,7 +20,7 @@ permalink: /posts/e1510a47.html
  　　++这是由于存储库仍然为空引起的。存储库中没有提交，因此没有 master分支可推送到服务器。++
 网传解决方法：
 
-```sh
+```bash
 touch README
 git add README 
 git commit -m 'first commit'
@@ -31,7 +31,7 @@ git push origin master
 
 ![image.png](https://i.loli.net/2020/04/23/osObPwKIW1Nx6J2.png)
 
-```sh
+```bash
 git show-ref
 ```
 d601ecc070daac5320959ee8c47bca013a113256 refs/remotes/origin/master

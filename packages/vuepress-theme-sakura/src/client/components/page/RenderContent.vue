@@ -69,6 +69,9 @@
 
   pre {
     margin-bottom: 0;
+    &.shiki {
+      background-color: unset !important;
+    }
   }
 
   span {
