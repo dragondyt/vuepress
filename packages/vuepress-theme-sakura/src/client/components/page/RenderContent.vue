@@ -1,4 +1,120 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted } from 'vue'
+import { pageScroll } from '../../utils'
+
+onMounted(() => {
+  const elementNodeList = document.querySelectorAll('figure.highlight')
+  elementNodeList?.forEach((element) => {
+    const codeContainer: HTMLDivElement | null =
+      element.querySelector('.code-container')
+    const caption = element.querySelector('figcaption')
+    element.insertAdjacentHTML(
+      'beforeend',
+      '<div class="operation"><span class="breakline-btn"><i class="ic i-align-left"></i></span><span class="copy-btn"><i class="ic i-clipboard"></i></span><span class="fullscreen-btn"><i class="ic i-expand"></i></span></div>'
+    )
+    const copyBtn = element.querySelector('.copy-btn')
+    copyBtn?.addEventListener('click', function (event) {
+      const target = <HTMLDivElement>event.currentTarget
+      let comma = ''
+      let code = ''
+      codeContainer?.querySelectorAll('pre')?.forEach(function (line) {
+        code += comma + line.innerText
+        comma = '\n'
+      })
+      console.log(code)
+      if (target) {
+        target.querySelector<HTMLDivElement>('.ic')!.className = code
+          ? 'ic i-check'
+          : 'ic i-times'
+        target.blur()
+      }
+    })
+    copyBtn?.addEventListener('mouseleave', (event) => {
+      const target = (<HTMLDivElement>(
+        event.target
+      )).querySelector<HTMLDivElement>('.ic')
+      if (!target) {
+        return
+      }
+      setTimeout(function () {
+        target.className = 'ic i-clipboard'
+      }, 1000)
+    })
+
+    const breakBtn = element.querySelector('.breakline-btn')
+    breakBtn?.addEventListener('click', (event) => {
+      const target = (<HTMLDivElement>(
+        event.currentTarget
+      )).querySelector<HTMLDivElement>('.ic')
+      if (!target) {
+        return
+      }
+      if (element.classList.contains('breakline')) {
+        element.classList.remove('breakline')
+        target.className = 'ic i-align-left'
+      } else {
+        element.classList.add('breakline')
+        target.className = 'ic i-align-justify'
+      }
+    })
+
+    if (codeContainer && codeContainer.querySelectorAll('tr').length > 15) {
+      codeContainer.style.maxHeight = '300px'
+      codeContainer.insertAdjacentHTML(
+        'beforeend',
+        '<div class="show-btn"><i class="ic i-angle-down"></i></div>'
+      )
+      const showBtn = codeContainer.querySelector('.show-btn')
+
+      function hideCode(): void {
+        codeContainer!.style.maxHeight = '300px'
+        showBtn?.classList.remove('open')
+      }
+
+      function showCode(): void {
+        codeContainer!.style.maxHeight = ''
+        showBtn?.classList.add('open')
+      }
+
+      showBtn?.addEventListener('click', function (event) {
+        if (showBtn.classList.contains('open')) {
+          hideCode()
+          pageScroll(codeContainer)
+        } else {
+          showCode()
+        }
+      })
+
+      const fullscreenBtn = element.querySelector('.fullscreen-btn')
+      const ic = fullscreenBtn?.querySelector('.ic')
+      function removeFullscreen(): void {
+        element.classList.remove('fullscreen')
+        element.scrollTop = 0
+        document.body.classList.remove('fullscreen')
+        ic!.className = 'ic i-expand'
+      }
+      function fullscreenHandle(event): void {
+        const target = event.currentTarget
+        if (element.classList.contains('fullscreen')) {
+          removeFullscreen()
+          hideCode && hideCode()
+          pageScroll(element)
+        } else {
+          element.classList.add('fullscreen')
+          document.body.classList.add('fullscreen')
+          if (ic) {
+            ic.className = 'ic i-compress'
+          }
+          showCode && showCode()
+        }
+      }
+
+      fullscreenBtn?.addEventListener('click', fullscreenHandle)
+      caption && caption.addEventListener('click', fullscreenHandle)
+    }
+  })
+})
+</script>
 
 <template>
   <div class="md">
@@ -237,6 +353,35 @@
         white-space: nowrap;
       }
     }
+
+    &.fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      min-width: 100%;
+      z-index: 9999;
+      margin: 0;
+      border-radius: 0;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      animation: elastic 1s;
+
+      .show-btn {
+        position: fixed;
+      }
+    }
+
+    &.breakline {
+      .code-container table {
+        line-break: anywhere;
+        white-space: break-spaces;
+        pre {
+          white-space: break-spaces;
+        }
+      }
+    }
   }
 
   .code-container {
@@ -256,6 +401,45 @@
 
     .punctuation {
       color: var(--grey-5);
+    }
+
+    .show-btn {
+      position: absolute;
+      cursor: pointer;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2.875rem;
+      text-align: center;
+      color: var(--text-color);
+      background-image: linear-gradient(to bottom, var(--grey-2-a0) 0, var(--grey-2) 80%);
+      z-index: $zindex-1;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1rem;
+        background: var(--grey-2);
+      }
+
+      .ic {
+        margin-top: 1rem;
+        animation: DownUp 2s infinite;
+      }
+
+      &.open {
+        background: none;
+        bottom: 0.5rem;
+
+        &::after {
+          display: none;
+        }
+
+        .ic {
+          @extend .down-up;
+        }
+      }
     }
 
     table {

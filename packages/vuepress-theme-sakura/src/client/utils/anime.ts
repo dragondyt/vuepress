@@ -77,3 +77,32 @@ export const transition = function (
     complete && complete()
   })
 }
+
+export const pageScroll = function (
+  target: Element | number,
+  offset?,
+  siteNavHeight = 0,
+  complete?
+): void {
+  const opt = {
+    targets:
+      typeof offset === 'number'
+        ? (<HTMLDivElement>target).parentNode
+        : document.scrollingElement,
+    duration: 500,
+    easing: 'easeInOutQuad',
+    scrollTop:
+      offset ||
+      (typeof target === 'number'
+        ? target
+        : target
+        ? (<HTMLDivElement>target).scrollTop +
+          document.documentElement.scrollTop -
+          siteNavHeight
+        : 0),
+    complete: function () {
+      complete && complete()
+    },
+  }
+  anime(opt)
+}
