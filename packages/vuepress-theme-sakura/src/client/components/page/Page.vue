@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { Waline } from '@waline/client/dist/component'
 import { computed, onMounted, ref, unref } from 'vue'
+import { useRoute } from 'vue-router'
 import RenderContent from './RenderContent.vue'
 import '@waline/client/dist/waline.css'
-import { useRoute } from 'vue-router'
 const defaultForm = {
   ip: '',
   comment: '',
@@ -19,7 +19,7 @@ const defaultForm = {
 }
 const comment = ref(defaultForm)
 const path = computed(() => useRoute().path)
-const darkmode = ref(false)
+const darkMode = ref(false)
 onMounted(() => {
   ;(<HTMLInputElement>document.getElementById('wl-nick')).placeholder = '昵称'
   ;(<HTMLInputElement>document.getElementById('wl-mail')).placeholder = '邮箱'
@@ -41,7 +41,7 @@ onMounted(() => {
     class="relative p-2"
     :server-u-r-l="`https://waline-chi-weld.vercel.app`"
     :path="path"
-    :darkmode="darkmode"
+    :darkmode="darkMode"
   ></Waline>
 </template>
 

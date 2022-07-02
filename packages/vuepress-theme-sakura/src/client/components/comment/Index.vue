@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { Object as AVObject, init, Query } from 'leancloud-storage'
 import { onMounted, ref } from 'vue'
-import type { QueryResult } from '../../../shared'
-class Comment extends AVObject {
+interface Comment  {
   nick: string | undefined
   objectId: string | undefined
   comment: string | undefined

@@ -4,6 +4,7 @@ import { usePageData, useSiteLocaleData } from '@vuepress/client'
 import { onMounted, onUnmounted, ref } from 'vue'
 import Comment from '../components/comment/Index.vue'
 import { useThemeLocaleData } from '../composables'
+import { transition } from '../utils'
 import Search from './search/Search.vue'
 import {transition} from "../utils/animation";
 
@@ -13,6 +14,7 @@ const headerRef = ref<HTMLDivElement>()
 const wavesRef = ref<HTMLDivElement>()
 const sideBarRef = ref<HTMLDivElement>()
 const searchRef = ref<typeof Search | null>(null)
+const sideBarRef = ref<HTMLDivElement>()
 const siteLocaleData = useSiteLocaleData()
 const themeLocaleData = useThemeLocaleData()
 const pageData = usePageData()
@@ -106,6 +108,7 @@ onUnmounted(() => {
         >
           <div
             class="flex cursor-pointer flex-col items-center justify-center leading-[0]"
+            @click="sideBarToggleHandle"
           >
             <div
               class="w-[1.375rem] p-5"
@@ -183,7 +186,12 @@ onUnmounted(() => {
   </div>
   <main
     style="
-      background: linear-gradient(to top,var(--body-bg-shadow) 0,var(--grey-1) 20%) no-repeat bottom;
+      background: linear-gradient(
+          to top,
+          var(--body-bg-shadow) 0,
+          var(--grey-1) 20%
+        )
+        no-repeat bottom;
     "
   >
     <div
