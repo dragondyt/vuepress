@@ -4,15 +4,13 @@ import { usePageData, useSiteLocaleData } from '@vuepress/client'
 import { onMounted, onUnmounted, ref } from 'vue'
 import Comment from '../components/comment/Index.vue'
 import { useThemeLocaleData } from '../composables'
-import { transition } from '../utils'
 import Search from './search/Search.vue'
-import {transition} from "../utils/animation";
+import {transition} from "../utils";
 
 const isAffix = ref(false)
 const headerHeight = ref(0)
 const headerRef = ref<HTMLDivElement>()
 const wavesRef = ref<HTMLDivElement>()
-const sideBarRef = ref<HTMLDivElement>()
 const searchRef = ref<typeof Search | null>(null)
 const sideBarRef = ref<HTMLDivElement>()
 const siteLocaleData = useSiteLocaleData()

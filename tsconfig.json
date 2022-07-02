@@ -7,7 +7,8 @@
     "paths": {
       "vuepress-theme-sakura": ["./packages/vuepress-theme-sakura/src"]
     },
-    "types": ["webpack-env", "vite/client", "@types/jest"]
+    "types": ["webpack-env", "vite/client", "@types/jest"],
+    "allowSyntheticDefaultImports": true
   },
   "include": ["docs", "packages/**/*"],
   "exclude": ["node_modules", ".temp", "lib", "dist"]

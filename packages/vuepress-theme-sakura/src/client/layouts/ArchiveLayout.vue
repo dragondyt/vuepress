@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { usePageData, useSiteLocaleData } from '@vuepress/client'
-import * as moment from 'moment'
+import moment from 'moment'
 import Pagination from '../components/common/Pagination.vue'
 import SakuraLayout from '../components/SakuraLayout.vue'
 
