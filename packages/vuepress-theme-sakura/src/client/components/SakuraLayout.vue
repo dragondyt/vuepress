@@ -4,8 +4,8 @@ import { usePageData, useSiteLocaleData } from '@vuepress/client'
 import { onMounted, onUnmounted, ref } from 'vue'
 import Comment from '../components/comment/Index.vue'
 import { useThemeLocaleData } from '../composables'
+import { transition } from '../utils'
 import Search from './search/Search.vue'
-import {transition} from "../utils";
 
 const isAffix = ref(false)
 const headerHeight = ref(0)
@@ -108,11 +108,7 @@ onUnmounted(() => {
             class="flex cursor-pointer flex-col items-center justify-center leading-[0]"
             @click="sideBarToggleHandle"
           >
-            <div
-              class="w-[1.375rem] p-5"
-              style="box-sizing: unset"
-              @click="sideBarToggleHandle"
-            >
+            <div class="w-[1.375rem] p-5" style="box-sizing: unset">
               <span
                 v-for="i in 3"
                 :key="i"
