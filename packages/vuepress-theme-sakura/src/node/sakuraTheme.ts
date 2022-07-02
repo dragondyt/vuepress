@@ -14,7 +14,7 @@ import type {
   SakuraThemePageData,
   SakuraThemePluginsOptions,
 } from '../shared'
-import { initArchivePages } from './init'
+import {initArchivePages, initTagPages} from './init'
 import {
   markdownItExcerpt,
   markdownItKatex,
@@ -302,6 +302,8 @@ export const sakuraTheme = ({
       }
       // 归档页面
       await initArchivePages(app, database, posts)
+      // 标签页面
+      await initTagPages(app, database)
       if (themePlugins?.algoliaSearch && themePlugins.algoliaSearch.adminKey) {
         // 搜索
         let posts = database

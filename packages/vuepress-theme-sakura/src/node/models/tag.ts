@@ -46,6 +46,10 @@ module.exports = (ctx) => {
     return PostTag.remove({ tag_id: data._id })
   })
 
+  Tag.virtual('length').get(function (this: typeof Tag) {
+    return this.posts.length
+  })
+
   Tag.virtual('toObj').get(function (this: typeof Tag) {
     return {
       name: this.name,
