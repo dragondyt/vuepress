@@ -13,6 +13,7 @@ import type {
   SakuraThemePageData,
   SakuraThemePluginsOptions,
 } from '../shared'
+import { initArchivePages } from './init'
 import {
   markdownItExcerpt,
   markdownItKatex,
@@ -21,7 +22,6 @@ import {
 } from './plugins'
 import { sitemap } from './sitemap'
 import { assignDefaultLocaleOptions, assignPostcssConfig } from './utils'
-import {initArchivePages} from "./init";
 // @ts-ignore
 const { check, add } = require('./abbr/check')
 export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
@@ -260,7 +260,7 @@ export const sakuraTheme = ({
       const total = perPage ? Math.ceil(length / perPage) : 1
       const urlCache = {}
 
-      function formatURL(i) {
+      function formatURL(i): string {
         if (urlCache[i]) return urlCache[i]
 
         let url = app.siteData.base
@@ -286,6 +286,9 @@ export const sakuraTheme = ({
               next_link: i < total ? formatURL(i) : '',
               current: i,
               total,
+              sitemap: {
+                exclude: i !== 1,
+              },
             },
           })
         )

@@ -41,6 +41,9 @@ export const initArchivePages = async (
             }`,
             year: options.year,
             month: options.month,
+            sitemap: {
+              exclude: true,
+            },
             pagination: {
               data: posts.slice(perPage * (i - 1), perPage * i).map((s) => {
                 return {
