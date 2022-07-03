@@ -58,28 +58,30 @@ export const initCategoryPages = async (
   for (const category of categories.toArray()) {
     const total = Math.ceil(category.posts.length / 10)
     for (let i = 1; i <= total; i++) {
-      await createPage(app, {
-        path: '/categories/' + category.slug + (i !== 1 ? '/page/' + i : ''),
-        content: '',
-        frontmatter: {
-          layout: 'CategoryDetailLayout',
-          title: '分类: ' + category.name,
-          subtitle: `包含标签"${category.name}"的文章`,
-          category: category.name,
-          sitemap: {
-            exclude: true,
+      app.pages.push(
+        await createPage(app, {
+          path: '/categories/' + category.slug + (i !== 1 ? '/page/' + i : ''),
+          content: '',
+          frontmatter: {
+            layout: 'CategoryDetailLayout',
+            title: '分类: ' + category.name,
+            subtitle: `包含标签"${category.name}"的文章`,
+            category: category.name,
+            sitemap: {
+              exclude: true,
+            },
+            pagination: {
+              data: category.posts.slice(10 * (i - 1), 10 * i).map((s) => {
+                return {
+                  path: s.path,
+                  categories: [],
+                  title: s.title,
+                }
+              }),
+            },
           },
-          pagination: {
-            data: category.posts.slice(10 * (i - 1), 10 * i).map((s) => {
-              return {
-                path: s.path,
-                categories: [],
-                title: s.title,
-              }
-            }),
-          },
-        },
-      })
+        })
+      )
     }
   }
 }

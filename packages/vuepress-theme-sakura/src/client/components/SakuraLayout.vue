@@ -5,6 +5,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import Comment from '../components/comment/Index.vue'
 import { useThemeLocaleData } from '../composables'
 import { transition } from '../utils'
+import Sidebar from './common/Sidebar.vue'
 import Search from './search/Search.vue'
 
 const isAffix = ref(false)
@@ -215,7 +216,9 @@ onUnmounted(() => {
           transition: all 0.2s ease-in-out 0s;
         "
       >
-        <slot name="sidebar" v-bind="{ isAffix }" />
+        <slot name="sidebar" v-bind="{ isAffix }">
+          <Sidebar :affix="isAffix" />
+        </slot>
       </div>
     </div>
   </main>
