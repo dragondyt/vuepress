@@ -17,6 +17,9 @@ export const initTagPages = async (
       frontmatter: {
         layout: 'TagLayout',
         title: '全部标签',
+        sitemap: {
+          exclude: true,
+        },
         tags: tags.map((t) => t.name),
       },
     })
@@ -33,6 +36,9 @@ export const initTagPages = async (
             title: '标签: ' + tag.name,
             subtitle: `包含标签"${tag.name}"的文章`,
             tag: tag.name,
+            sitemap: {
+              exclude: true,
+            },
             pagination: {
               data: tag.posts.slice(10 * (i - 1), 10 * i).map((s) => {
                 return {
