@@ -132,7 +132,14 @@ export default defineUserConfig({
         toggleSidebar: '切换侧边栏',
       },
     },
-
+    social: [
+      {
+        name: 'github',
+        url: 'https://github.com',
+        icon: 'github',
+        color: '#191717',
+      }
+    ],
     themePlugins: {
       // only enable git plugin in production mode
       git: isProd,

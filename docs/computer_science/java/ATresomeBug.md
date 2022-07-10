@@ -11,7 +11,7 @@ keywords:
   - java.math.BigDecimal cannot be cast to java.lang.Integer
 abbrlink: 49af668f
 date: '2020-03-15 05:55:57'
-permalink: /posts/49af668f.html
+permalink: /computer_science/java/49af668f.html
 ---
 ![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/800)
 <!-- less -->

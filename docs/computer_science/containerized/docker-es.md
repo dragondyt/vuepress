@@ -10,7 +10,7 @@ keywords:
   - docker
 abbrlink: 29596f0c
 date: '2020-04-30 05:55:57'
-permalink: /posts/29596f0c.html
+permalink: /computer_science/containerized/29596f0c.html
 ---
 ![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/232714-1587742034b2eb.jpg)
 <!-- less -->

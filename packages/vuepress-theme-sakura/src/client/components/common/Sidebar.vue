@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
+import { useThemeLocaleData } from '../../composables'
+import Menu from './Menu.vue'
+
 const props = defineProps<{
   affix: boolean
 }>()
@@ -7,6 +10,7 @@ const panelsHeight = ref()
 onMounted(() => {
   panelsHeight.value = window.innerHeight
 })
+const themeLocaleData = useThemeLocaleData()
 </script>
 
 <template>
@@ -60,6 +64,36 @@ onMounted(() => {
               </RouterLink>
             </div>
           </nav>
+          <div class="mt-[0.9375rem] text-center">
+            <a
+              v-for="item in themeLocaleData.social"
+              :key="item.url"
+              :href="item.url"
+              rel="noopener external nofollow noreferrer"
+              target="_blank"
+              class="inline-block w-[1.875rem] h-[1.875rem] leading-[1.875rem] text-center relative overflow-hidden rounded-[38%]"
+              :class="item.name"
+              :title="item.url"
+              ><i
+                style="
+                  transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59)
+                    0s;
+                  transform: scale(0.8);
+                "
+                :style="{ color: item.color }"
+                class="text-[1.4em] align-middle"
+                :class="`ic i-${item.icon}`"
+              ></i
+            ></a>
+          </div>
+          <ul class="p-5 m-0" style="background-color: transparent">
+            <Menu
+              v-for="(menu, index) in themeLocaleData.navbar"
+              :key="menu.path"
+              :menu="menu"
+              :active="index === 0 && !menu.children"
+            />
+          </ul>
         </div>
       </div>
     </div>

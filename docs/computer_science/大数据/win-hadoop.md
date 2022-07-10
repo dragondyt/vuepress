@@ -7,7 +7,7 @@ keywords:
   - win10下hadoop学习
 abbrlink: 15d9e331
 date: '2021-04-24 05:55:57'
-permalink: /posts/15d9e331.html
+permalink: /computer_science/大数据/15d9e331.html
 ---
 
 ![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/hadoop-consulting-and-support.svg)

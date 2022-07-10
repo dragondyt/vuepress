@@ -9,7 +9,7 @@ keywords:
   - dragondyt
 abbrlink: ff03d5f4
 date: '2020-03-05 15:55:57'
-permalink: /posts/ff03d5f4.html
+permalink: /computer_science/java/android/ff03d5f4.html
 ---
 ![安卓路线图](https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYwODE5MDkwMzA5NDE0)
 <!-- less -->

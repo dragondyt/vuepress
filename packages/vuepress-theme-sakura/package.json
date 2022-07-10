@@ -53,18 +53,18 @@
     "markdown-it-sup": "^1.0.0",
     "markdown-it-task-checkbox": "^1.0.6",
     "markdown-it-toc-and-anchor": "^4.2.0",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "pangu": "^4.0.7",
     "postcss": "^8.4.14",
     "postcss-import": "^14.1.0",
-    "prettier-plugin-tailwindcss": "^0.1.11",
+    "prettier-plugin-tailwindcss": "^0.1.12",
     "prismjs": "^1.28.0",
     "shiki": "^0.10.1",
     "sitemap": "^7.1.1",
     "striptags": "4.0.0-alpha.2",
-    "tailwindcss": "^3.1.4",
+    "tailwindcss": "^3.1.5",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.16",
+    "vue-router": "^4.1.1",
     "warehouse": "^4.0.1"
   }
 }

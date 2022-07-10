@@ -10,7 +10,7 @@ keywords:
   - 'AAPT: error: resource android:attr/fontVariationSettings not found'
 abbrlink: '74684463'
 date: '2020-05-09 18:54:35'
-permalink: /posts/74684463.html
+permalink: /computer_science/flutter/74684463.html
 ---
 ![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/193708-15779650287a6a.jpg)
 <!-- less -->

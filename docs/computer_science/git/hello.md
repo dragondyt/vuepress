@@ -9,7 +9,7 @@ keywords:
   - 'git push: src refspec master does not match any'
 abbrlink: e1510a47
 date: '2020-04-24 05:55:57'
-permalink: /posts/e1510a47.html
+permalink: /computer_science/git/e1510a47.html
 ---
 
 ![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/800.jfif)

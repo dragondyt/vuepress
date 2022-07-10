@@ -10,7 +10,7 @@ keywords:
   - springcloud2020
 abbrlink: fd72446f
 date: '2021-05-15 01:34:35'
-permalink: /posts/fd72446f.html
+permalink: /computer_science/java/fd72446f.html
 ---
 ![动漫美图](https://proprikol.ru/wp-content/uploads/2020/07/kartinki-zimnij-vecher-27.jpg)
 <!-- less -->
