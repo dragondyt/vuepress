@@ -8,12 +8,11 @@ categories:
   - 安卓
 keywords:
   - 'Failed to resolve: androidx.appcompat:appcompat:1.1.0'
-abbrlink: c4877271
+cover: 'https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/110823-14930033035b6a.jpg'
 date: '2020-05-09 18:54:35'
 permalink: /computer_science/java/android/c4877271.html
 ---
-![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/110823-14930033035b6a.jpg)
-<!-- less -->
+
 <!--more-->
 ## 安卓实验--内容提供器
 ### 日常踩雷

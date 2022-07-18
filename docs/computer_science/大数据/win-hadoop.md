@@ -5,13 +5,12 @@ categories: 大数据
 keywords:
   - hadoop
   - win10下hadoop学习
-abbrlink: 15d9e331
+cover: >-
+  https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/hadoop-consulting-and-support.svg
 date: '2021-04-24 05:55:57'
 permalink: /computer_science/大数据/15d9e331.html
 ---
 
-![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/hadoop-consulting-and-support.svg)
-<!-- less -->
 <!--more-->
 # 下载
 [下载hadoop](https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz)

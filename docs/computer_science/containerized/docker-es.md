@@ -8,12 +8,10 @@ keywords:
   - dragondyt
   - elasticsearch
   - docker
-abbrlink: 29596f0c
+cover: 'https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/232714-1587742034b2eb.jpg'
 date: '2020-04-30 05:55:57'
 permalink: /computer_science/containerized/29596f0c.html
 ---
-![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/232714-1587742034b2eb.jpg)
-<!-- less -->
 <!--more-->
 ## 安装elasticsearch（简称es）
 拉取镜像，该命令拉取最新版（不推荐，最新版意味着踩坑）

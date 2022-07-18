@@ -7,13 +7,12 @@ keywords:
   - dyt
   - dragondyt
   - 'git push: src refspec master does not match any'
-abbrlink: e1510a47
+cover: 'https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/800.jfif'
 date: '2020-04-24 05:55:57'
 permalink: /computer_science/git/e1510a47.html
 ---
 
-![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/800.jfif)
-<!-- less -->
+
 <!--more-->
 # git push时出现error: src refspec master does not match any解决办法.
 网传原因：

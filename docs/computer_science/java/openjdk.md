@@ -7,13 +7,11 @@ keywords:
   - dyt
   - dragondyt
   - win10下编译以及调试openjdk
-abbrlink: 9c47706b
+cover: 'https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/s1200'
 date: '2020-12-06 01:00:19'
 permalink: /computer_science/java/9c47706b.html
 ---
 
-![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/s1200)
-<!-- less -->
 <!--more-->
 # 编译OpenJDK
 ## 安装编译环境

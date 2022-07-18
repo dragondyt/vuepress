@@ -8,12 +8,11 @@ keywords:
   - 逆向工程
   - Apktool
   - 安卓
-abbrlink: aa3015f4
+cover: 'https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/5ed0bfdf3318a.jpg'
 date: '2020-06-04 18:54:35'
 permalink: /computer_science/reverse/aa3015f4.html
 ---
 
-![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/5ed0bfdf3318a.jpg)
 <!-- less -->
 <!--more-->
 ## 记录一次安卓反编译过程

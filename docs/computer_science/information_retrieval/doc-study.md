@@ -14,13 +14,11 @@ keywords:
   - 索引
   - 文摘
   - 检索途径
-abbrlink: 2157fe1d
+cover: 'https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/220935-14964989754669.jpg'
 date: '2020-05-07 05:55:57'
 permalink: /computer_science/information_retrieval/2157fe1d.html
 ---
 
-![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/220935-14964989754669.jpg)
-<!-- less -->
 <!--more-->
 ## 信息与文献基本知识
 &emsp;&emsp;未来学家托天勒把人类社会的发展过程划分为3个阶段:以农业经济为基础的农业社会;以工业经济为基础的工业社会;以信息经济为基础的信息社会。在信息社会中，信息资源已被人们公认为是物质、能量资源之后的人类可利用的第三类资源，是人类社会领域的基础性资源。

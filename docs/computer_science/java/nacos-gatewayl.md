@@ -8,12 +8,11 @@ keywords:
   - nacos1.4.1
   - gateway3.0.2
   - springcloud2020
-abbrlink: fd72446f
+cover: 'https://proprikol.ru/wp-content/uploads/2020/07/kartinki-zimnij-vecher-27.jpg'
 date: '2021-05-15 01:34:35'
 permalink: /computer_science/java/fd72446f.html
 ---
-![动漫美图](https://proprikol.ru/wp-content/uploads/2020/07/kartinki-zimnij-vecher-27.jpg)
-<!-- less -->
+
 <!--more-->
 
 # gateway配合nacos 找不到服务的问题

@@ -7,12 +7,12 @@ keywords:
   - java
   - dyt
   - dragondyt
-abbrlink: ff03d5f4
+cover: >-
+  https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYwODE5MDkwMzA5NDE0
 date: '2020-03-05 15:55:57'
 permalink: /computer_science/java/android/ff03d5f4.html
 ---
-![安卓路线图](https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYwODE5MDkwMzA5NDE0)
-<!-- less -->
+
 <!--more-->
 ## Android Stdio下载 
 [网盘下载](https://pan.baidu.com/s/1nuABMDb#list/path=%2FAndroid%20Studio)

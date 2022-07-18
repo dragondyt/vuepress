@@ -8,12 +8,11 @@ categories:
   - flutter
 keywords:
   - 'AAPT: error: resource android:attr/fontVariationSettings not found'
-abbrlink: '74684463'
+cover: 'https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/193708-15779650287a6a.jpg'
 date: '2020-05-09 18:54:35'
 permalink: /computer_science/flutter/74684463.html
 ---
-![动漫美图](https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/193708-15779650287a6a.jpg)
-<!-- less -->
+
 <!--more-->
 ## 心累，每天都是“惊喜”，我太菜了
 环境

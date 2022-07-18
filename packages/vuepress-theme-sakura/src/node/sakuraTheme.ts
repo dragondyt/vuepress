@@ -228,6 +228,11 @@ export const sakuraTheme = ({
             contentRendered: s.contentRendered,
             path: s.path,
             date: s.date,
+            frontmatter: {
+              cover:
+                s.frontmatter.cover ||
+                'https://tva3.sinaimg.cn/mw690/6833939bly1giciusoyjnj219g0u0x56.jpg',
+            },
           }
         })
       await app.writeTemp(
