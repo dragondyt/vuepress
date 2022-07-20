@@ -150,6 +150,8 @@ export const sakuraTheme = ({
           permalink = page.filePath
             .replace(app.dir.source(), '')
             .replace(/[\w-]+\.(.*)?/g, `${permalink}.html`)
+            .replace(/.(md|MD)$/g, '')
+            .replace(frontmatterRaw.title, `${permalink}.html`)
             .replace('//', '/')
           // 设置文章永久链接
           frontmatterRaw.permalink = permalink
