@@ -53,6 +53,9 @@ export const initArchivePages = async (
                   date: s.date,
                 }
               }),
+              base: path,
+              current: i,
+              total,
             },
           },
         })

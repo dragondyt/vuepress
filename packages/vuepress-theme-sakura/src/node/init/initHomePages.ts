@@ -1,6 +1,7 @@
 import * as util from 'util'
 import type { App } from '@vuepress/core'
 import { createPage } from '@vuepress/core'
+import * as CRC32 from 'crc-32'
 import type * as warehouse from 'warehouse'
 export const initHomePages = async (
   app: App,
@@ -21,7 +22,6 @@ export const initHomePages = async (
     .find({ sticky: { $exists: false } })
     .sort('-date')
     .toArray()
-    .slice(0, 10)
     .map((s) => {
       return {
         title: s.title,
@@ -31,7 +31,8 @@ export const initHomePages = async (
         frontmatter: {
           cover:
             s.frontmatter.cover ||
-            'https://tva3.sinaimg.cn/mw690/6833939bly1giciusoyjnj219g0u0x56.jpg',
+            'https://api.ixiaowai.cn/api/api.php?t=' +
+              (CRC32.str(s.title) >>> 0).toString(16),
         },
       }
     })
@@ -47,16 +48,15 @@ export const initHomePages = async (
         frontmatter: {
           layout: 'IndexLayout',
           title: `= ${app.siteData.title} =`,
-          stickyList: app.pages.filter((_) => _.frontmatter?.sticky),
+          stickyList: i === 1 ?? app.pages.filter((_) => _.frontmatter?.sticky),
           posts: posts.slice(perPage * (i - 1), perPage * i),
-          prev: i > 1 ? i - 1 : 0,
-          prevNext: i > 1 ? formatURL(i) : '',
-          next: i < total ? i + 1 : 0,
-          next_link: i < total ? formatURL(i) : '',
-          current: i,
-          total,
           sitemap: {
             exclude: i !== 1,
+          },
+          pagination: {
+            base: app.siteData.base,
+            current: i,
+            total,
           },
         },
       })

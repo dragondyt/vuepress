@@ -47,6 +47,9 @@ export const initTagPages = async (
                   title: s.title,
                 }
               }),
+              base: `/tags/${tag.name}`,
+              current: i,
+              total,
             },
           },
         })

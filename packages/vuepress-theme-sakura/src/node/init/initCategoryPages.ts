@@ -78,6 +78,9 @@ export const initCategoryPages = async (
                   title: s.title,
                 }
               }),
+              base: `/categories/${category.slug}`,
+              current: i,
+              total,
             },
           },
         })
