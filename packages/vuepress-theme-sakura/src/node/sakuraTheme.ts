@@ -1,4 +1,3 @@
-import * as util from 'util'
 import type { Page, Theme } from '@vuepress/core'
 import { createPage, resolvePageContent } from '@vuepress/core'
 import { themeDataPlugin } from '@vuepress/plugin-theme-data'
@@ -14,7 +13,12 @@ import type {
   SakuraThemePageData,
   SakuraThemePluginsOptions,
 } from '../shared'
-import { initArchivePages, initCategoryPages, initTagPages } from './init'
+import {
+  initArchivePages,
+  initCategoryPages,
+  initHomePages,
+  initTagPages,
+} from './init'
 import {
   markdownItExcerpt,
   markdownItKatex,
@@ -218,25 +222,6 @@ export const sakuraTheme = ({
           (page.frontmatter.id = post._id),
         ])
       }
-      const stickyPosts = database
-        .model('Post')
-        .find({ sticky: { $exists: false } })
-        .sort('-date')
-        .toArray()
-        .slice(0, 10)
-        .map((s) => {
-          return {
-            title: s.title,
-            contentRendered: s.contentRendered,
-            path: s.path,
-            date: s.date,
-            frontmatter: {
-              cover:
-                s.frontmatter.cover ||
-                'https://tva3.sinaimg.cn/mw690/6833939bly1giciusoyjnj219g0u0x56.jpg',
-            },
-          }
-        })
       await app.writeTemp(
         'randomPosts.ts',
         `export default ${JSON.stringify(
@@ -269,44 +254,8 @@ export const sakuraTheme = ({
         .model('Post')
         .find({ sticky: { $exists: false } })
         .sort('-date')
-      const length = posts.length
-      const perPage = 10
-      const total = perPage ? Math.ceil(length / perPage) : 1
-      const urlCache = {}
 
-      function formatURL(i): string {
-        if (urlCache[i]) return urlCache[i]
-
-        let url = app.siteData.base
-        if (i > 1) url += util.format('page/%d/', i)
-        urlCache[i] = url
-
-        return url
-      }
-
-      for (let i = 1; i <= total; i++) {
-        app.pages.push(
-          await createPage(app, {
-            path: formatURL(i),
-            content: '',
-            frontmatter: {
-              layout: 'IndexLayout',
-              title: `= ${app.siteData.title} =`,
-              stickyList: app.pages.filter((_) => _.frontmatter?.sticky),
-              posts: stickyPosts.slice(perPage * (i - 1), perPage * i),
-              prev: i > 1 ? i - 1 : 0,
-              prevNext: i > 1 ? formatURL(i) : '',
-              next: i < total ? i + 1 : 0,
-              next_link: i < total ? formatURL(i) : '',
-              current: i,
-              total,
-              sitemap: {
-                exclude: i !== 1,
-              },
-            },
-          })
-        )
-      }
+      await initHomePages(app, database)
       // 归档页面
       await initArchivePages(app, database, posts)
       // 标签页面

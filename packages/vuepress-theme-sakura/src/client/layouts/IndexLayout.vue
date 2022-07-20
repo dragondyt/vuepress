@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { usePageData } from '@vuepress/client'
 import { onMounted, ref } from 'vue'
+import Pagination from '../components/common/Pagination.vue'
 import Sidebar from '../components/common/Sidebar.vue'
 import Segment from '../components/index/Segment.vue'
 import SakuraLayout from '../components/SakuraLayout.vue'
@@ -10,23 +11,6 @@ onMounted(() => {
   panelsHeight.value = window.innerHeight
 })
 const pageData = usePageData()
-
-const prevNext = ref(pageData.value.frontmatter.prevNext)
-const current = ref(pageData.value.frontmatter.current)
-const total = ref(pageData.value.frontmatter.total)
-const endSize = 1
-const midSize = 1
-const leftEnd = current.value <= endSize ? current.value - 1 : endSize
-const rightEnd =
-  total.value - current.value <= endSize
-    ? current.value + 1
-    : total.value - endSize + 1
-const leftMid =
-  current.value - midSize <= endSize ? leftEnd + 1 : current.value - midSize
-const rightMid =
-  current.value + midSize + endSize > total.value
-    ? rightEnd - 1
-    : current.value + midSize
 </script>
 
 <template>
@@ -52,106 +36,7 @@ const rightMid =
           />
         </div>
       </div>
-      <nav
-        class="inline-block w-full py-5 px-2.5 text-center"
-        style="color: var(--grey-5)"
-      >
-        <div class="mx-auto my-0 w-auto rounded-[0.9375rem]">
-          <RouterLink
-            v-if="prevNext && current > 1"
-            class="relative my-0 mx-2 ml-0 inline-block rounded-[0.3125rem] py-0 px-3"
-            :to="`/page/${current - 1}`"
-          >
-            <i class="ic i-angle-left"></i>
-          </RouterLink>
-          <template v-for="i in leftEnd" :key="i">
-            <span
-              v-if="i === current"
-              class="relative my-0 mx-2 inline-block rounded-[0.3125rem] py-0 px-3"
-              >{{ i }}</span
-            >
-            <RouterLink
-              v-else
-              class="relative my-0 mx-2 inline-block rounded-[0.3125rem] py-0 px-3"
-              :to="i === 1 ? '/' : `/page/${i}`"
-            >
-              {{ i }}
-            </RouterLink>
-          </template>
-          <template v-if="current - endSize - midSize > 1">
-            <span class="relative m-0 inline-block rounded-[0.3125rem] p-0"
-              >...</span
-            >
-          </template>
-          <template
-            v-for="i in current - leftMid"
-            v-if="leftMid > leftEnd"
-            :key="i"
-          >
-            <span
-              v-if="i + leftMid === current"
-              class="relative my-0 mx-2 inline-block rounded-[0.3125rem] py-0 px-3"
-              >{{ i + leftMid }}</span
-            >
-            <RouterLink
-              v-else
-              class="relative my-0 mx-2 inline-block rounded-[0.3125rem] py-0 px-3"
-              :to="i + leftMid === 1 ? '/' : `/page/${i + leftMid}`"
-              >{{ i + leftMid }}
-            </RouterLink>
-          </template>
-
-          <span
-            class="relative my-0 mx-2 inline-block rounded-[0.3125rem] py-0 px-3"
-            >{{ current }}</span
-          >
-
-          <template v-for="i in rightMid - current" v-if="rightMid < rightEnd">
-            <span
-              v-if="i + current === current"
-              class="relative my-0 mx-2 inline-block rounded-[0.3125rem] py-0 px-3"
-              >{{ i + current }}</span
-            >
-            <RouterLink
-              v-else
-              class="relative my-0 mx-2 inline-block rounded-[0.3125rem] py-0 px-3"
-              :to="i + current === 1 ? '/' : `/page/${i + current}`"
-              >{{ i + current }}
-            </RouterLink>
-          </template>
-
-          <template v-if="total - endSize - midSize > current">
-            <span class="relative m-0 inline-block rounded-[0.3125rem] p-0"
-              >...</span
-            >
-          </template>
-
-          <template
-            v-for="i in total - rightEnd + 1"
-            v-if="rightMid < rightEnd"
-          >
-            <span
-              v-if="i + rightEnd - 1 === current"
-              class="relative my-0 mx-2 inline-block rounded-[0.3125rem] py-0 px-3"
-              >{{ i + rightEnd - 1 }}</span
-            >
-            <RouterLink
-              v-else
-              class="relative my-0 mx-2 inline-block rounded-[0.3125rem] py-0 px-3"
-              :to="i + rightEnd - 1 === 1 ? '/' : `/page/${i + rightEnd - 1}`"
-              >{{ i + rightEnd - 1 }}
-            </RouterLink>
-          </template>
-
-          <RouterLink
-            v-if="prevNext && current < total"
-            class="relative my-0 mx-2 ml-0 inline-block rounded-[0.3125rem] py-0 px-3"
-            :to="`/page/${current + 1}`"
-          >
-            <i class="ic i-angle-right"></i>
-          </RouterLink>
-        </div>
-      </nav>
+      <Pagination :pagination="pageData.frontmatter.pagination" />
     </template>
     <template #sidebar="scope">
       <Sidebar :affix="scope.isAffix" />
