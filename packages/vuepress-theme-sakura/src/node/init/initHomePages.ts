@@ -49,7 +49,7 @@ export const initHomePages = async (
         content: '',
         frontmatter: {
           layout: 'IndexLayout',
-          title: `= ${app.siteData.title} =`,
+          title: `= ${app.siteData.locales['/'].title} =`,
           stickyList: i === 1 ?? app.pages.filter((_) => _.frontmatter?.sticky),
           posts: posts.slice(perPage * (i - 1), perPage * i),
           sitemap: {

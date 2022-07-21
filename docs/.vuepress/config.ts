@@ -21,13 +21,13 @@ export default defineUserConfig({
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'VuePress',
-      description: 'Vue-powered Static Site Generator',
+      title: '秦时明月',
+      description: '这是一个无聊的人搭建的博客。',
     },
     '/zh/': {
       lang: 'zh-CN',
-      title: 'VuePress',
-      description: 'Vue 驱动的静态网站生成器',
+      title: '秦时明月',
+      description: '这是一个无聊的人搭建的博客。',
     },
   },
 
