@@ -15,8 +15,8 @@ const siteLocaleData = useSiteLocaleData()
       </h1>
     </template>
     <template #content>
-      <div class="mb-6 p-2 relative" style="animation: slideUpBigIn 0.5s">
-        <h2 class="relative py-6 px-[1.875rem] m-0">
+      <div class="relative mb-6 p-2" style="animation: slideUpBigIn 0.5s">
+        <h2 class="relative m-0 py-6 px-[1.875rem]">
           <RouterLink
             to="/categories"
             style="border-bottom: 0.0625rem dashed var(--grey-4)"

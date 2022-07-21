@@ -11,8 +11,8 @@ const siteLocaleData = useSiteLocaleData()
       <h1 class="text-[1.5em] tracking-[0.125rem]">{{ pageData.title }}</h1>
     </template>
     <template #content>
-      <div class="mb-6 p-2 relative" style="animation: slideUpBigIn 0.5s">
-        <h2 class="relative py-6 px-[1.875rem] m-0">
+      <div class="relative mb-6 p-2" style="animation: slideUpBigIn 0.5s">
+        <h2 class="relative m-0 py-6 px-[1.875rem]">
           <RouterLink
             :to="siteLocaleData.base"
             style="border-bottom: 0.0625rem dashed var(--grey-4)"
@@ -27,7 +27,7 @@ const siteLocaleData = useSiteLocaleData()
           v-for="category in pageData.frontmatter.categories"
           :key="category.path"
         >
-          <h2 class="relative py-5 px-[1.875rem] m-0">
+          <h2 class="relative m-0 py-5 px-[1.875rem]">
             <RouterLink :to="category.path">{{ category.name }}</RouterLink>
             <small class="my-auto mx-[0.3125rem]" style="color: var(--grey-4)"
               >({{ category.length }})</small
@@ -36,7 +36,7 @@ const siteLocaleData = useSiteLocaleData()
           <div
             v-for="(sub, index) in category.children"
             :key="sub.path"
-            class="relative py-5 px-[1.875rem] m-0"
+            class="relative m-0 py-5 px-[1.875rem]"
             :class="{
               'flex': index % 2 !== 0,
               'flex-wrap': index % 2 !== 0,

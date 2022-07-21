@@ -21,10 +21,10 @@ function formatURL(i): string {
 <template>
   <nav
     v-if="props.pagination"
-    class="w-full py-5 px-2.5 text-center inline-block"
+    class="inline-block w-full py-5 px-2.5 text-center"
     style="color: var(--grey-5)"
   >
-    <div class="rounded-[0.9375rem] w-auto my-0 mx-auto">
+    <div class="my-0 mx-auto w-auto rounded-[0.9375rem]">
       <RouterLink
         v-if="props.pagination.current > 1"
         class="relative my-0 mx-2 ml-0 inline-block rounded-[0.3125rem] py-0 px-3"
@@ -35,7 +35,7 @@ function formatURL(i): string {
       <template v-for="i in pagination.total" :key="i">
         <span
           v-if="i === pagination.current"
-          class="my-0 mx-[0.3125rem] inline-block py-0 px-3 relative rounded-[0.3125rem]"
+          class="relative my-0 mx-[0.3125rem] inline-block rounded-[0.3125rem] py-0 px-3"
           style="color: var(--grey-0);
     background-image: linear-gradient(to right,var(--color-pink) 0,var(--color-orange) 100%);
     box-shadow: 0 0 0.75rem var(--color-pink-a3);
@@ -46,7 +46,7 @@ function formatURL(i): string {
         </span>
         <template v-else>
           <RouterLink
-            class="my-0 mx-[0.3125rem] inline-block py-0 px-3 relative rounded-[0.3125rem]"
+            class="relative my-0 mx-[0.3125rem] inline-block rounded-[0.3125rem] py-0 px-3"
             :to="formatURL(i)"
             >{{ i }}</RouterLink
           >

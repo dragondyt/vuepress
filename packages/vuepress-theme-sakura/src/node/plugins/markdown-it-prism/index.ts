@@ -1,7 +1,7 @@
 import type { Markdown } from '@vuepress/markdown/lib/types'
+import { htmlUnescape } from '@vuepress/shared'
 import * as Prism from 'prismjs'
 import * as loadLanguages from 'prismjs/components/'
-import {htmlUnescape} from "@vuepress/shared";
 const { escapeHTML } = require('hexo-util')
 const pangu = require('pangu')
 const LanguagesTip = require('./lang')

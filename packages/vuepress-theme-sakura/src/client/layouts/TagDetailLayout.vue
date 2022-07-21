@@ -14,8 +14,8 @@ const siteLocaleData = useSiteLocaleData()
       </h1>
     </template>
     <template #content>
-      <div class="mb-6 p-2 relative" style="animation: slideUpBigIn 0.5s">
-        <h2 class="relative py-6 px-[1.875rem] m-0">
+      <div class="relative mb-6 p-2" style="animation: slideUpBigIn 0.5s">
+        <h2 class="relative m-0 py-6 px-[1.875rem]">
           <RouterLink
             :to="siteLocaleData.base"
             style="border-bottom: 0.0625rem dashed var(--grey-4)"
@@ -32,9 +32,9 @@ const siteLocaleData = useSiteLocaleData()
         <article
           v-for="post in pageData.frontmatter.pagination.data"
           :key="post.path"
-          class="flex flex-wrap items-center py-2.5 px-[1.875rem] relative m-0"
+          class="relative m-0 flex flex-wrap items-center py-2.5 px-[1.875rem]"
         >
-          <div class="text-[.75em] mr-2.5 inline">
+          <div class="mr-2.5 inline text-[.75em]">
             <time style="color: var(--grey-4)">2020-06-13 </time>
             <span
               ><a href="/categories/computer-science/java/course-2/"

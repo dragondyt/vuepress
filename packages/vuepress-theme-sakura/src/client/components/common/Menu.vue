@@ -16,7 +16,7 @@ const activeStyle = {
 <template>
   <li
     v-if="!props.menu.children"
-    class="rounded-[0.9375rem] mb-2.5 block"
+    class="mb-2.5 block rounded-[0.9375rem]"
     style="color: var(--grey-5); transition: all 0.2s ease-in-out 0s"
     :style="props.active ? activeStyle : {}"
   >
@@ -31,7 +31,7 @@ const activeStyle = {
   </li>
   <li
     v-else
-    class="rounded-[0.9375rem] mb-2.5 block"
+    class="mb-2.5 block rounded-[0.9375rem]"
     style="color: var(--grey-5); transition: all 0.2s ease-in-out 0s"
     :style="props.active ? activeStyle : {}"
   >

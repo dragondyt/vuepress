@@ -79,8 +79,8 @@ tags.forEach((tag) => {
       <h1 class="text-[1.5em] tracking-[0.125rem]">{{ pageData.title }}</h1>
     </template>
     <template #content>
-      <div class="mb-6 p-2 relative" style="animation: slideUpBigIn 0.5s">
-        <h2 class="relative py-6 px-[1.875rem] m-0">
+      <div class="relative mb-6 p-2" style="animation: slideUpBigIn 0.5s">
+        <h2 class="relative m-0 py-6 px-[1.875rem]">
           <RouterLink
             :to="siteLocaleData.base"
             style="border-bottom: 0.0625rem dashed var(--grey-4)"
@@ -95,7 +95,7 @@ tags.forEach((tag) => {
           <RouterLink
             v-for="tag in result"
             :key="tag.path"
-            class="inline-block m-2.5"
+            class="m-2.5 inline-block"
             :to="tag.path"
             :style="tag.style"
             >{{ tag.name }}</RouterLink

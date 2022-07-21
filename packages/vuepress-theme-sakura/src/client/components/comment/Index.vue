@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-interface Comment  {
+interface Comment {
   nick: string | undefined
   objectId: string | undefined
   comment: string | undefined

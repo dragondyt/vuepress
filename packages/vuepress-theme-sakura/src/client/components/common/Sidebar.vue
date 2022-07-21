@@ -71,7 +71,7 @@ const themeLocaleData = useThemeLocaleData()
               :href="item.url"
               rel="noopener external nofollow noreferrer"
               target="_blank"
-              class="inline-block w-[1.875rem] h-[1.875rem] leading-[1.875rem] text-center relative overflow-hidden rounded-[38%]"
+              class="relative inline-block h-[1.875rem] w-[1.875rem] overflow-hidden rounded-[38%] text-center leading-[1.875rem]"
               :class="item.name"
               :title="item.url"
               ><i
@@ -81,12 +81,12 @@ const themeLocaleData = useThemeLocaleData()
                   transform: scale(0.8);
                 "
                 :style="{ color: item.color }"
-                class="text-[1.4em] align-middle"
+                class="align-middle text-[1.4em]"
                 :class="`ic i-${item.icon}`"
               ></i
             ></a>
           </div>
-          <ul class="p-5 m-0" style="background-color: transparent">
+          <ul class="m-0 p-5" style="background-color: transparent">
             <Menu
               v-for="(menu, index) in themeLocaleData.navbar"
               :key="menu.path"
