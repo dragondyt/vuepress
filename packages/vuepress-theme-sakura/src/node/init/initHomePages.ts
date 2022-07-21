@@ -20,6 +20,8 @@ export const initHomePages = async (
   const posts = database
     .model('Post')
     .find({ sticky: { $exists: false } })
+    .find({ frontmatter: { home: { $exists: false } } })
+    .find({ home: { $exists: false } })
     .sort('-date')
     .toArray()
     .map((s) => {
