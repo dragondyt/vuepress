@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import { usePageData } from '@vuepress/client'
 import { Waline } from '@waline/client/dist/component'
 import { computed, onMounted, ref, unref } from 'vue'
 import { useRoute } from 'vue-router'
+import Breadcrumb from './Breadcrumb.vue'
 import RenderContent from './RenderContent.vue'
 import '@waline/client/dist/waline.css'
 const defaultForm = {
@@ -20,6 +22,7 @@ const defaultForm = {
 const comment = ref(defaultForm)
 const path = computed(() => useRoute().path)
 const darkMode = ref(false)
+const pageData = usePageData()
 onMounted(() => {
   ;(<HTMLInputElement>document.getElementById('wl-nick')).placeholder = '昵称'
   ;(<HTMLInputElement>document.getElementById('wl-mail')).placeholder = '邮箱'
@@ -33,6 +36,7 @@ onMounted(() => {
 
 <template>
   <div class="relative mb-5 p-2">
+    <Breadcrumb :post="pageData" />
     <article>
       <RenderContent />
     </article>

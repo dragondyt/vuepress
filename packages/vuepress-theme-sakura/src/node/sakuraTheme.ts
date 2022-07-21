@@ -25,7 +25,7 @@ import {
   markdownItPrism,
   markdownItSpoiler,
 } from './plugins'
-import { sitemap } from './sitemap'
+import { sitemapPlugin } from './sitemap'
 import { assignDefaultLocaleOptions, assignPostcssConfig } from './utils'
 // @ts-ignore
 const { check, add } = require('./abbr/check')
@@ -221,6 +221,9 @@ export const sakuraTheme = ({
           post.setTags(tags),
           (page.frontmatter.id = post._id),
         ])
+        await database.save()
+        page.frontmatter.categories = post.categories
+        page.frontmatter.tags = post.tags
       }
       await app.writeTemp(
         'randomPosts.ts',
@@ -249,15 +252,10 @@ export const sakuraTheme = ({
             })
         )}`
       )
-      // 初始化首页以及分页
-      const posts = database
-        .model('Post')
-        .find({ sticky: { $exists: false } })
-        .sort('-date')
-
+      // 初始化首页
       await initHomePages(app, database)
       // 归档页面
-      await initArchivePages(app, database, posts)
+      await initArchivePages(app, database)
       // 标签页面
       await initTagPages(app, database)
       // 分类页面
@@ -396,7 +394,7 @@ export const sakuraTheme = ({
     },
     onGenerated: (app) => {
       if (themePlugins?.sitemap) {
-        sitemap(app, themePlugins?.sitemap)
+        sitemapPlugin(app, themePlugins?.sitemap)
       }
     },
     plugins: [

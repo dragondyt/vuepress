@@ -8,9 +8,12 @@ const fmtNum = (num: number): any => {
 }
 export const initArchivePages = async (
   app: App,
-  database: warehouse,
-  allPosts: any
+  database: warehouse
 ): Promise<void> => {
+  const allPosts = database
+    .model('Post')
+    .find({ sticky: { $exists: false } })
+    .sort('-date')
   const perPage = 10
 
   async function generate(path, posts, options?): Promise<void> {

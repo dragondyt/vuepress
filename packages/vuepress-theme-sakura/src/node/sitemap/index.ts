@@ -4,7 +4,7 @@ import { debug } from '@vuepress/utils'
 import { SitemapStream } from 'sitemap'
 import type { SiteMapOption } from '../../shared'
 const log = debug('theme:sakura/sitemap')
-export function sitemap(app: App, sitemapOption: SiteMapOption): void {
+export function sitemapPlugin(app: App, sitemapOption: SiteMapOption): void {
   log('站点地图生成开始')
   // Creates a sitemap object given the input configuration with URLs
   const sitemap = new SitemapStream({ hostname: sitemapOption.hostname })
