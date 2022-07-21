@@ -197,6 +197,7 @@ export const sakuraTheme = ({
         tag_map: {},
       })
 
+      const postService = database.model('Post')
       for (const page of pages) {
         let categories
         let tags
@@ -214,22 +215,31 @@ export const sakuraTheme = ({
         if (!Array.isArray(tags)) {
           tags = [tags]
         }
-        const post = await database.model('Post').insert(page)
+        const post = await postService.insert(page)
 
         await Promise.all([
           post.setCategories(categories),
           post.setTags(tags),
           (page.frontmatter.id = post._id),
         ])
-        await database.save()
-        page.frontmatter.categories = post.categories
         page.frontmatter.tags = post.tags
+      }
+
+      for (const page of pages) {
+        page.frontmatter.categories = postService
+          .findById(page.frontmatter.id)
+          ?.categories.toArray()
+          .map((c) => {
+            return {
+              name: c.name,
+              slug: c.slug,
+            }
+          })
       }
       await app.writeTemp(
         'randomPosts.ts',
         `export default ${JSON.stringify(
-          database
-            .model('Post')
+          postService
             .shuffle()
             .limit(10)
             .toArray()
@@ -262,8 +272,7 @@ export const sakuraTheme = ({
       await initCategoryPages(app, database)
       if (themePlugins?.algoliaSearch && themePlugins.algoliaSearch.adminKey) {
         // 搜索
-        let posts = database
-          .model('Post')
+        let posts = postService
           .find({
             published: true,
           })

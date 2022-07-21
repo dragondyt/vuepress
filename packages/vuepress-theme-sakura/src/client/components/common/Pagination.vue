@@ -20,7 +20,7 @@ function formatURL(i): string {
 
 <template>
   <nav
-    v-if="props.pagination"
+    v-if="props.pagination && pagination.total > 1"
     class="inline-block w-full py-5 px-2.5 text-center"
     style="color: var(--grey-5)"
   >
