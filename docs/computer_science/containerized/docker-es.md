@@ -27,7 +27,7 @@ docker pull elasticsearch:x.x.x
 ```bash
 docker run --name elasticsearch -d -e ES_JAVA_OPTS="-Xms512m -Xmx512m" -p 9200:9200 -p 9300:9300 elasticsearch:latest
 ```
-![response from daemon: Conflict. The container name "/elasticsearch" is already in use by container "06a80d721428c762abcb750f5a5f48a947c4714e3f9e6637e10792b4f4fa5a02". You have to remove (or rename) that container to be able to reuse that name](https://i.loli.net/2020/04/29/fPN3OEz4Qno12b9.png)
+![冲突](https://i.loli.net/2020/04/29/fPN3OEz4Qno12b9.png)
 查看所有容器
 ```bash
 docker ps -a
