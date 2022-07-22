@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { striptags } from 'striptags'
-
 const props = defineProps<{
   post: any
 }>()
@@ -57,11 +56,16 @@ function count(post: string): string {
       "
     >
       <RouterLink :to="props.post.path">
-        <img
+        <AsImage
           class="h-full w-full object-cover"
-          :src="props.post.frontmatter?.cover"
           :alt="props.post.title"
-        />
+          :src="props.post.frontmatter?.cover"
+          :lazy="true"
+        >
+          <template #loading>
+            <div class="placeholder"></div>
+          </template>
+        </AsImage>
       </RouterLink>
     </div>
     <div
