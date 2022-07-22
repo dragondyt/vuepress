@@ -21,6 +21,7 @@ import {
 } from './init'
 import {
   markdownItExcerpt,
+  markdownItImg,
   markdownItKatex,
   markdownItPrism,
   markdownItSpoiler,
@@ -83,6 +84,7 @@ export const sakuraTheme = ({
       })
       markdownItPrism(md)
       markdownItKatex(md)
+      markdownItImg(md)
       md.use(require('./plugins/markdown-it-furigana'), {
         fallbackParens: '()',
       })

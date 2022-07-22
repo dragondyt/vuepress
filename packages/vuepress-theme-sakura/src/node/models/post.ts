@@ -177,7 +177,6 @@ module.exports = (ctx) => {
   })
 
   Post.method('toObj', function (this: typeof Post) {
-    console.log(this)
     return {
       title: this.title,
       path: this.path,
