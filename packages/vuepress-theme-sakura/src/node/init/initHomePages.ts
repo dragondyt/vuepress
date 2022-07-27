@@ -1,8 +1,10 @@
+import { copyFileSync, existsSync } from 'fs'
 import * as util from 'util'
 import type { App } from '@vuepress/core'
 import { createPage } from '@vuepress/core'
 import * as CRC32 from 'crc-32'
 import type * as warehouse from 'warehouse'
+import { mkdirsSync } from '../utils/file'
 export const initHomePages = async (
   app: App,
   database: warehouse
@@ -42,6 +44,96 @@ export const initHomePages = async (
   const perPage = 10
   const total = perPage ? Math.ceil(length / perPage) : 1
 
+  function getCatList(): any[] {
+    const catList: any[] = []
+    const categories = database
+      .model('Category')
+      .filter((category) => category.length)
+
+    function getTopCat(cat): any {
+      if (cat.parent) {
+        const pCat = categories.findOne({ _id: cat.parent })
+        return getTopCat(pCat)
+      } else {
+        return {
+          path: `/categories/${cat.slug}`,
+          name: cat.name,
+          slug: cat.slug,
+          top: cat.top,
+          child: cat.child,
+          length: cat.length,
+          subs: cat.subs,
+        }
+      }
+    }
+
+    if (categories && categories.length) {
+      categories.forEach((cat) => {
+        const cover = app.dir.source(`${cat.slug}/cover.jpg`)
+        if (existsSync(cover)) {
+          if (!existsSync(app.dir.dest(`${cat.slug}`))) {
+            mkdirsSync(app.dir.dest(`${cat.slug}`))
+            copyFileSync(cover, app.dir.dest(`${cat.slug}/cover.jpg`))
+          }
+          const topCat = getTopCat(cat)
+          if (topCat._id !== cat._id) {
+            cat.top = topCat
+          }
+          const child = categories.find({ parent: cat._id })
+          let pl = 6
+          if (child.length !== 0) {
+            cat.child = child.length
+            cat.subs = child
+              .sort({ name: 1 })
+              .limit(6)
+              .toArray()
+              .map((c) => c.toObj)
+            pl = Math.max(0, pl - child.length)
+            if (pl > 0) {
+              cat.subs.push(
+                cat.posts
+                  .sort({ title: 1 })
+                  .filter(function (item, i): boolean {
+                    return item.categories.last()._id === cat._id
+                  })
+                  .limit(pl)
+                  .toArray()
+                  .map((p) => {
+                    return {
+                      path: p.path,
+                      name: p.title,
+                    }
+                  })
+              )
+            }
+          } else {
+            cat.subs = cat.posts
+              .sort({ title: 1 })
+              .limit(6)
+              .toArray()
+              .map((p) => {
+                return {
+                  path: p.path,
+                  name: p.title,
+                }
+              })
+          }
+          catList.push({
+            path: `/categories/${cat.slug}`,
+            name: cat.name,
+            slug: cat.slug,
+            top: cat.top,
+            child: cat.child,
+            length: cat.length,
+            subs: cat.subs,
+            cover: `${cat.slug}/cover.jpg`,
+          })
+        }
+      })
+    }
+    return catList
+  }
+
   for (let i = 1; i <= total; i++) {
     app.pages.push(
       await createPage(app, {
@@ -51,6 +143,7 @@ export const initHomePages = async (
           layout: 'IndexLayout',
           title: `= ${app.siteData.locales['/'].title} =`,
           stickyList: i === 1 ?? app.pages.filter((_) => _.frontmatter?.sticky),
+          categories: i === 1 ? getCatList() : [],
           posts: posts.slice(perPage * (i - 1), perPage * i),
           sitemap: {
             exclude: i !== 1,

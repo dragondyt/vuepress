@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { striptags } from 'striptags'
+import MoreBtn from '../common/MoreBtn.vue'
 const props = defineProps<{
   post: any
 }>()
@@ -62,9 +63,6 @@ function count(post: string): string {
           :src="props.post.frontmatter?.cover"
           :lazy="true"
         >
-          <template #loading>
-            <div class="placeholder"></div>
-          </template>
         </AsImage>
       </RouterLink>
     </div>
@@ -127,32 +125,11 @@ function count(post: string): string {
           ></span
         >
       </div>
-      <RouterLink
-        class="btn absolute bottom-0 right-0 py-[0.3rem] px-4"
-        style="
-          border-radius: 1rem 0;
-          color: var(--grey-0);
-          background-image: linear-gradient(to right,var(--color-pink) 0,var(--color-orange) 100%
-          );
-        "
-        :to="props.post.path"
+      <MoreBtn
+        class="absolute bottom-0 right-0 py-[0.3rem] px-4"
+        :path="props.post.path"
         :title="props.post.title"
-      >
-        more...
-      </RouterLink>
+      />
     </div>
   </article>
 </template>
-
-<style scoped>
-.btn {
-  &::before {
-    @apply absolute left-2 top-[0.8rem] block rounded-[5rem];
-    content: '';
-    height: calc(100% - 1rem);
-    width: calc(100% - 1rem);
-    box-shadow: 0 0 0.6rem 0.6rem var(--color-pink-a3);
-    background-color: var(--color-pink-a3);
-  }
-}
-</style>

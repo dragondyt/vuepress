@@ -3,10 +3,10 @@ import { usePageData } from '@vuepress/client'
 import { onMounted, ref } from 'vue'
 import Pagination from '../components/common/Pagination.vue'
 import Sidebar from '../components/common/Sidebar.vue'
+import Card from '../components/index/Card.vue'
+import Divider from '../components/index/Divider.vue'
 import Segment from '../components/index/Segment.vue'
 import SakuraLayout from '../components/SakuraLayout.vue'
-import Card from "../components/index/Card.vue";
-import Divider from "../../../lib/client/components/index/Divider.vue";
 
 const panelsHeight = ref()
 onMounted(() => {
@@ -29,7 +29,7 @@ const pageData = usePageData()
             />
           </div>
         </template>
-        <Card :categories="[]" title="精选分类" />
+        <Card :categories="pageData.frontmatter.categories" title="精选分类" />
         <Divider title="文章列表" />
         <div class="flex flex-col items-center justify-center">
           <Segment

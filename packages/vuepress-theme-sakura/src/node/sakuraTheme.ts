@@ -1,5 +1,5 @@
 import type { Page, Theme } from '@vuepress/core'
-import { createPage, resolvePageContent } from '@vuepress/core'
+import { resolvePageContent } from '@vuepress/core'
 import { themeDataPlugin } from '@vuepress/plugin-theme-data'
 import { fs, path } from '@vuepress/utils'
 import algoliasearch from 'algoliasearch'
@@ -30,7 +30,11 @@ import { sitemapPlugin } from './sitemap'
 import { assignDefaultLocaleOptions, assignPostcssConfig } from './utils'
 // @ts-ignore
 const { check, add } = require('./abbr/check')
+
 export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
+  categoryMap?: {
+    [key: string]: string
+  }
   /**
    * To avoid confusion with the root `plugins` option,
    * we use `themePlugins`
@@ -39,6 +43,7 @@ export interface SakuraThemeOptions extends SakuraThemeLocaleOptions {
 }
 
 export const sakuraTheme = ({
+  categoryMap,
   ...localeOptions
 }: SakuraThemeOptions = {}): Theme => {
   assignDefaultLocaleOptions(localeOptions)
@@ -100,10 +105,10 @@ export const sakuraTheme = ({
           headerless: true,
         })
         .use((md, option) => {
-          md.renderer.rules.table_open = (tokens, idx, options, env, self) => {
+          md.renderer.rules.table_open = () => {
             return '<div class="table-container"><table>'
           }
-          md.renderer.rules.table_close = (tokens, idx, options, env, self) => {
+          md.renderer.rules.table_close = () => {
             return '</table></div>'
           }
         })
@@ -189,13 +194,7 @@ export const sakuraTheme = ({
       // 注册模型
       registerModels({
         database,
-        category_map: {
-          '计算机科学': 'computer-science',
-          'Java': 'java',
-          '二进制杂谈': 'note',
-          '零基础学Java语言-浙江大学-翁恺': 'course-1',
-          'Theme Shoka Documentation': 'theme-shoka-doc',
-        },
+        category_map: categoryMap,
         tag_map: {},
       })
 
@@ -272,6 +271,13 @@ export const sakuraTheme = ({
       await initTagPages(app, database)
       // 分类页面
       await initCategoryPages(app, database)
+      // 初始化站点数据
+      // @ts-ignore
+      app.siteData.tagLength = 10
+      // @ts-ignore
+      app.siteData.categoriesLength = 10
+      // @ts-ignore
+      app.siteData.postLength = 10
       if (themePlugins?.algoliaSearch && themePlugins.algoliaSearch.adminKey) {
         // 搜索
         let posts = postService

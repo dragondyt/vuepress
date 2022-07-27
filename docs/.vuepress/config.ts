@@ -17,6 +17,10 @@ export default defineUserConfig({
   // extra tags in `<head>`
   head,
 
+  author: 'qhmy',
+
+  description: '描述',
+
   // site-level locales config
   locales: {
     '/': {
@@ -140,6 +144,14 @@ export default defineUserConfig({
         color: '#191717',
       }
     ],
+    categoryMap:{
+      '计算机科学': 'computer-science',
+      '算法': 'algorithm',
+      '二叉树': 'binary-tree',
+      '二进制杂谈': 'note',
+      '零基础学Java语言-浙江大学-翁恺': 'course-1',
+      'Theme Shoka Documentation': 'theme-shoka-doc',
+    },
     themePlugins: {
       // only enable git plugin in production mode
       git: isProd,

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useSiteLocaleData } from '@vuepress/client'
 import { onMounted, ref } from 'vue'
 import { useThemeLocaleData } from '../../composables'
 import Menu from './Menu.vue'
@@ -11,6 +12,7 @@ onMounted(() => {
   panelsHeight.value = window.innerHeight
 })
 const themeLocaleData = useThemeLocaleData()
+const siteLocaleData = useSiteLocaleData()
 </script>
 
 <template>
@@ -41,25 +43,25 @@ const themeLocaleData = useThemeLocaleData()
           >
             <div class="py-0 px-[0.9375rem]">
               <RouterLink to="/archives">
-                <span class="block text-center text-[1.125em] font-[600]"
-                  >200</span
-                >
+                <span class="block text-center text-[1.125em] font-[600]">{{
+                  siteLocaleData.postLength
+                }}</span>
                 <span class="text-[.875em]">文章</span>
               </RouterLink>
             </div>
             <div class="categories py-0 px-[0.9375rem]">
               <RouterLink to="/categories/">
-                <span class="block text-center text-[1.125em] font-[600]"
-                  >45</span
-                >
+                <span class="block text-center text-[1.125em] font-[600]">{{
+                  siteLocaleData.categoriesLength
+                }}</span>
                 <span class="text-[.875em]">分类</span>
               </RouterLink>
             </div>
             <div class="tags py-0 px-[0.9375rem]">
               <RouterLink to="/tags/">
-                <span class="block text-center text-[1.125em] font-[600]"
-                  >70</span
-                >
+                <span class="block text-center text-[1.125em] font-[600]">{{
+                  siteLocaleData.tagLength
+                }}</span>
                 <span class="text-[.875em]">标签</span>
               </RouterLink>
             </div>
