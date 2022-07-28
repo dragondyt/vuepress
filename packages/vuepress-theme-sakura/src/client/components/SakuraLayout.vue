@@ -9,6 +9,7 @@ import Sidebar from './common/Sidebar.vue'
 import Search from './search/Search.vue'
 
 const isAffix = ref(false)
+const brandAffix = ref(false)
 const headerHeight = ref(0)
 const headerRef = ref<HTMLDivElement>()
 const wavesRef = ref<HTMLDivElement>()
@@ -21,6 +22,7 @@ const pageData = usePageData()
 function scrollHandle(e: any): void {
   isAffix.value =
     window.scrollY > headerHeight.value && document.body.offsetWidth > 991
+  brandAffix.value = window.scrollY > 0
 }
 
 function resizeHandle(e?: any): void {
@@ -74,7 +76,7 @@ onUnmounted(() => {
   >
     <div class="mx-auto my-0 w-full">
       <div
-        :class="[isAffix ? 'z-[-1]' : '']"
+        :class="[brandAffix ? 'z-[-1]' : '']"
         class="fixed flex h-[50vh] min-h-[10rem] w-full flex-col items-center justify-center px-2 pt-12 pb-0 text-center"
       >
         <div class="flex flex-col items-center justify-center">
@@ -155,6 +157,41 @@ onUnmounted(() => {
         </div>
       </nav>
     </div>
+    <div
+      class="img fixed top-0 left-0 -z-[9] block h-[70vh] min-h-[25rem] w-full bg-[#363636]"
+    >
+      <ul
+        v-if="
+          Array.isArray(themeLocaleData.cover) &&
+          themeLocaleData.cover.length >= 6
+        "
+      >
+        <li
+          v-for="(img, i) in themeLocaleData.cover.slice(0, 6)"
+          :key="img"
+          class="absolute top-0 left-0 z-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-0"
+          style="
+            animation: imageAnimation 36s linear infinite 0s;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+          "
+          :style="{
+            'background-image': `url(${img})`,
+            'animation-delay': `${i * 6}s`,
+          }"
+        ></li>
+      </ul>
+      <img
+        v-else
+        class="absolute top-0 left-0 h-full w-full object-cover"
+        :src="
+          Array.isArray(themeLocaleData.cover)
+            ? themeLocaleData.cover[0]
+            : themeLocaleData.cover
+        "
+        alt="cover"
+      />
+    </div>
   </header>
   <div ref="wavesRef">
     <svg
@@ -172,21 +209,56 @@ onUnmounted(() => {
         />
       </defs>
       <g class="parallax">
-        <use xlink:href="#gentle-wave" x="48" y="0" />
-        <use xlink:href="#gentle-wave" x="48" y="3" />
-        <use xlink:href="#gentle-wave" x="48" y="5" />
-        <use xlink:href="#gentle-wave" x="48" y="7" />
+        <use
+          xlink:href="#gentle-wave"
+          x="48"
+          y="0"
+          style="
+            animation: wave 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+            animation-delay: -2s;
+            animation-duration: 7s;
+            fill: var(--grey-1-a7);
+          "
+        />
+        <use
+          xlink:href="#gentle-wave"
+          x="48"
+          y="3"
+          style="
+            animation: wave 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+            animation-delay: -3s;
+            animation-duration: 10s;
+            fill: var(--grey-1-a5);
+          "
+        />
+        <use
+          xlink:href="#gentle-wave"
+          x="48"
+          y="5"
+          style="
+            animation: wave 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+            animation-delay: -4s;
+            animation-duration: 13s;
+            fill: var(--grey-1-a3);
+          "
+        />
+        <use
+          xlink:href="#gentle-wave"
+          x="48"
+          y="7"
+          style="
+            animation: wave 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+            animation-delay: -5s;
+            animation-duration: 20s;
+            fill: var(--grey-1);
+          "
+        />
       </g>
     </svg>
   </div>
   <main
     style="
-      background: linear-gradient(
-          to top,
-          var(--body-bg-shadow) 0,
-          var(--grey-1) 20%
-        )
-        no-repeat bottom;
+      background: linear-gradient( to top, var(--body-bg-shadow) 0, var(--grey-1) 20% ) no-repeat bottom;
     "
   >
     <div
@@ -196,12 +268,7 @@ onUnmounted(() => {
       <div
         class="min-h-[37.5rem] w-full"
         style="
-          background: linear-gradient(
-              to top,
-              var(--grey-0) 0,
-              var(--grey-1) 20%
-            )
-            no-repeat top;
+          background: linear-gradient( to top, var(--grey-0) 0, var(--grey-1) 20% ) no-repeat top;
           box-shadow: 0 1.25rem 1rem 0.3125rem var(--body-bg-shadow);
         "
       >
@@ -283,4 +350,17 @@ onUnmounted(() => {
   <Search ref="searchRef" />
 </template>
 
-<style scoped></style>
+<style lang="postcss" scoped>
+.img::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  transition: all 0.2s ease-in-out 0s;
+}
+</style>

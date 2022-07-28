@@ -255,11 +255,7 @@ onMounted(() => {
   .kbd,
   kbd {
     background-color: var(--grey-1);
-    background-image: linear-gradient(
-      var(--grey-2),
-      var(--grey-0),
-      var(--grey-2)
-    );
+    background-image: linear-gradient(var(--grey-2), var(--grey-0), var(--grey-2));
     border: 0.0625rem solid var(--grey-4);
     border-radius: 0.2rem;
     box-shadow: 0.1rem 0.1rem 0.2rem var(--grey-9-a1);
@@ -511,18 +507,7 @@ onMounted(() => {
   }
 
   .rainbow {
-    background-image: linear-gradient(
-      to left,
-      #ff4500,
-      orange,
-      gold,
-      #90ee90,
-      #0ff,
-      #1e90ff,
-      #9370db,
-      #ff69b4,
-      #ff4500
-    );
+    background-image: linear-gradient(to left, #ff4500, orange, gold, #90ee90, #0ff, #1e90ff, #9370db, #ff69b4, #ff4500);
     background-size: 110vw;
     background-clip: text;
     color: transparent;

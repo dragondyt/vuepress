@@ -30,13 +30,13 @@ const siteLocaleData = useSiteLocaleData()
           <div>
             <img
               class="my-0 mx-auto block max-w-[10rem] rounded-[50%] p-2.5"
-              src="https://cdn.jsdelivr.net/gh/amehime/shoka@30732f13/images/avatar.jpg"
+              :src="themeLocaleData.sidebar.avatar"
               alt=""
             />
             <p class="mx-0 mt-[.3125rem] mb-0 text-center font-[400]">
-              Ruri Shimotsuki
+              {{ siteLocaleData.author }}
             </p>
-            <div class="description">琉璃的医学 &amp; 编程笔记</div>
+            <div class="description">{{ siteLocaleData.description }}</div>
           </div>
           <nav
             class="mt-2.5 flex justify-center overflow-hidden whitespace-nowrap text-center leading-[1.4]"

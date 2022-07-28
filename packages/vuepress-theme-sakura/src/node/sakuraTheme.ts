@@ -273,11 +273,15 @@ export const sakuraTheme = ({
       await initCategoryPages(app, database)
       // 初始化站点数据
       // @ts-ignore
-      app.siteData.tagLength = 10
+      app.siteData.tagLength = database
+        .model('Tag')
+        .filter((tag) => tag.length).length
       // @ts-ignore
-      app.siteData.categoriesLength = 10
+      app.siteData.categoriesLength = database
+        .model('Category')
+        .filter((category) => category.length).length
       // @ts-ignore
-      app.siteData.postLength = 10
+      app.siteData.postLength = database.model('Post').find({}).length
       if (themePlugins?.algoliaSearch && themePlugins.algoliaSearch.adminKey) {
         // 搜索
         let posts = postService

@@ -16,7 +16,7 @@ export default defineUserConfig({
 
   // extra tags in `<head>`
   head,
-
+// @ts-ignore
   author: 'qhmy',
 
   description: '描述',
@@ -169,6 +169,32 @@ export default defineUserConfig({
         hostname: 'https://blog.dragondyt.top'
       }
     },
+    cover: [
+      'https://tva3.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1gicit31ffoj20zk0m8naf.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1gicitf0kl1j20zk0m87fe.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg',
+      'https://tva3.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg',
+    ],
+    sidebar: {
+      avatar: '',
+      position: 'left'
+    },
+    footer: {
+      icon: {
+        name: 'sakura rotate',
+        color: '#ffc0cb',
+      },
+      since: 2019,
+      count: false,
+      powered: true
+    }
   }),
 
   // configure markdown
