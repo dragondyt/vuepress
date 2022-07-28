@@ -1,0 +1,1 @@
+import{_ as e,o as c,c as t,a}from"./app.49840439.js";const _={},o=a("p",null,"Spark \u5B66\u4E60",-1),r=[o];function s(n,l){return c(),t("div",null,r)}var f=e(_,[["render",s],["__file","bb4acdee.html.vue"]]);export{f as default};
