@@ -1,0 +1,53 @@
+{
+  "name": "@dragondyt/vuepress-plugin-algoliasearch",
+  "version": "1.0.1-beta.7",
+  "description": "VuePress plugin - algoliasearch",
+  "keywords": [
+    "vuepress-plugin",
+    "vuepress",
+    "plugin",
+    "algoliasearch",
+    "algoliasearch",
+    "algoliasearch"
+  ],
+  "homepage": "https://github.com/dragondyt/vuepress",
+  "bugs": {
+    "url": "https://github.com/dragondyt/vuepress/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragondyt/vuepress.git"
+  },
+  "license": "MIT",
+  "author": "dragondyt",
+  "type": "module",
+  "exports": {
+    ".": "./lib/node/index.js",
+    "./client": "./lib/client/index.js",
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/node/index.js",
+  "types": "./lib/node/index.d.ts",
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "clean": "rimraf lib *.tsbuildinfo",
+    "copy": "cpx \"src/**/*.{d.ts,css,svg}\" lib"
+  },
+  "dependencies": {
+    "@dragondyt/vuepress-plugin-warehouse": "workspace:*",
+    "@vuepress/core": "2.0.0-beta.59",
+    "@vuepress/utils": "2.0.0-beta.59",
+    "algoliasearch": "^4.14.3",
+    "crc-32": "^1.2.2",
+    "gray-matter": "^4.0.3",
+    "striptags": "^3.2.0",
+    "vitest": "^0.23.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

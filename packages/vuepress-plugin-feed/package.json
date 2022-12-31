@@ -1,0 +1,49 @@
+{
+  "name": "@dragondyt/vuepress-plugin-feed",
+  "version": "1.0.1-beta.7",
+  "description": "VuePress plugin - feed",
+  "keywords": [
+    "vuepress-plugin",
+    "vuepress",
+    "plugin",
+    "feed"
+  ],
+  "homepage": "https://github.com/dragondyt/vuepress",
+  "bugs": {
+    "url": "https://github.com/dragondyt/vuepress/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragondyt/vuepress.git"
+  },
+  "license": "MIT",
+  "author": "dragondyt",
+  "type": "module",
+  "exports": {
+    ".": "./lib/node/index.js",
+    "./client": "./lib/client/index.js",
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/node/index.js",
+  "types": "./lib/node/index.d.ts",
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "clean": "rimraf lib *.tsbuildinfo",
+    "copy": "cpx \"src/**/*.{d.ts,css,svg}\" lib"
+  },
+  "dependencies": {
+    "@dragondyt/vuepress-plugin-warehouse": "workspace:*",
+    "@vuepress/core": "2.0.0-beta.59",
+    "@vuepress/utils": "2.0.0-beta.59",
+    "dayjs": "^1.11.7",
+    "feed": "^4.2.2",
+    "vitest": "^0.23.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

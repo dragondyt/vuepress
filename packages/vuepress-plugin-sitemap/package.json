@@ -1,0 +1,46 @@
+{
+  "name": "@dragondyt/vuepress-plugin-sitemap",
+  "version": "1.0.1-beta.7",
+  "description": "VuePress plugin - sitemap",
+  "keywords": [
+    "vuepress-plugin",
+    "vuepress",
+    "plugin",
+    "sitemap"
+  ],
+  "homepage": "https://github.com/dragondyt/vuepress",
+  "bugs": {
+    "url": "https://github.com/dragondyt/vuepress/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragondyt/vuepress.git"
+  },
+  "license": "MIT",
+  "author": "dragondyt",
+  "type": "module",
+  "exports": {
+    ".": "./lib/node/index.js",
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/node/index.js",
+  "types": "./lib/node/index.d.ts",
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "clean": "rimraf lib *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@dragondyt/vuepress-plugin-warehouse": "workspace:*",
+    "@vuepress/core": "2.0.0-beta.59",
+    "@vuepress/utils": "2.0.0-beta.59",
+    "sitemap": "^7.1.1",
+    "vitest": "^0.23.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

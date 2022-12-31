@@ -1,0 +1,28 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true
+  },
+  "references": [
+    {
+      "path": "./vuepress-plugin-algoliasearch/tsconfig.build.json"
+    },
+    {
+      "path": "./vuepress-plugin-abbrlink/tsconfig.build.json"
+    },   {
+      "path": "./vuepress-plugin-feed/tsconfig.build.json"
+    },
+    {
+      "path": "./vuepress-plugin-feed/tsconfig.build.json"
+    },
+    {
+      "path": "./vuepress-theme-sakura/tsconfig.build.json"
+    },    {
+      "path": "./vuepress-plugin-sitemap/tsconfig.build.json"
+    },
+    {
+      "path": "./vuepress-plugin-warehouse/tsconfig.build.json"
+    }
+  ],
+  "files": []
+}

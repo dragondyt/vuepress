@@ -1,0 +1,66 @@
+@import '_mixins';
+@import '_variables';
+::-webkit-scrollbar {
+  width: .3125rem;
+  height: .3125rem;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: .3125rem;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+::-webkit-scrollbar-button {
+  background: transparent;
+  height: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 1.25rem;
+  background-clip: padding-box;
+  background-color: var(--grey-3);
+  background-image: linear-gradient(45deg,var(--grey-1-a5) 25%,transparent 0,transparent 50%,var(--grey-1-a5) 0,var(--grey-1-a5) 75%,transparent 0,transparent);
+}
+
+@import "animate";
+
+::selection {
+  background: var(--color-orange);
+  color: var(--grey-2);
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(to top, var(--body-bg-shadow) 0, var(--grey-1) 20%) no-repeat bottom;
+  color: var(--text-color);
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-headings;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: 1.25rem 0 .9375rem;
+  &.title {
+    font-family: $font-family-title;
+  }
+}
