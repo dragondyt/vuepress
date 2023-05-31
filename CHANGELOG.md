@@ -1,3 +1,12 @@
+## 1.0.1-beta.8 (2023-05-31)
+
+
+### Features
+
+* 初始化提交 ([b873da2](https://github.com/dragondyt/vuepress/commit/b873da22f682733d20d0a4801be26199223729cb))
+
+
+
 ## [1.0.1-beta.7](https://github.com/dragondyt/vuepress/compare/v1.0.1-beta.6...v1.0.1-beta.7) (2022-12-28)
 
 
