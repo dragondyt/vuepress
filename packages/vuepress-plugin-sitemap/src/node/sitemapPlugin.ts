@@ -51,9 +51,7 @@ export const sitemapPlugin = (
         },
       })
       // or reading straight from an in-memory array
-      sms
-        .pipe(createGzip())
-        .pipe(createWriteStream(dest('./sitemap-index.xml.gz')))
+      sms.pipe(createWriteStream(dest('./sitemap-index.xml')))
       const database = await getDatabase(app)
       Readable.from(
         database
