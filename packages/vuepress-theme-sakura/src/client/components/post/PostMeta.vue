@@ -30,7 +30,7 @@ function fullDate(date: string): string {
       <time
         itemprop="dateCreated datePublished"
         :datetime="dayjs(item.date).format()"
-        >{{ dayjs(item.date) }}</time
+        >{{ dayjs(item.date).format('YYYY-MM-DD') }}</time
       >
     </span>
     <span class="item" :title="t('symbols_count_time.count')">

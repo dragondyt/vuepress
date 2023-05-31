@@ -1,17 +1,26 @@
 import type { AbbrLinkPluginOptions } from '@dragondyt/vuepress-plugin-abbrlink'
+import type { AlgoliasearchPluginOptions } from '@dragondyt/vuepress-plugin-algoliasearch'
+import type { FeedPluginOptions } from '@dragondyt/vuepress-plugin-feed'
+import type { SitemapPluginOptions } from '@dragondyt/vuepress-plugin-sitemap'
 
 export interface ThemeOption extends ThemeClientOption {
   category_map: Record<any, string>
   themePlugins: {
     abbrLink?: AbbrLinkPluginOptions
+    sitemap?: SitemapPluginOptions
+    algoliaConfig?: AlgoliasearchPluginOptions
+    feedOption?: FeedPluginOptions
+    abbrLinkOption?: AbbrLinkPluginOptions
     prismjs?: boolean
   }
 }
+
 export interface MenuItem {
   name: string
   path: string
   children?: Array<MenuItem>
 }
+
 export interface ThemeClientOption {
   algoliaSearch?: {
     appId: string

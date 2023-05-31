@@ -6,6 +6,7 @@ import { computed, onMounted, ref } from 'vue'
 import Comment from '../../../lib/client/components/comment/Comment.vue'
 import Breadcrumb from '../../../lib/client/components/post/Breadcrumb.vue'
 import Message from '../components/message/index.js'
+import Copyright from '../components/post/Copyright.vue'
 import PostNav from '../components/post/index.js'
 import PostFooter from '../components/post/PostFooter.vue'
 import PostMeta from '../components/post/PostMeta.vue'
@@ -228,37 +229,7 @@ onMounted(() => {
           <footer>
             <PostFooter />
             <PostReward />
-            <div id="copyright">
-              <ul>
-                <li class="author">
-                  <strong>本文作者： </strong>Ruri Shimotsuki
-                  <i class="ic i-at"><em>@</em></i
-                  >優萌初華
-                </li>
-                <li class="link">
-                  <strong>本文链接：</strong>
-                  <a
-                    href="https://shoka.lostyu.me/computer-science/note/theme-shoka-doc/"
-                    title="Hexo 主题 Shoka &amp; multi-markdown-it 渲染器使用说明"
-                    data-pjax-state=""
-                    >https://shoka.lostyu.me/computer-science/note/theme-shoka-doc/</a
-                  >
-                </li>
-                <li class="license">
-                  <strong>版权声明： </strong>本站所有文章除特别声明外，均采用
-                  <a
-                    href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
-                    rel="noopener external nofollow noreferrer"
-                    target="_blank"
-                    class="exturl"
-                    title="(CC)BY-NC-SA"
-                    ><i class="ic i-creative-commons"><em>(CC)</em></i
-                    >BY-NC-SA</a
-                  >
-                  许可协议。转载请注明出处！
-                </li>
-              </ul>
-            </div>
+            <Copyright v-if="pageData.frontmatter.copyright !== false" />
           </footer>
         </article>
       </div>

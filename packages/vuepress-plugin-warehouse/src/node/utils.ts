@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/dot-notation */
+import type { App } from '@vuepress/core'
 import { fs, path, withSpinner } from '@vuepress/utils'
 import Database from 'warehouse'
 import DatabaseInstance from './database.js'
 import { registerModel } from './registerModel.js'
-export const inited = (): boolean => {
-  return false
+export const inited = (app: App): boolean => {
+  return app['warehouse']
 }
-export const initWarehouse = async (app): Promise<any> => {
+export const initWarehouse = async (app: App): Promise<any> => {
   return await withSpinner('warehouse')(async () => {
     if (!fs.existsSync(app.dir.temp())) {
       fs.mkdirSync(app.dir.temp(), { recursive: true })
@@ -48,18 +50,28 @@ export const initWarehouse = async (app): Promise<any> => {
       ])
     }
     await database.save()
+    app['warehouse'] = true
     return Promise.resolve(database)
   })
 }
-export const getDatabase = async (app): Promise<DatabaseInstance> => {
+export const getDatabase = async (app: App): Promise<DatabaseInstance> => {
   let database
-  if (!inited()) {
+  if (!inited(app)) {
     database = await initWarehouse(app)
   } else {
     const filePath = path.join(app.dir.temp(), 'db.json')
     database = new Database({
       version: 1,
       path: filePath,
+    })
+    registerModel({
+      database,
+      config: {
+        category_map: app.siteData.locales.category_map || {},
+        filename_case: false,
+        category_dir: '/categories',
+        tag_dir: '/tags',
+      },
     })
     await database.load()
   }

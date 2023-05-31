@@ -35,6 +35,8 @@ export default defineUserConfig({
   bundler:
     process.env.DOCS_BUNDLER === 'webpack' ? webpackBundler() : viteBundler(),
   theme: sakuraTheme({
+    alternate: '',
+    category_map: {},
     algoliaSearch: {
       appId: '5BTZLCECBW',
       apiKey: '9472de061655eb367be386d92aa70793',
@@ -82,6 +84,24 @@ export default defineUserConfig({
       abbrLink: {
         autoDate: false,
         alg: 'crc32',
+      },
+      sitemap: {
+        hostname: 'https://dragondyt.top',
+      },
+      algoliaConfig: {
+        appId: '5BTZLCECBW',
+        index: 'Sakura',
+        chunkSize: 5000,
+        fields: [
+          'title',
+          'path',
+          'categories',
+          'content:strip:truncate,0,2000',
+          'gallery',
+          'photos',
+          'tags',
+        ],
+        adminKey: process.env.ALGOLIA_ADMIN_KEY ?? '',
       },
     },
     widgets: {

@@ -1,14 +1,10 @@
 import type { Plugin } from '@vuepress/core'
 import { inited, initWarehouse } from './utils.js'
-export interface WarehousePluginOptions {
-  appId: string
-  adminKey: string
-  index: string
-}
-export const warehousePlugin = (config: WarehousePluginOptions): Plugin => ({
-  name: '@dragondyt/vuepress-plugin-algoliasearch',
+export const warehousePlugin = (): Plugin => ({
+  name: '@dragondyt/vuepress-plugin-warehouse',
+  multiple: false,
   onInitialized: async (app) => {
-    if (!inited()) {
+    if (!inited(app)) {
       await initWarehouse(app)
     }
   },

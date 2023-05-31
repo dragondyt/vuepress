@@ -59,7 +59,7 @@ export default {
     },
   },
   footer: {
-    powered: '基于 %s',
+    powered: '基于 ',
     total_views: '总访问量',
     total_visitors: '总访客量',
   },

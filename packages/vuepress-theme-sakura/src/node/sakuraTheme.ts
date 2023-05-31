@@ -1,5 +1,12 @@
+import { abbrLinkPlugin } from '@dragondyt/vuepress-plugin-abbrlink'
+import { algoliasearchPlugin } from '@dragondyt/vuepress-plugin-algoliasearch'
+import { feedPlugin } from '@dragondyt/vuepress-plugin-feed'
+import { sitemapPlugin } from '@dragondyt/vuepress-plugin-sitemap'
 import type { PostService } from '@dragondyt/vuepress-plugin-warehouse'
-import { getDatabase } from '@dragondyt/vuepress-plugin-warehouse'
+import {
+  getDatabase,
+  warehousePlugin,
+} from '@dragondyt/vuepress-plugin-warehouse'
 import type { Page, Theme } from '@vuepress/core'
 import { createPage } from '@vuepress/core'
 import { palettePlugin } from '@vuepress/plugin-palette'
@@ -120,9 +127,16 @@ export const sakuraTheme = ({
       await initSiteData(app, themeConfig, database)
     },
     plugins: [
-      // @vuepress/plugin-prismjs
+      warehousePlugin(),
+      themePlugins.abbrLinkOption
+        ? abbrLinkPlugin(themePlugins.abbrLinkOption)
+        : [],
+      themePlugins.algoliaConfig
+        ? algoliasearchPlugin(themePlugins.algoliaConfig)
+        : [],
+      themePlugins.sitemap ? sitemapPlugin(themePlugins.sitemap) : [],
+      themePlugins.feedOption ? feedPlugin(themePlugins.feedOption) : [],
       themePlugins.prismjs ? prismjsPlugin() : [],
-      // @vuepress/plugin-palette
       palettePlugin({ preset: 'sass' }),
     ],
   }
