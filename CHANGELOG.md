@@ -1,3 +1,7 @@
+## [1.0.1-beta.9](https://github.com/dragondyt/vuepress/compare/v1.0.1-beta.8...v1.0.1-beta.9) (2023-05-31)
+
+
+
 ## 1.0.1-beta.8 (2023-05-31)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@dragondyt/vuepress-plugin-algoliasearch",
-  "version": "1.0.1-beta.8",
+  "version": "1.0.1-beta.9",
   "description": "VuePress plugin - algoliasearch",
   "keywords": [
     "vuepress-plugin",
