@@ -5,7 +5,6 @@ import { fs, withSpinner } from '@vuepress/utils'
 import dayjs from 'dayjs'
 import type { FeedOptions } from 'feed'
 import { Feed } from 'feed'
-import { Guid } from 'js-guid'
 
 export interface FeedPluginOptions extends FeedOptions {
   types: string[]
