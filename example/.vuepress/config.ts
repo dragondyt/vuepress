@@ -103,6 +103,26 @@ export default defineUserConfig({
         ],
         adminKey: process.env.ALGOLIA_ADMIN_KEY ?? '',
       },
+      feedOption: {
+        types: ['rss', 'json', 'atom'],
+        id: '12',
+        title: 'Feed',
+        language: 'zh-CN',
+        author: {
+          name: '彩色',
+          email: 'xxx@qq.com',
+        },
+        description: '计算机',
+        category: '计算机',
+        link: 'https://blog.dragondyt.top',
+        host: 'https://blog.dragondyt.top',
+        feedLinks: {
+          json: 'https://blog.dragondyt.top/feed.json',
+          atom: 'https://blog.dragondyt.top/atom.xml',
+          rss: 'https://blog.dragondyt.top/rss.xml',
+        },
+        copyright: '',
+      },
     },
     widgets: {
       random_posts: false,

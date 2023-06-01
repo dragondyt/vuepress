@@ -119,6 +119,11 @@ export const algoliasearchPlugin = (
         logger.info('There is no post to index.')
         return
       }
+
+      if (!algoliaConfig.adminKey) {
+        logger.info('adminKey is empty !')
+        return
+      }
       posts = preparePosts(posts, fields, fieldsWithFilters)
       const chunkedPosts = splitIntoChunks(posts, algoliaChunkSize)
       const client = algoliasearch.default(

@@ -1,7 +1,6 @@
 import { createWriteStream } from 'fs'
 import { dirname } from 'node:path'
 import { Readable } from 'stream'
-import { createGzip } from 'zlib'
 import { getDatabase } from '@dragondyt/vuepress-plugin-warehouse'
 import type { Plugin } from '@vuepress/core'
 import { fs, withSpinner } from '@vuepress/utils'
@@ -10,7 +9,19 @@ import { SitemapAndIndexStream, SitemapStream } from 'sitemap'
 export interface SitemapPluginOptions {
   hostname: string
   sub?: string
+  limit?: number
+  lastmodDateOnly?: boolean
+  changefreq?:
+    | 'always'
+    | 'hourly'
+    | 'daily'
+    | 'weekly'
+    | 'monthly'
+    | 'yearly'
+    | 'never'
+  priority?: number
 }
+
 export const sitemapPlugin = (
   sitemapOptions: SitemapPluginOptions
 ): Plugin => ({
@@ -21,8 +32,8 @@ export const sitemapPlugin = (
       const { dest } = app.dir
       await fs.ensureDir(dirname(dest()))
       const sms = new SitemapAndIndexStream({
-        limit: 50000, // defaults to 45k
-        lastmodDateOnly: false, // print date not time
+        limit: sitemapOptions.limit || 50000, // defaults to 45k
+        lastmodDateOnly: sitemapOptions.lastmodDateOnly || false, // print date not time
         // SitemapAndIndexStream will call this user provided function every time
         // it needs to create a new sitemap file. You merely need to return a stream
         // for it to write the sitemap urls to and the expected url where that sitemap will be hosted
@@ -36,9 +47,7 @@ export const sitemapPlugin = (
 
           const path = `./sitemap-${i}.xml`
 
-          const ws = sitemapStream
-            .pipe(createGzip()) // compress the output of the sitemap
-            .pipe(createWriteStream(dest(path + '.gz'))) // write it to sitemap-NUMBER.xml
+          const ws = sitemapStream.pipe(createWriteStream(dest(path))) // write it to sitemap-NUMBER.xml
 
           return [
             new URL(
@@ -60,7 +69,13 @@ export const sitemapPlugin = (
           .map((p) => {
             return {
               url: p.path,
-              changefreq: 'daily',
+              changefreq:
+                p.frontmatter?.sitemap?.changefreq ||
+                sitemapOptions.changefreq ||
+                'monthly',
+              priority:
+                p.frontmatter?.sitemap?.priority || sitemapOptions.priority,
+              lastmod: p.frontmatter.updatedDate,
             }
           })
       ).pipe(sms) // available as of node 10.17.0

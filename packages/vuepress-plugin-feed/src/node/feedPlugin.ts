@@ -3,91 +3,75 @@ import { getDatabase } from '@dragondyt/vuepress-plugin-warehouse'
 import type { Plugin } from '@vuepress/core'
 import { fs, withSpinner } from '@vuepress/utils'
 import dayjs from 'dayjs'
+import type { FeedOptions } from 'feed'
 import { Feed } from 'feed'
+import { Guid } from 'js-guid'
 
-export interface FeedPluginOptions {
-  type?: string
+export interface FeedPluginOptions extends FeedOptions {
+  types: string[]
+  category: string
+  host: string
 }
 
 export const feedPlugin = (feedOptions: FeedPluginOptions): Plugin => ({
   name: '@dragondyt/vuepress-plugin-feed',
-  multiple: false,
-  onInitialized: async (app): Promise<void> => {
+  multiple: true,
+  onGenerated: async (app): Promise<void> => {
     const { dest } = app.dir
     await withSpinner('feed')(async () => {
-      const feed = new Feed({
-        title: 'Feed Title',
-        description: 'This is my personal feed!',
-        id: 'http://example.com/',
-        link: 'http://example.com/',
-        language: 'en', // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
-        image: 'http://example.com/image.png',
-        favicon: 'http://example.com/favicon.ico',
-        copyright: 'All rights reserved 2013, John Doe',
-        updated: new Date(2013, 6, 14), // optional, default = today
-        generator: 'awesome', // optional, default = 'Feed for Node.js'
-        feedLinks: {
-          json: 'https://example.com/json',
-          atom: 'https://example.com/atom',
-        },
-        author: {
-          name: 'John Doe',
-          email: 'johndoe@example.com',
-          link: 'https://example.com/johndoe',
-        },
-      })
+      const feed = new Feed(feedOptions)
       const database = await getDatabase(app)
       database
         .model('Post')
         .sort('-date')
         .forEach((post) => {
-          feed.addItem({
-            title: post.title,
-            id: post.url,
-            link: post.url,
-            description: post.description,
-            content: post.content,
-            author: [
-              {
-                name: 'Jane Doe',
-                email: 'janedoe@example.com',
-                link: 'https://example.com/janedoe',
-              },
-              {
-                name: 'Joe Smith',
-                email: 'joesmith@example.com',
-                link: 'https://example.com/joesmith',
-              },
-            ],
-            contributor: [
-              {
-                name: 'Shawn Kemp',
-                email: 'shawnkemp@example.com',
-                link: 'https://example.com/shawnkemp',
-              },
-              {
-                name: 'Reggie Miller',
-                email: 'reggiemiller@example.com',
-                link: 'https://example.com/reggiemiller',
-              },
-            ],
-            date: dayjs(post.date).toDate(),
-            image: post.image,
-          })
+          if (post.title) {
+            feed.addItem({
+              title: post.title,
+              id: post.permalink,
+              link: feedOptions.host + post.permalink,
+              date: post.date ? dayjs(post.date).toDate() : new Date(),
+              description: post.frontmatter.description || post.excerpt,
+              content: post.contentRendered?.replace(
+                /<RouterLink to="(.*?)">(.*?)<\/RouterLink>/gi,
+                '<a href="' + feedOptions.host + '$1">$2</a>'
+              ),
+              category: post.frontmatter.categories || [],
+              guid: feedOptions.host + post.permalink,
+              image: post.frontmatter.image,
+              audio: Array.isArray(post.frontmatter.audio)
+                ? post.frontmatter.audio[0]
+                : post.frontmatter.audio,
+              video: post.frontmatter.video,
+              enclosure: post.frontmatter.enclosure,
+              author: post.frontmatter.authors || [feedOptions.author],
+              contributor: post.frontmatter.contributor || [feedOptions.author],
+              published: post.date ? dayjs(post.date).toDate() : new Date(),
+              copyright: post.frontmatter.copyright || feedOptions.copyright,
+              extensions: post.frontmatter.extensions || [],
+            })
+          }
         })
-
-      feed.addCategory('Technologie')
-
-      feed.addContributor({
-        name: 'Johan Cruyff',
-        email: 'johancruyff@example.com',
-        link: 'https://example.com/johancruyff',
-      })
-      const rssOutputFilename = 'rss.xml'
-      await fs.ensureDir(dirname(dest(rssOutputFilename)))
-      await fs.outputFile(dest(rssOutputFilename), feed.rss2())
-      // logger.info(feed.rss2())
-      // Output: RSS 2.0
+      if (feedOptions.category) {
+        feed.addCategory(feedOptions.category)
+      }
+      if (feedOptions.types && Array.isArray(feedOptions.types)) {
+        for (const t of feedOptions.types) {
+          if (t === 'json') {
+            const rssOutputFilename = 'feed.json'
+            await fs.ensureDir(dirname(dest(rssOutputFilename)))
+            await fs.outputFile(dest(rssOutputFilename), feed.json1())
+          } else if (t === 'atom') {
+            const rssOutputFilename = 'atom.xml'
+            await fs.ensureDir(dirname(dest(rssOutputFilename)))
+            await fs.outputFile(dest(rssOutputFilename), feed.atom1())
+          } else {
+            const rssOutputFilename = 'rss.xml'
+            await fs.ensureDir(dirname(dest(rssOutputFilename)))
+            await fs.outputFile(dest(rssOutputFilename), feed.rss2())
+          }
+        }
+      }
     })
   },
 })
