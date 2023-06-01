@@ -81,7 +81,7 @@ export default defineUserConfig({
     themePlugins: {
       // use shiki plugin in production mode instead
       prismjs: !isProd,
-      abbrLink: {
+      abbrLinkOption: {
         autoDate: false,
         alg: 'crc32',
       },

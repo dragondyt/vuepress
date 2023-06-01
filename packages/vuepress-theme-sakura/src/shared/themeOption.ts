@@ -6,7 +6,6 @@ import type { SitemapPluginOptions } from '@dragondyt/vuepress-plugin-sitemap'
 export interface ThemeOption extends ThemeClientOption {
   category_map: Record<any, string>
   themePlugins: {
-    abbrLink?: AbbrLinkPluginOptions
     sitemap?: SitemapPluginOptions
     algoliaConfig?: AlgoliasearchPluginOptions
     feedOption?: FeedPluginOptions

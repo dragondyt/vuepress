@@ -20,6 +20,7 @@ export const abbrLinkPlugin = (
   }
 ): Plugin => ({
   name: '@dragondyt/vuepress-plugin-abbrlink',
+  multiple: false,
   extendsPageOptions: (pageOptions, app) => {
     if (pageOptions.filePath) {
       // 读取文件
@@ -53,6 +54,8 @@ export const abbrLinkPlugin = (
         let permalink = check(CRC32.str(frontmatter.title) >>> 0).toString(16)
         // //记录生成的链接
         add(permalink)
+        // 保存
+        frontmatter.abbrlink = permalink
         // 处理目录
         permalink = pageOptions.filePath
           .replace(app.dir.source(), '')
@@ -60,8 +63,18 @@ export const abbrLinkPlugin = (
           .replace(/.(md|MD)$/g, '')
           .replace(frontmatter.title, `${permalink}.html`)
           .replace('//', '/')
+        let path = '/'
+        for (const s of permalink.split('/')) {
+          if (/[\u4E00-\u9FA5]+/g.test(s)) {
+            path += `${(CRC32.str(s) >>> 0).toString(16)}/`
+          } else {
+            path += `${s}/`
+          }
+        }
         // 设置文章永久链接
-        frontmatter.permalink = permalink
+        frontmatter.permalink = path
+          .replace('//', '/')
+          .replace('.html/', '.html')
         Object.assign(pageOptions, {
           frontmatter,
         })

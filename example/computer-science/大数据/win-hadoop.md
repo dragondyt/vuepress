@@ -8,7 +8,7 @@ keywords:
 cover: >-
   https://cdn.jsdelivr.net/gh/dyt2015/hexo-image/hadoop-consulting-and-support.svg
 date: '2021-04-24 05:55:57'
-permalink: /computer-science/大数据/15d9e331.html
+permalink: /computer-science/ec060e02/15d9e331.html
 ---
 
 <!--more-->
